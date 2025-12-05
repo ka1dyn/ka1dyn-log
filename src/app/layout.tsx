@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
+import Nav from "@/components/nav"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <div className="root flex">
+          <Nav />
+          {children}
+        </div>
+      </body>
     </html>
   )
 }
