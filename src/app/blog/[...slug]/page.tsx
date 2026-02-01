@@ -1,41 +1,39 @@
-import { fetchPosts } from "@/lib/fetch"
-import { MDXRemote } from "next-mdx-remote-client/rsc"
+import { fetchPosts } from "@/lib/fetch";
+import { MDXRemote } from "next-mdx-remote-client/rsc";
 
 export async function generateStaticParams() {
-  const posts = await fetchPosts()
+  const posts = await fetchPosts("/contents/kaidyn/study");
 
-  const slugs = Object.keys(posts)
+  const slugs = Object.keys(posts);
 
   return slugs.map((slug) => {
     const slugPieces = slug
       .replace(".md", "")
       .split("/")
-      .filter((el) => Boolean(el))
+      .filter((el) => Boolean(el));
 
     return {
       slug: slugPieces,
-    }
-  })
+    };
+  });
 }
 
-export const dynamicParams = false
+export const dynamicParams = false;
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string[] }>
+  params: Promise<{ slug: string[] }>;
 }) {
-  const { slug } = await params
-  const path = `/${slug.join("/")}`
+  const { slug } = await params;
+  const path = `/${slug.join("/")}`;
 
-  const posts = await fetchPosts()
-  const { content, front } = posts[path]
-  const { title, date, category, lock } = front
-
-  console.log(date)
+  const posts = await fetchPosts("/contents/kaidyn/study");
+  const { content, front } = posts[path];
+  const { title, date, category, lock } = front;
 
   return (
-    <div>
+    <div className="w-full flex flex-col items-center">
       <div className="bg-blue-500">{title}</div>
       {/* <div>date: {date}</div> */}
       <div>category: {category}</div>
@@ -46,5 +44,5 @@ export default async function Page({
         <MDXRemote source={content} />
       </div>
     </div>
-  )
+  );
 }
