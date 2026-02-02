@@ -26,9 +26,12 @@ export default async function Page({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const path = `/${slug.join("/")}`;
+  const decodedSlug = slug.map((segment) => decodeURIComponent(segment));
+
+  const path = `/${decodedSlug.join("/")}`;
 
   const posts = await fetchPosts("/contents/kaidyn/study");
+
   const { content, front } = posts[path];
   const { title, date, category, lock } = front;
 
