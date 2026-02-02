@@ -10,7 +10,7 @@ export function TreeItem({ tree, depth }: { tree: TreeObj; depth: number }) {
 
   const navClick = () => {
     if (isLeaf && path) {
-      router.push(`/blog/posts${path}`);
+      router.push(`/blog${path}`);
     }
   };
 

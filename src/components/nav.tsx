@@ -1,8 +1,12 @@
-import { fetchPosts } from "@/lib/fetch";
-import { TreeItem } from "./treeItem";
+import { fetchPosts, publishedPosts } from "@/lib/fetch";
+import { TreeItem } from "./TreeItem";
+import Link from "next/link";
 
 export default async function Nav() {
   const posts = await fetchPosts("/study");
+  const published = await publishedPosts("/study");
+
+  const publishedCount = Object.keys(published).length;
 
   let slugs = Object.keys(posts);
 
@@ -13,12 +17,8 @@ export default async function Nav() {
     isLeaf: false,
   };
 
-  slugs = slugs.map((slug) => {
-    return slug.slice(6);
-  });
-
   slugs.forEach((slug) => {
-    const segments = slug.split("/").slice(1);
+    const segments = slug.split("/");
 
     let curObj = pathTree;
     curObj.count += 1;
@@ -44,7 +44,10 @@ export default async function Nav() {
   });
 
   return (
-    <div className="min-h-screen w-0 md:w-64 bg-amber-50 overflow-hidden">
+    <div className="h-screen w-0 md:w-64 bg-amber-50 overflow-auto">
+      <Link href="/blog/published" className="ml-3">
+        posts {publishedCount}
+      </Link>
       <div className="">
         <TreeItem tree={pathTree} depth={0} />
       </div>

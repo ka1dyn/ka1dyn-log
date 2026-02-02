@@ -2,8 +2,9 @@ import path from "path";
 import { readFileSync, statSync } from "fs";
 import matter from "gray-matter";
 import { glob } from "glob";
+import { cache } from "react";
 
-const fetchPosts = async (contentPath: string) => {
+const fetchPosts = cache(async (contentPath: string) => {
   const vaultPath = process.env.VAULT;
   const projectPath = process.cwd();
   const fullPath = `${path.dirname(projectPath)}${vaultPath}${contentPath}`;
@@ -17,7 +18,7 @@ const fetchPosts = async (contentPath: string) => {
   mdFiles.forEach((postPath) => {
     // Get slug
     const slug = path
-      .join(`/posts${contentPath}`, postPath.slice(fullPath.length))
+      .join(`${contentPath}`, postPath.slice(fullPath.length))
       .replace(".md", "");
 
     // Parsing files
@@ -37,6 +38,7 @@ const fetchPosts = async (contentPath: string) => {
       date: front.date || new Date(fileCreationDate),
       category: front.category || "basic",
       lock: front.lock || false,
+      isPublish: front.isPublish || false,
     };
 
     // Front validation
@@ -46,11 +48,11 @@ const fetchPosts = async (contentPath: string) => {
     //   throw new Error(`category error: ${front.category} in file ${postPath}.`);
     // }
 
-    if (!categoryList.has(newFront.category)) {
-      console.warn(
-        `category warning: ${newFront.category} in file ${postPath}.`,
-      );
-    }
+    // if (!categoryList.has(newFront.category)) {
+    //   console.warn(
+    //     `category warning: ${newFront.category} in file ${postPath}.`,
+    //   );
+    // }
 
     posts[slug] = {
       content,
@@ -59,9 +61,24 @@ const fetchPosts = async (contentPath: string) => {
   });
 
   return posts;
-};
+});
+
+const publishedPosts = cache(async (contentPath: string) => {
+  const posts = await fetchPosts(contentPath);
+
+  let slugs = Object.keys(posts);
+  const publishedSlugs = slugs.filter((slug) => posts[slug].front.isPublish);
+
+  const newPosts: PostData = {};
+
+  publishedSlugs.forEach((slug) => {
+    newPosts[slug] = posts[slug];
+  });
+
+  return newPosts;
+});
 
 // debug
 // fetchPosts()
 
-export { fetchPosts };
+export { fetchPosts, publishedPosts };

@@ -3,6 +3,7 @@ interface MarkdownFront {
   date: Date;
   category: string;
   lock: boolean;
+  isPublish: boolean;
 }
 
 interface MarkdownData {
