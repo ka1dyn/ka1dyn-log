@@ -2,7 +2,7 @@ import { fetchPosts } from "@/lib/fetch";
 import { TreeItem } from "./treeItem";
 
 export default async function Nav() {
-  const posts = await fetchPosts("/contents/kaidyn/study");
+  const posts = await fetchPosts("/study");
 
   let slugs = Object.keys(posts);
 

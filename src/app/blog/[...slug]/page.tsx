@@ -2,7 +2,7 @@ import { fetchPosts } from "@/lib/fetch";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 
 export async function generateStaticParams() {
-  const posts = await fetchPosts("/contents/kaidyn/study");
+  const posts = await fetchPosts("/study");
 
   const slugs = Object.keys(posts);
 
@@ -30,7 +30,7 @@ export default async function Page({
 
   const path = `/${decodedSlug.join("/")}`;
 
-  const posts = await fetchPosts("/contents/kaidyn/study");
+  const posts = await fetchPosts("/study");
 
   const { content, front } = posts[path];
   const { title, date, category, lock } = front;
@@ -41,6 +41,7 @@ export default async function Page({
       {/* <div>date: {date}</div> */}
       <div>category: {category}</div>
       <div>lock: {lock}</div>
+      <div>created_date: {date.toISOString()}</div>
 
       {/* <p>content: {content}</p> */}
       <div className="prose">
