@@ -18,7 +18,7 @@ export default async function Nav() {
   };
 
   slugs.forEach((slug) => {
-    const segments = slug.split("/");
+    const segments = slug.split("/").filter((segment) => Boolean(segment));
 
     let curObj = pathTree;
     curObj.count += 1;
@@ -50,7 +50,7 @@ export default async function Nav() {
         posts {publishedCount}
       </Link>
       <div className="">
-        <TreeItem tree={pathTree} depth={0} />
+        <TreeItem tree={pathTree} depth={0} isOpen={true} />
       </div>
     </div>
   );
