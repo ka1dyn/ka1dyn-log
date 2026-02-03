@@ -17,7 +17,6 @@ export default function PostCard({
   lock,
   description,
 }: PostCardProps) {
-  console.log(slug);
   return (
     <Link href={`/blog${slug}`}>
       <span>title: {title}</span>

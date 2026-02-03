@@ -36,6 +36,7 @@ export default async function Nav() {
       if (idx === segments.length - 1) {
         curObj.children[segment].isLeaf = true;
         curObj.children[segment].path = slug;
+        curObj.children[segment].createdDate = posts[slug].front.date;
       }
 
       curObj.children[segment].count += 1;
