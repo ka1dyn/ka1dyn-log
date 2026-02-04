@@ -5,10 +5,10 @@ import { glob } from "glob";
 import { cache } from "react";
 
 const fetchPosts = cache(async (contentPath: string) => {
-  const vaultPath = process.env.VAULT;
   const projectPath = process.cwd();
-  const fullPath = `${path.dirname(projectPath)}${vaultPath}${contentPath}`;
 
+  // Get contents from submodule
+  const fullPath = `${projectPath}/contents${contentPath}`;
   // Get Markdown file paths
   const mdFiles = await glob(`${fullPath}/**/*.md`);
 

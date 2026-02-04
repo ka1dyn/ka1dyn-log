@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "contents-update": "git submodule update --remote --recursive",
+    "copy-images": "npm run contents-update && node scripts/copy-images.mjs",
+    "dev": "npm run copy-images && next dev",
+    "build": "npm run copy-images && next build",
     "start": "next start",
     "lint": "eslint"
   },

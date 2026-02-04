@@ -2,7 +2,7 @@ import PostCard from "@/components/PostCard";
 import { publishedPosts } from "@/lib/fetch";
 
 export default async function Page() {
-  const published = await publishedPosts("/study");
+  const published = await publishedPosts("/test");
 
   return (
     <div>

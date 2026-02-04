@@ -2,7 +2,7 @@ import { fetchPosts } from "@/lib/fetch";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 
 export async function generateStaticParams() {
-  const posts = await fetchPosts("/study");
+  const posts = await fetchPosts("/test");
 
   const slugs = Object.keys(posts);
 
@@ -30,10 +30,27 @@ export default async function Page({
 
   const path = `/${decodedSlug.join("/")}`;
 
-  const posts = await fetchPosts("/study");
+  const posts = await fetchPosts("/test");
 
   const { content, front } = posts[path];
   const { title, date, category, lock } = front;
+
+  const mdxComponents = {
+    img: (props: any) => {
+      const { src, alt } = props;
+
+      // Image path change
+      let optimizedSrc = src;
+      if (src.startsWith("images/")) {
+        optimizedSrc = `/content-${src}`;
+      } else if (src.includes("images/")) {
+        const fileName = src.split("images/").pop();
+        optimizedSrc = `/content-images/${fileName}`;
+      }
+
+      return <img src={optimizedSrc} alt={alt || "no image"} />;
+    },
+  };
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -45,7 +62,7 @@ export default async function Page({
 
       {/* <p>content: {content}</p> */}
       <div className="prose">
-        <MDXRemote source={content} />
+        <MDXRemote source={content} components={mdxComponents} />
       </div>
     </div>
   );

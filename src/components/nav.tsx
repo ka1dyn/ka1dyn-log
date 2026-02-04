@@ -3,8 +3,8 @@ import { TreeItem } from "./TreeItem";
 import Link from "next/link";
 
 export default async function Nav() {
-  const posts = await fetchPosts("/study");
-  const published = await publishedPosts("/study");
+  const posts = await fetchPosts("/test");
+  const published = await publishedPosts("/test");
 
   const publishedCount = Object.keys(published).length;
 
