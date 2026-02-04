@@ -6,7 +6,7 @@
     "contents-update": "git submodule update --remote --recursive",
     "copy-images": "npm run contents-update && node scripts/copy-images.mjs",
     "dev": "npm run copy-images && next dev",
-    "git-auth": "git config --local url.\"https://${GH_TOKEN}@github.com/\".insteadOf \"https://github.com/\"",
+    "git-auth": "git submodule foreach 'git config --local url.\"https://${GH_TOKEN}@github.com/\".insteadOf \"https://github.com/\"'",
     "build": "npm run copy-images && next build",
     "vercel-build": "npm run git-auth && npm run build",
     "start": "next start",
