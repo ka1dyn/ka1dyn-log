@@ -1,4 +1,5 @@
 import { fetchPosts } from "@/lib/fetch";
+import remarkGfm from "remark-gfm";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 
 export async function generateStaticParams() {
@@ -62,7 +63,16 @@ export default async function Page({
 
       {/* <p>content: {content}</p> */}
       <div className="prose">
-        <MDXRemote source={content} components={mdxComponents} />
+        <MDXRemote
+          source={content}
+          components={mdxComponents}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+              format: "md",
+            },
+          }}
+        />
       </div>
     </div>
   );

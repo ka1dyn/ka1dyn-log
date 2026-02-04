@@ -21,4 +21,5 @@ interface TreeObj {
   children: Record<string, TreeObj>;
   isLeaf: boolean;
   path?: string;
+  createdDate?: Date;
 }
