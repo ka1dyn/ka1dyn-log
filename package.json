@@ -6,7 +6,8 @@
     "contents-update": "git submodule update --remote --recursive",
     "copy-images": "npm run contents-update && node scripts/copy-images.mjs",
     "dev": "npm run copy-images && next dev",
-    "build": "npm run copy-images && next build",
+    "git-auth": "dotenv -- sh -c 'git config --local url.\"https://$GH_TOKEN@github.com/\".insteadOf \"https://github.com/\"'",
+    "build": "npm run git-auth && npm run copy-images && next build",
     "start": "next start",
     "lint": "eslint"
   },
