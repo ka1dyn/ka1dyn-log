@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-Black.ttf");
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-ExtraBold.ttf");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-Bold.ttf");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-SemiBold.ttf");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-Medium.ttf");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-Regular.ttf");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-Light.ttf");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  src: url("@/fonts/NotoSerifKR-ExtraLight.ttf");
+  font-weight: 200;
+  font-display: swap;
+}
+
+@theme {
+  --font-noto-serif: "Noto Serif KR", serif;
+}

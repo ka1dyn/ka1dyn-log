@@ -45,7 +45,7 @@ export default async function Nav() {
   });
 
   return (
-    <div className="h-screen w-0 md:w-64 bg-amber-50 overflow-auto">
+    <div className="h-screen w-0 md:w-64 bg-card overflow-auto font-noto-serif">
       <Link href="/blog/published" className="ml-3">
         posts {publishedCount}
       </Link>
