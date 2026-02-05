@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import React, { useCallback, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import Leaf from "./Leaf";
+import Folder from "./Folder";
 
 export function TreeItem({
   tree,
@@ -14,14 +15,7 @@ export function TreeItem({
   isOpen: boolean;
 }) {
   const { name, count, children, isLeaf, path } = tree;
-  const router = useRouter();
   const [open, setOpen] = useState<boolean>(isOpen);
-
-  const navClick = () => {
-    if (isLeaf && path) {
-      router.push(`/blog${path}`);
-    }
-  };
 
   const comPare = useCallback((a: TreeObj, b: TreeObj) => {
     // Folder first
@@ -67,18 +61,28 @@ export function TreeItem({
 
   return (
     <div
-      className={cn(
-        "flex flex-col ml-3 cursor-pointer",
-        isLeaf && "cursor-pointer",
-      )}
+      className={cn("flex flex-col gap-0.5 select-none mb-0.5 text-sm")}
       onClick={nodeClick}
     >
-      <div className="flex gap-2" onClick={navClick}>
-        <span>{name}</span>
-        <span>{count}</span>
-      </div>
+      {isLeaf ? (
+        <Leaf name={name} path={path} />
+      ) : (
+        <Folder name={name} count={count} depth={depth} open={open} />
+      )}
 
-      <div className={cn(open ? "block" : "hidden")}>{SubTree}</div>
+      {!isLeaf && (
+        <div
+          className={cn(
+            "ml-2",
+            depth !== 1 &&
+              `relative before:content-[''] before:h-full before:w-0.5 before:absolute before:top-0 before:left-0 
+            before:bg-transparent group-hover:before:bg-secondary/50 before:translate-x-1.5`,
+            open ? "block" : "hidden",
+          )}
+        >
+          {SubTree}
+        </div>
+      )}
     </div>
   );
 }
