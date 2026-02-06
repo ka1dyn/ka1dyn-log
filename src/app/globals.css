@@ -48,8 +48,10 @@
   /* Paper texture shadow */
   --paper-shadow:
     0 2px 8px rgba(139, 115, 85, 0.08), 0 1px 3px rgba(139, 115, 85, 0.12);
-  --paper-shadow-sticky:
+  --paper-shadow-down:
     0 3px 8px rgba(139, 115, 85, 0.16), 0 1px 3px rgba(139, 115, 85, 0.16);
+  --paper-shadow-up:
+    0 -3px 8px rgba(139, 115, 85, 0.16), 0 -1px 3px rgba(139, 115, 85, 0.16);
   --paper-shadow-hover:
     0 4px 12px rgba(139, 115, 85, 0.12), 0 2px 6px rgba(139, 115, 85, 0.16);
 }

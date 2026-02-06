@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Nav from "@/components/Nav";
+import NavDataContainer from "@/components/NavDataContainer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased bg-background text-foreground`}>
         <div className="root flex w-screen">
-          <Nav />
+          <NavDataContainer />
           {children}
         </div>
       </body>
