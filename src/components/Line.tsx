@@ -15,7 +15,7 @@ export default function Line({ name, isDefault = true, className }: LineProps) {
         </>
       ) : (
         <>
-          <div className="flex-1 h-px bg-linear-to-r from-transparent via-border to-transparent"></div>
+          <div className="flex-1 h-px bg-linear-to-r from-transparent via-border to-transparent "></div>
           <div className="text-xs text-muted-foreground">{name}</div>
           <div className="flex-1 h-px bg-linear-to-r from-transparent via-border to-transparent"></div>
         </>

@@ -25,9 +25,9 @@ export default function Folder({
   return (
     <div
       className={cn(
-        "w-full rounded-lg flex items-center py-1.5",
+        "w-full rounded-r-lg flex items-center py-1.5",
         mainFolder
-          ? "rounded-r-lg px-3 py-3 bg-linear-to-r from-card to-accent/30 border-l-4 transition-all duration-200 hover:shadow-md border-primary/60 hover:border-primary"
+          ? "px-3 py-3 border-l-6 transition-all duration-200 inset-shadow-2xs shadow-sm border-primary/40 hover:border-primary"
           : "pl-2 hover:bg-accent/20",
       )}
       onClick={nodeClick}

@@ -6,6 +6,7 @@ import { BookMarked, BookOpen } from "lucide-react";
 import Line from "./Line";
 import NavFilter from "./NavFilter";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface NavClientProps {
   data: {
@@ -102,34 +103,32 @@ export default function NavClient({ data }: NavClientProps) {
             <h2 className="text-lg font-semibold">서재</h2>
           </section>
 
-          <Line isDefault={false} name="출판 글" />
-
-          <section className="flex flex-col items-center">
-            <Link
-              href="/blog/published"
-              className="flex justify-center items-center gap-2 bg-primary text-primary-foreground w-full h-12 rounded-lg font-medium"
-            >
-              <BookOpen className="w-5 h-5" />
-              <span>전체 글 보기</span>
-            </Link>
-          </section>
-
           <Line isDefault={false} name="모음집" />
 
-          <section className="flex flex-col gap-2 text-sm">
-            <div className="flex flex-col gap-1">
-              <span>프로젝트</span>
-              <div className="flex flex-col gap-1 ml-2 text-sm">
-                <div>test1</div>
-                <div>test2</div>
-                <div>test2</div>
-              </div>
-            </div>
-            <div>생각</div>
-            <div>독서</div>
+          <section className="w-full flex justify-center gap-2 text-sm mt-5">
+            <div className="w-20 text-center">프로젝트</div>
+            <div className="w-20 text-center">생각</div>
+            <div className="w-20 text-center">독서</div>
           </section>
 
-          <Line isDefault={false} name="공부 서랍" />
+          <Line isDefault={false} name="책장" />
+
+          <Link
+            href="/blog/published"
+            className={cn(
+              "relative group/publish w-full rounded-r-lg flex items-center mb-6 bg-linear-to-r from-primary hover:opacity-95 to-primary/90 border-secondary-foreground/60 hover:border-accent-foreground overflow-hidden",
+              "px-3 py-3 border-l-6 transition-all duration-200 inset-shadow-2xs shadow-md",
+            )}
+          >
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/publish:translate-x-full transition-transform duration-700"></div>
+            <div className="flex items-center gap-3 text-md text-primary-foreground">
+              <BookOpen className="w-5 h-5" />
+              <div className="flex gap-2 items-center">
+                <span className="font-semibold">출판 글 보기</span>
+                <span className="font-medium text-xs">{publishedCount}편</span>
+              </div>
+            </div>
+          </Link>
 
           <NavFilter />
         </div>

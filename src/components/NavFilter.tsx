@@ -13,22 +13,23 @@ export default function NavFilter() {
   );
 
   return (
-    <div className="pl-2 flex gap-3 select-none cursor-pointer text-sm text-primary">
-      <div
-        className={`transition-transform active:scale-90 flex items-center gap-1 relative py-1
-          after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-transparent hover:after:bg-accent/50`}
-        onClick={() => triggerExpand()}
-      >
-        <ChevronsUpDown className="w-4 h-4" />
-        <div>펼치기</div>
-      </div>
-      <div
-        className={`transition-transform active:scale-90 flex items-center gap-1 relative py-1
-          after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-transparent hover:after:bg-accent/50`}
-        onClick={() => triggerCollapse()}
-      >
-        <ChevronsDownUp className="w-4 h-4" />
-        <div>접기</div>
+    <div className="pl-1 flex items-center justify-between select-none text-sm text-primary">
+      <div className="text-sm text-foreground font-medium">공부 서랍</div>
+      <div className="flex gap-3">
+        <div
+          className={`transition-transform active:scale-90 flex items-center gap-1 relative py-1 cursor-pointer`}
+          onClick={() => triggerExpand()}
+        >
+          <ChevronsUpDown className="w-4 h-4" />
+          <div>펼치기</div>
+        </div>
+        <div
+          className={`transition-transform active:scale-90 flex items-center gap-1 relative py-1 cursor-pointer`}
+          onClick={() => triggerCollapse()}
+        >
+          <ChevronsDownUp className="w-4 h-4" />
+          <div>접기</div>
+        </div>
       </div>
     </div>
   );
