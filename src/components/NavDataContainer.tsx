@@ -2,12 +2,12 @@ import { fetchPosts, publishedPosts } from "@/lib/fetch";
 import NavClient from "./NavClient";
 
 export default async function NavDataContainer() {
-  const posts = await fetchPosts("/test");
-  const published = await publishedPosts("/test");
+  const studyPosts = await fetchPosts("/study");
+  const studyPublished = await publishedPosts("/study");
 
   const data = {
-    posts,
-    published,
+    studyPosts,
+    studyPublished,
   };
 
   return <NavClient data={data} />;

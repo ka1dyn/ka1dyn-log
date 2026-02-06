@@ -15,7 +15,7 @@ export function TreeItem({
   depth: number;
   isOpen: boolean;
 }) {
-  const { name, count, children, isLeaf, path } = tree;
+  const { name, count, children, isLeaf, path, isPublish } = tree;
   const [open, setOpen] = useState<boolean>(isOpen);
 
   const expand = useNavTriggerStore((state) => state.expand);
@@ -78,7 +78,7 @@ export function TreeItem({
   return (
     <div className={cn("flex flex-col gap-0.5 select-none mb-0.5 text-sm")}>
       {isLeaf ? (
-        <Leaf name={name} path={path} />
+        <Leaf name={name} path={path} isPublish={isPublish || false} />
       ) : (
         <Folder
           name={name}

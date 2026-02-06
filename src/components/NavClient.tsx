@@ -1,7 +1,7 @@
 "use client";
 
 import { TreeItem } from "./TreeItem";
-import React, { RefObject, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { BookMarked, BookOpen } from "lucide-react";
 import Line from "./Line";
 import NavFilter from "./NavFilter";
@@ -10,15 +10,15 @@ import { cn } from "@/lib/utils";
 
 interface NavClientProps {
   data: {
-    posts: PostData;
-    published: PostData;
+    studyPosts: PostData;
+    studyPublished: PostData;
   };
 }
 
 export default function NavClient({ data }: NavClientProps) {
-  const { posts, published } = data;
+  const { studyPosts, studyPublished } = data;
 
-  const publishedCount = Object.keys(published).length;
+  const publishedCount = Object.keys(studyPublished).length;
 
   // Overflow detector
   const [overflow, setOverflow] = useState<boolean>(false);
@@ -42,7 +42,7 @@ export default function NavClient({ data }: NavClientProps) {
   }, [target.current]);
 
   // Make pathTree
-  let slugs = Object.keys(posts);
+  let slugs = Object.keys(studyPosts);
 
   const pathTree = useMemo(() => {
     const tree: TreeObj = {
@@ -71,7 +71,8 @@ export default function NavClient({ data }: NavClientProps) {
         if (idx === segments.length - 1) {
           curObj.children[segment].isLeaf = true;
           curObj.children[segment].path = slug;
-          curObj.children[segment].createdDate = posts[slug].front.date;
+          curObj.children[segment].createdDate = studyPosts[slug].front.date;
+          curObj.children[segment].isPublish = studyPosts[slug].front.isPublish;
         }
 
         curObj.children[segment].count += 1;
@@ -103,12 +104,18 @@ export default function NavClient({ data }: NavClientProps) {
             <h2 className="text-lg font-semibold">서재</h2>
           </section>
 
-          <Line isDefault={false} name="모음집" />
+          <Line isDefault={false} name="집필 공간" />
 
           <section className="w-full flex justify-center gap-2 text-sm mt-5">
-            <div className="w-20 text-center">프로젝트</div>
-            <div className="w-20 text-center">생각</div>
-            <div className="w-20 text-center">독서</div>
+            <Link href="/" className="w-20 text-center">
+              홈
+            </Link>
+            <Link href="/introduce" className="w-20 text-center">
+              소개
+            </Link>
+            <Link href="/blog/series" className="w-20 text-center">
+              모음집
+            </Link>
           </section>
 
           <Line isDefault={false} name="책장" />

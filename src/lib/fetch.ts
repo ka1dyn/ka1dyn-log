@@ -18,7 +18,7 @@ const fetchPosts = cache(async (contentPath: string) => {
   mdFiles.forEach((postPath) => {
     // Get slug
     const slug = path
-      .join(`${contentPath}`, postPath.slice(fullPath.length))
+      .join(``, postPath.slice(fullPath.length))
       .replace(".md", "");
 
     // Parsing files

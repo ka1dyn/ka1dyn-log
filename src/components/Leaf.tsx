@@ -1,12 +1,14 @@
+import { cn } from "@/lib/utils";
 import { NotebookText, StickyNote } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface LeafProps {
   name: string;
   path?: string;
+  isPublish: boolean;
 }
 
-export default function Leaf({ name, path }: LeafProps) {
+export default function Leaf({ name, path, isPublish }: LeafProps) {
   const router = useRouter();
 
   const navClick = () => {
@@ -31,7 +33,12 @@ export default function Leaf({ name, path }: LeafProps) {
           </span>
         </div>
 
-        <div className="absolute top-1/2 right-2 size-1 bg-muted-foreground/30 rounded-full -translate-y-1/2"></div>
+        <div
+          className={cn(
+            "absolute top-1/2 right-2 size-1 rounded-full -translate-y-1/2",
+            isPublish ? "bg-muted-foreground/80" : "bg-muted-foreground/30",
+          )}
+        ></div>
       </div>
     </div>
   );
