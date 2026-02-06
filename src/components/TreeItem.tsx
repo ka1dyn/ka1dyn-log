@@ -1,9 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Leaf from "./Leaf";
 import Folder from "./Folder";
+import { useNavTriggerStore } from "@/stores";
 
 export function TreeItem({
   tree,
@@ -16,6 +17,21 @@ export function TreeItem({
 }) {
   const { name, count, children, isLeaf, path } = tree;
   const [open, setOpen] = useState<boolean>(isOpen);
+
+  const expand = useNavTriggerStore((state) => state.expand);
+  const collapse = useNavTriggerStore((state) => state.collapse);
+
+  useEffect(() => {
+    if (expand == 0) return;
+
+    setOpen(true);
+  }, [expand]);
+
+  useEffect(() => {
+    if (collapse == 0) return;
+
+    setOpen(false);
+  }, [collapse]);
 
   const comPare = useCallback((a: TreeObj, b: TreeObj) => {
     // Folder first
@@ -60,14 +76,17 @@ export function TreeItem({
   };
 
   return (
-    <div
-      className={cn("flex flex-col gap-0.5 select-none mb-0.5 text-sm")}
-      onClick={nodeClick}
-    >
+    <div className={cn("flex flex-col gap-0.5 select-none mb-0.5 text-sm")}>
       {isLeaf ? (
         <Leaf name={name} path={path} />
       ) : (
-        <Folder name={name} count={count} depth={depth} open={open} />
+        <Folder
+          name={name}
+          count={count}
+          depth={depth}
+          open={open}
+          nodeClick={nodeClick}
+        />
       )}
 
       {!isLeaf && (

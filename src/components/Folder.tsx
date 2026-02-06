@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import {
   ChevronRight,
-  FolderClosed,
   Folder as FolderDefault,
+  FolderOpen,
 } from "lucide-react";
 
 interface FolderProps {
@@ -10,9 +10,16 @@ interface FolderProps {
   count: number;
   depth: number;
   open: boolean;
+  nodeClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export default function Folder({ name, count, depth, open }: FolderProps) {
+export default function Folder({
+  name,
+  count,
+  depth,
+  open,
+  nodeClick,
+}: FolderProps) {
   const mainFolder = depth === 1;
 
   return (
@@ -23,6 +30,7 @@ export default function Folder({ name, count, depth, open }: FolderProps) {
           ? "rounded-r-lg px-3 py-3 bg-linear-to-r from-card to-accent/30 border-l-4 transition-all duration-200 hover:shadow-md border-primary/60 hover:border-primary"
           : "pl-2 hover:bg-accent/20",
       )}
+      onClick={nodeClick}
     >
       <div className="flex items-center gap-3">
         {!mainFolder && (
@@ -32,7 +40,7 @@ export default function Folder({ name, count, depth, open }: FolderProps) {
         )}
 
         {open ? (
-          <FolderClosed
+          <FolderOpen
             className={cn("text-primary w-4 h-4", mainFolder && "w-5 h-5")}
           />
         ) : (

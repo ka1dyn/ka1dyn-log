@@ -23,3 +23,11 @@ interface TreeObj {
   path?: string;
   createdDate?: Date;
 }
+
+// Store types
+type NavTriggerStore = {
+  expand: number;
+  collapse: number;
+  triggerExpand: () => void;
+  triggerCollapse: () => void;
+};
