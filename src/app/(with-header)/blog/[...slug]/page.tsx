@@ -1,6 +1,7 @@
 import { fetchPosts } from "@/lib/fetch";
 import remarkGfm from "remark-gfm";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
+import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 
 export async function generateStaticParams() {
   const posts = await fetchPosts("/study");
@@ -55,6 +56,7 @@ export default async function Page({
 
   return (
     <div className="w-full flex flex-col items-center">
+      <BreadCrumbUpdater path={path} />
       <div className="bg-blue-500">{title}</div>
       {/* <div>date: {date}</div> */}
       <div>category: {category}</div>

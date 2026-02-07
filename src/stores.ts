@@ -26,3 +26,16 @@ export const useNavTriggerStore = create<NavTriggerStore>()(
     })),
   ),
 );
+
+export const useBreadStore = create<BreadStore>()(
+  immer(
+    devtools((set) => ({
+      crumb: "",
+      setCrumb: (newPath: string) => {
+        set((state) => {
+          state.crumb = newPath;
+        });
+      },
+    })),
+  ),
+);

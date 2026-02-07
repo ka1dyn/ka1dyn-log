@@ -1,3 +1,4 @@
+import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import PostCard from "@/components/PostCard";
 import { publishedPosts } from "@/lib/fetch";
 
@@ -6,6 +7,7 @@ export default async function Page() {
 
   return (
     <div>
+      <BreadCrumbUpdater path={"/published"} />
       {Object.keys(published).map((slug) => {
         const info = published[slug];
 

@@ -1,3 +1,10 @@
+import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
+
 export default function Page() {
-  return <div>page</div>;
+  return (
+    <div>
+      <BreadCrumbUpdater path={"/"} />
+      page
+    </div>
+  );
 }

@@ -32,3 +32,8 @@ type NavTriggerStore = {
   triggerExpand: () => void;
   triggerCollapse: () => void;
 };
+
+type BreadStore = {
+  crumb: string;
+  setCrumb: (newPath: string) => void;
+};
