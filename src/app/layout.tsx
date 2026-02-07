@@ -14,10 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased bg-background text-foreground`}>
-        <div className="root flex w-screen">
+      <body
+        className={`antialiased bg-background text-foreground font-noto-serif`}
+      >
+        <div className="root flex w-full h-screen">
           <NavDataContainer />
-          {children}
+          <div className="main w-full overflow-y-scroll">{children}</div>
         </div>
       </body>
     </html>

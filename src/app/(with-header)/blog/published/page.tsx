@@ -7,7 +7,7 @@ export default async function Page() {
 
   return (
     <div>
-      <BreadCrumbUpdater path={"/published"} />
+      <BreadCrumbUpdater path={"/Published"} />
       {Object.keys(published).map((slug) => {
         const info = published[slug];
 

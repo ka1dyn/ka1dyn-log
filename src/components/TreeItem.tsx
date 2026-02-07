@@ -76,7 +76,7 @@ export function TreeItem({
   };
 
   return (
-    <div className={cn("flex flex-col gap-0.5 select-none mb-0.5 text-sm")}>
+    <div className={cn("flex flex-col gap-0.5 mb-0.5 text-sm cursor-default")}>
       {isLeaf ? (
         <Leaf name={name} path={path} isPublish={isPublish || false} />
       ) : (

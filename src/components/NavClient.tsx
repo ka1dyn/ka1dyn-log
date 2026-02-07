@@ -85,9 +85,8 @@ export default function NavClient({ data }: NavClientProps) {
 
   return (
     <aside
-      className="relative flex flex-col justify-between h-screen shrink-0 w-0 lg:w-80 bg-card font-noto-serif overflow-hidden"
+      className="top-0 flex flex-col justify-between h-screen shrink-0 w-0 lg:w-80 bg-card font-noto-serif overflow-hidden border-r border-sidebar-border"
       style={{
-        boxShadow: "var(--paper-shadow)",
         backgroundImage:
           "repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(139, 115, 85, 0.02) 20px, rgba(139, 115, 85, 0.02) 21px)",
       }}

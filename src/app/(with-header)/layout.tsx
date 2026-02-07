@@ -6,7 +6,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="main w-screen">
+    <div className="w-full">
       <Header />
       <div className="content">{children}</div>
     </div>

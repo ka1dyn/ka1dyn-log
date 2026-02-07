@@ -1,7 +1,6 @@
 "use client";
 
 import { useBreadStore } from "@/stores";
-import { BookOpen } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import {
   Breadcrumb,
@@ -13,6 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import React from "react";
+import Link from "next/link";
 
 export default function Header() {
   const [crumbSegments, setCrumbSegments] = useState<Array<string>>(["Home"]);
@@ -31,9 +31,9 @@ export default function Header() {
 
     return crumbSegments.map((segment, idx) => {
       const finalSegment = idx === crumbLength - 1;
-      const tooMany = crumbLength > 4;
-      const skip = tooMany && idx >= 3 && idx <= crumbLength - 3;
-      const ellapse = tooMany && idx === 2;
+      const tooMany = crumbLength > 3;
+      const skip = tooMany && idx >= 2 && idx <= crumbLength - 3;
+      const ellapse = tooMany && idx === 1;
 
       if (skip) return;
 
@@ -41,11 +41,15 @@ export default function Header() {
         <React.Fragment key={idx}>
           <BreadcrumbItem>
             {ellapse ? (
-              <BreadcrumbEllipsis />
+              <BreadcrumbEllipsis className="text-sm p-2 text-primary hover:text-primary" />
             ) : finalSegment ? (
-              <BreadcrumbPage>{segment}</BreadcrumbPage>
+              <BreadcrumbPage className="text-sm p-2 text-foreground font-semibold">
+                {segment}
+              </BreadcrumbPage>
             ) : (
-              <BreadcrumbLink>{segment}</BreadcrumbLink>
+              <BreadcrumbLink className="text-sm p-2 text-primary hover:text-primary">
+                {segment}
+              </BreadcrumbLink>
             )}
           </BreadcrumbItem>
 
@@ -57,17 +61,16 @@ export default function Header() {
 
   return (
     <header
-      className={`h-20 flex justify-between bg-card py-4 px-6 items-center`}
-      style={{
-        boxShadow: "var(--paper-shadow)",
-      }}
+      className={`sticky top-0 h-20 flex justify-between bg-card py-4 px-8 items-center border-b border-sidebar-border`}
     >
-      <div className="flex gap-4">
-        <div className="flex gap-2">
-          <BookOpen />
-          <div>Dev library</div>
-        </div>
-        <Breadcrumb>
+      <div className="flex gap-10">
+        <Link
+          className="flex gap-3 items-center -translate-y-px cursor-pointer"
+          href={""}
+        >
+          <div className="font-semibold text-xl">Dev Library</div>
+        </Link>
+        <Breadcrumb className="flex items-center">
           <BreadcrumbList>{RenderBreadCrumb}</BreadcrumbList>
         </Breadcrumb>
       </div>
