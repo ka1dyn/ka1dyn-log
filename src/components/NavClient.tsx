@@ -85,7 +85,7 @@ export default function NavClient({ data }: NavClientProps) {
 
   return (
     <aside
-      className="relative flex flex-col justify-between h-screen shrink-0 w-0 md:w-80 bg-card font-noto-serif"
+      className="relative flex flex-col justify-between h-screen shrink-0 w-0 lg:w-80 bg-card font-noto-serif overflow-hidden"
       style={{
         boxShadow: "var(--paper-shadow)",
         backgroundImage:
@@ -94,7 +94,7 @@ export default function NavClient({ data }: NavClientProps) {
     >
       <div className="relative flex-1 flex flex-col min-h-0 gap-2 z-5">
         <div
-          className="w-full pb-2 px-4 pt-6"
+          className="w-full pb-1 px-4 pt-6"
           style={{
             boxShadow: overflow ? "var(--paper-shadow-down" : "",
           }}

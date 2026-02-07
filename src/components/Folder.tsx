@@ -35,17 +35,23 @@ export default function Folder({
       <div className="flex items-center gap-3">
         {!mainFolder && (
           <ChevronRight
-            className={cn("text-primary w-4 h-4", open && "rotate-90")}
+            className={cn("text-primary w-4 h-4 shrink-0", open && "rotate-90")}
           />
         )}
 
         {open ? (
           <FolderOpen
-            className={cn("text-primary w-4 h-4", mainFolder && "w-5 h-5")}
+            className={cn(
+              "text-primary w-4 h-4 shrink-0",
+              mainFolder && "w-5 h-5",
+            )}
           />
         ) : (
           <FolderDefault
-            className={cn("text-primary w-4 h-4", mainFolder && "w-5 h-5")}
+            className={cn(
+              "text-primary w-4 h-4 shrink-0",
+              mainFolder && "w-5 h-5",
+            )}
           />
         )}
         <div className="flex gap-2 items-center">

@@ -22,6 +22,7 @@ interface TreeObj {
   isLeaf: boolean;
   path?: string;
   createdDate?: Date;
+  isPublish?: boolean;
 }
 
 // Store types

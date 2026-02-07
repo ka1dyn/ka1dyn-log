@@ -15,7 +15,7 @@ export default function NavFilter() {
   return (
     <div className="pl-1 flex items-center justify-between select-none text-sm text-primary">
       <div className="text-sm text-foreground font-medium">공부 서랍</div>
-      <div className="flex gap-3">
+      <div className="flex items-center gap-2 text-xs">
         <div
           className={`transition-transform active:scale-90 flex items-center gap-1 relative py-1 cursor-pointer`}
           onClick={() => triggerExpand()}

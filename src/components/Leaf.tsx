@@ -26,7 +26,7 @@ export default function Leaf({ name, path, isPublish }: LeafProps) {
     >
       {/* <div className="w-4"></div> */}
       <div className="ml-7 flex items-center gap-3">
-        <NotebookText className="text-primary/50 w-4 h-4" />
+        <NotebookText className="text-primary/50 w-4 h-4 shrink-0" />
         <div className="flex gap-2 items-center">
           <span className="font-medium text-foreground/80 group-hover/leaf:text-foreground">
             {name}
