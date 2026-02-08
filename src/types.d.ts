@@ -4,6 +4,7 @@ interface MarkdownFront {
   category: string;
   lock: boolean;
   isPublish: boolean;
+  description: string;
 }
 
 interface MarkdownData {

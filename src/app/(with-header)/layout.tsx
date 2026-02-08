@@ -8,7 +8,11 @@ export default function Layout({
   return (
     <div className="w-full">
       <Header />
-      <div className="content">{children}</div>
+      <div id="main" className="flex justify-center">
+        <div id="content-container" className="w-7xl">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

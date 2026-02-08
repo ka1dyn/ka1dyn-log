@@ -39,6 +39,7 @@ const fetchPosts = cache(async (contentPath: string) => {
       category: front.category || "basic",
       lock: front.lock || false,
       isPublish: front.isPublish || false,
+      description: front.description || content.slice(0, 80),
     };
 
     // Front validation

@@ -1,31 +1,62 @@
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import PostCard from "@/components/PostCard";
 import { publishedPosts } from "@/lib/fetch";
+import { dateFormat } from "@/lib/utils";
 
 export default async function Page() {
   const published = await publishedPosts("/study");
+  const slugs = Object.keys(published);
+  const publishedCount = slugs.length;
+
+  slugs.sort((a, b) => b.localeCompare(a));
+  const recentUpdated =
+    slugs.length === 0 ? "-" : dateFormat(published[slugs[0]].front.date);
 
   return (
-    <div>
+    <div className="flex flex-col p-8">
       <BreadCrumbUpdater path={"/Published"} />
-      {Object.keys(published).map((slug) => {
-        const info = published[slug];
 
-        const { content, front } = info;
-        const { title, date, category, lock } = front;
+      <div className="flex justify-between mb-8">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col">
+            <h1 className="text-3xl mb-2 font-semibold -translate-x-0.5">
+              출판 도서 목록
+            </h1>
+            <p>서재에 보관된 모든 글을 둘러보세요</p>
+          </div>
+          <div className="flex gap-4 text-sm items-center font-light">
+            <span>
+              총 <span className="font-bold">{publishedCount}권</span>의 도서
+            </span>
+            <div className="h-2/3 w-px bg-primary/30"></div>
+            <span>최근 업데이트: {recentUpdated}</span>
+          </div>
+        </div>
+        <div className="w-50">필터 영역입니다.</div>
+      </div>
 
-        return (
-          <PostCard
-            key={slug}
-            slug={slug}
-            title={title}
-            date={date}
-            category={category}
-            lock={lock}
-            description={content.slice(0, 50)}
-          />
-        );
-      })}
+      {/* Grid view */}
+      <div className="grid grid-cols-3 gap-x-5">
+        {slugs.map((slug) => {
+          const info = published[slug];
+
+          const { content, front } = info;
+          const { title, date, category, lock, description } = front;
+
+          return (
+            <PostCard
+              key={slug}
+              slug={slug}
+              title={title}
+              date={date}
+              category={category}
+              lock={lock}
+              description={description}
+              content={content}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

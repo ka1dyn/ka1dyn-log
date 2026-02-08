@@ -66,7 +66,7 @@ export default function Header() {
       <div className="flex gap-10">
         <Link
           className="flex gap-3 items-center -translate-y-px cursor-pointer"
-          href={""}
+          href={"/"}
         >
           <div className="font-semibold text-xl">Dev Library</div>
         </Link>
