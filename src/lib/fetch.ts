@@ -33,17 +33,23 @@ const fetchPosts = cache(async (contentPath: string) => {
         ? stats.birthtime
         : stats.mtime;
 
+    const categoryList = new Set([
+      "일반",
+      "기능구현",
+      "트러블슈팅",
+      "성능개선",
+    ]);
+
     const newFront: MarkdownFront = {
       title: front.title || postPath.split("/").slice(-1)[0].replace(".md", ""),
       date: front.date || new Date(fileCreationDate),
-      category: front.category || "basic",
+      category: front.category in categoryList ? front.category : "일반",
       lock: front.lock || false,
       isPublish: front.isPublish || false,
       description: front.description || content.slice(0, 80),
     };
 
     // Front validation
-    const categoryList = new Set(["basic", "function", "trouble"]);
 
     // if (!categoryList.has(front.category)) {
     //   throw new Error(`category error: ${front.category} in file ${postPath}.`);

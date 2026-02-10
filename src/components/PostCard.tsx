@@ -2,6 +2,7 @@ import { dateFormat } from "@/lib/utils";
 import { Clock, FolderOpen } from "lucide-react";
 import Link from "next/link";
 import readingTime from "reading-time";
+import Category from "./Category";
 
 interface PostCardProps {
   slug: string;
@@ -35,9 +36,7 @@ export default function PostCard({
       <div className="w-4 bg-primary shrink-0"></div>
       <div className="p-5 bg-card">
         <div className="relative h-full flex flex-col">
-          <div className="px-2 py-1 bg-accent/20 bolder text-sm rounded-md w-fit mb-4">
-            {category}
-          </div>
+          <Category category={category} className="mb-4" />
           <div className="flex flex-col mb-6">
             <h2 className="font-semibold text-xl mb-2">{title}</h2>
             <div className="text-sm flex gap-2 items-center pl-0.5">

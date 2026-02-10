@@ -27,8 +27,6 @@ export default function Header() {
   const RenderBreadCrumb = useMemo(() => {
     const crumbLength = crumbSegments.length;
 
-    console.log(crumbSegments);
-
     return crumbSegments.map((segment, idx) => {
       const finalSegment = idx === crumbLength - 1;
       const tooMany = crumbLength > 3;
