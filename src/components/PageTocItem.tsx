@@ -43,6 +43,7 @@ export default function PageTocItem({ depth, text }: PageTocItemProps) {
         depth === 1 && "",
         depth === 2 && "ml-2",
         depth === 3 && "ml-4",
+        "cursor-pointer",
       )}
     >
       <div onClick={handleClick}>{text}</div>

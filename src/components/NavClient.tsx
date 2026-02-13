@@ -6,34 +6,38 @@ import { BookMarked, BookOpen } from "lucide-react";
 import Line from "./Line";
 import NavFilter from "./NavFilter";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, generateTree } from "@/lib/utils";
+import { publishedPosts } from "@/lib/fetch";
+import { useNavTriggerStore } from "@/stores";
 
 interface NavClientProps {
   data: {
-    studyPosts: PostData;
-    studyPublished: PostData;
+    blogPosts: PostData;
+    blogPublished: PostData;
   };
 }
 
 export default function NavClient({ data }: NavClientProps) {
-  const { studyPosts, studyPublished } = data;
+  const { blogPosts, blogPublished } = data;
 
-  const publishedCount = Object.keys(studyPublished).length;
+  const publishedCount = Object.keys(blogPublished).length;
+
+  const isPublish = useNavTriggerStore((state) => state.isPublish);
 
   // Overflow detector
   const [overflow, setOverflow] = useState<boolean>(false);
 
   const target = useRef<HTMLDivElement>(null!);
+
   useEffect(() => {
+    const el = target.current;
+    if (!el) return;
+
     const checkOverFlow = () => {
-      const el = target.current;
       const hasOverflow = el.scrollHeight > el.clientHeight;
 
       setOverflow(hasOverflow);
     };
-
-    const el = target.current;
-    if (!el) return;
 
     checkOverFlow();
 
@@ -41,47 +45,22 @@ export default function NavClient({ data }: NavClientProps) {
     observer.observe(el);
   }, [target.current]);
 
-  // Make pathTree
-  let slugs = Object.keys(studyPosts);
+  const totalTree = useMemo(() => generateTree(blogPosts), [data]);
+  const publishTree = useMemo(() => generateTree(blogPublished), [data]);
 
-  const pathTree = useMemo(() => {
-    const tree: TreeObj = {
-      name: "root",
-      count: 0,
-      children: {},
-      isLeaf: false,
-    };
+  const renderTree = useMemo(() => {
+    const currentTree = isPublish ? publishTree : totalTree;
+    const keyPrefix = isPublish ? "publish" : "total";
 
-    slugs.forEach((slug) => {
-      const segments = slug.split("/").filter((segment) => Boolean(segment));
-
-      let curObj = tree;
-      curObj.count += 1;
-
-      segments.forEach((segment, idx) => {
-        if (!curObj.children[segment]) {
-          curObj.children[segment] = {
-            name: segment,
-            count: 0,
-            children: {},
-            isLeaf: false,
-          };
-        }
-
-        if (idx === segments.length - 1) {
-          curObj.children[segment].isLeaf = true;
-          curObj.children[segment].path = slug;
-          curObj.children[segment].createdDate = studyPosts[slug].front.date;
-          curObj.children[segment].isPublish = studyPosts[slug].front.isPublish;
-        }
-
-        curObj.children[segment].count += 1;
-        curObj = curObj.children[segment];
-      });
-    });
-
-    return tree;
-  }, [data]);
+    return Object.values(currentTree.children).map((subNodes) => (
+      <TreeItem
+        tree={subNodes}
+        depth={1}
+        isOpen={true}
+        key={`${keyPrefix}-${subNodes.name}`}
+      />
+    ));
+  }, [isPublish, publishTree, totalTree]);
 
   return (
     <aside
@@ -130,7 +109,7 @@ export default function NavClient({ data }: NavClientProps) {
             <div className="flex items-center gap-3 text-md text-primary-foreground">
               <BookOpen className="w-5 h-5" />
               <div className="flex gap-2 items-center">
-                <span className="font-semibold">출판 글 보기</span>
+                <span className="font-semibold">출판 도서 목록</span>
                 <span className="font-medium text-xs">{publishedCount}편</span>
               </div>
             </div>
@@ -143,14 +122,7 @@ export default function NavClient({ data }: NavClientProps) {
           ref={target}
           className="px-4 z-5 min-h-0 overflow-y-auto scrollbar-hide"
         >
-          <div className="group">
-            {/* <TreeItem tree={tree} depth={0} isOpen={true} /> */}
-            {Object.values(pathTree.children).map((subNodes) => (
-              <React.Fragment key={subNodes.name}>
-                <TreeItem tree={subNodes} depth={1} isOpen={true} />
-              </React.Fragment>
-            ))}
-          </div>
+          {renderTree}
         </section>
       </div>
 

@@ -1,7 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Leaf from "./Leaf";
 import Folder from "./Folder";
 import { useNavTriggerStore } from "@/stores";
@@ -21,19 +27,24 @@ export function TreeItem({
   const expand = useNavTriggerStore((state) => state.expand);
   const collapse = useNavTriggerStore((state) => state.collapse);
 
-  useEffect(() => {
-    if (expand == 0) return;
+  const lastExpand = useRef(expand);
+  const lastCollapse = useRef(collapse);
 
-    setOpen(true);
+  useEffect(() => {
+    if (expand !== lastExpand.current) {
+      lastExpand.current = expand;
+      setOpen(true);
+    }
   }, [expand]);
 
   useEffect(() => {
-    if (collapse == 0) return;
-
-    setOpen(false);
+    if (collapse !== lastCollapse.current) {
+      lastCollapse.current = collapse;
+      setOpen(false);
+    }
   }, [collapse]);
 
-  const comPare = useCallback((a: TreeObj, b: TreeObj) => {
+  const compare = useCallback((a: TreeObj, b: TreeObj) => {
     // Folder first
     if (a.isLeaf !== b.isLeaf) {
       return a.isLeaf ? 1 : -1;
@@ -52,7 +63,7 @@ export function TreeItem({
 
   const SubTree = useMemo(() => {
     return Object.values(children)
-      .sort(comPare)
+      .sort(compare)
       .map((node) => {
         const newDepth = depth + 1;
         let isOpen = false;
@@ -67,7 +78,7 @@ export function TreeItem({
           </React.Fragment>
         );
       });
-  }, [comPare, children]);
+  }, [compare, children]);
 
   const nodeClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();

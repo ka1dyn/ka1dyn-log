@@ -5,6 +5,7 @@ import { immer } from "zustand/middleware/immer";
 export const useNavTriggerStore = create<NavTriggerStore>()(
   immer(
     devtools((set) => ({
+      isPublish: true,
       expand: 0,
       collapse: 0,
       triggerExpand: () =>
@@ -23,6 +24,10 @@ export const useNavTriggerStore = create<NavTriggerStore>()(
           undefined,
           "navTrigger/collapse",
         ),
+      changePublish: (newState: boolean) =>
+        set((state) => {
+          state.isPublish = newState;
+        }),
     })),
   ),
 );

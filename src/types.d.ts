@@ -30,8 +30,10 @@ interface TreeObj {
 type NavTriggerStore = {
   expand: number;
   collapse: number;
+  isPublish: boolean;
   triggerExpand: () => void;
   triggerCollapse: () => void;
+  changePublish: (newState: boolean) => void;
 };
 
 type BreadStore = {

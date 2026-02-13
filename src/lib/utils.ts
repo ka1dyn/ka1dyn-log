@@ -25,3 +25,44 @@ export const getTocData = (source: string) => {
     return { depth: depth, text: headingText };
   });
 };
+
+export const generateTree = (posts: PostData) => {
+  const tree: TreeObj = {
+    name: "root",
+    count: 0,
+    children: {},
+    isLeaf: false,
+  };
+
+  let slugs = Object.keys(posts);
+
+  slugs.forEach((slug) => {
+    const segments = slug.split("/").filter((segment) => Boolean(segment));
+
+    let curObj = tree;
+    curObj.count += 1;
+
+    segments.forEach((segment, idx) => {
+      if (!curObj.children[segment]) {
+        curObj.children[segment] = {
+          name: segment,
+          count: 0,
+          children: {},
+          isLeaf: false,
+        };
+      }
+
+      if (idx === segments.length - 1) {
+        curObj.children[segment].isLeaf = true;
+        curObj.children[segment].path = slug;
+        curObj.children[segment].createdDate = posts[slug].front.date;
+        curObj.children[segment].isPublish = posts[slug].front.isPublish;
+      }
+
+      curObj.children[segment].count += 1;
+      curObj = curObj.children[segment];
+    });
+  });
+
+  return tree;
+};
