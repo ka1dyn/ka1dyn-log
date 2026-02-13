@@ -77,7 +77,7 @@ export default function NavClient({ data }: NavClientProps) {
             boxShadow: overflow ? "var(--paper-shadow-down" : "",
           }}
         >
-          <section className="flex items-center gap-3 mb-4">
+          <section className="flex items-center gap-3 mb-4 ml-1">
             <BookMarked className="text-primary" />
             <h2 className="text-lg font-semibold">서재</h2>
           </section>
