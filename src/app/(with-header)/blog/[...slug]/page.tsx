@@ -9,7 +9,7 @@ import PageTocItem from "@/components/PageTocItem";
 import React from "react";
 
 export async function generateStaticParams() {
-  const posts = await fetchPosts("/study");
+  const posts = await fetchPosts("/blog");
 
   const slugs = Object.keys(posts);
 
@@ -37,7 +37,7 @@ export default async function Page({
 
   const path = `/${decodedSlug.join("/")}`;
 
-  const posts = await fetchPosts("/study");
+  const posts = await fetchPosts("/blog");
 
   const { content, front } = posts[path];
   const { title, date, category, lock } = front;

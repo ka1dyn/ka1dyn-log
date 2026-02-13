@@ -19,7 +19,6 @@ interface NavClientProps {
 
 export default function NavClient({ data }: NavClientProps) {
   const { blogPosts, blogPublished } = data;
-
   const publishedCount = Object.keys(blogPublished).length;
 
   const isPublish = useNavTriggerStore((state) => state.isPublish);
@@ -45,8 +44,11 @@ export default function NavClient({ data }: NavClientProps) {
     observer.observe(el);
   }, [target.current]);
 
-  const totalTree = useMemo(() => generateTree(blogPosts), [data]);
-  const publishTree = useMemo(() => generateTree(blogPublished), [data]);
+  const totalTree = useMemo(() => generateTree(blogPosts), [blogPosts]);
+  const publishTree = useMemo(
+    () => generateTree(blogPublished),
+    [blogPublished],
+  );
 
   const renderTree = useMemo(() => {
     const currentTree = isPublish ? publishTree : totalTree;

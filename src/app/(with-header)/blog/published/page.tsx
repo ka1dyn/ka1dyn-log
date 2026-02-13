@@ -4,7 +4,7 @@ import { publishedPosts } from "@/lib/fetch";
 import { dateFormat } from "@/lib/utils";
 
 export default async function Page() {
-  const published = await publishedPosts("/study");
+  const published = await publishedPosts("/blog");
   const slugs = Object.keys(published);
   const publishedCount = slugs.length;
 
