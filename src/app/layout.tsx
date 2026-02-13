@@ -19,7 +19,9 @@ export default function RootLayout({
       >
         <div className="root flex w-full h-screen">
           <NavDataContainer />
-          <div className="main w-full overflow-y-scroll">{children}</div>
+          <div id="main" className="w-full overflow-y-scroll">
+            {children}
+          </div>
         </div>
       </body>
     </html>

@@ -10,7 +10,7 @@ export default function Category({ category, className }: CategoryProps) {
 
   switch (category) {
     case "일반":
-      fontColor = "#2f4858";
+      fontColor = "#3d3529";
       break;
     case "기능구현":
       fontColor = "#598156";
@@ -29,7 +29,7 @@ export default function Category({ category, className }: CategoryProps) {
   return (
     <div
       className={cn(
-        "px-2 py-1 bolder text-sm rounded-md w-fit border",
+        "px-2 py-0.5 bolder text-sm rounded-md w-fit border",
         className,
       )}
       style={{

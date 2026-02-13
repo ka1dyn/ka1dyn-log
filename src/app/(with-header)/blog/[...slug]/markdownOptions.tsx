@@ -1,3 +1,6 @@
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+
 export const mdCustomStyle = {
   h1: ({ ...props }) => {
     const text = props.children?.toString() || "";
@@ -86,4 +89,12 @@ export const mdCustomStyle = {
   strong: ({ ...props }) => (
     <strong className="font-semibold text-foreground" {...props} />
   ),
+};
+
+export const mdCustomOption = {
+  mdxOptions: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeSlug],
+    format: "md" as const,
+  },
 };

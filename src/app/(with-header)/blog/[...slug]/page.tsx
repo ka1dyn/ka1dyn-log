@@ -1,11 +1,12 @@
 import { fetchPosts } from "@/lib/fetch";
-import remarkGfm from "remark-gfm";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
-import { mdCustomStyle } from "./mdCustomStyle";
-import { Calendar, Tag } from "lucide-react";
-import { dateFormat } from "@/lib/utils";
+import { mdCustomOption, mdCustomStyle } from "./markdownOptions";
+import { Calendar, List, Tag } from "lucide-react";
+import { dateFormat, getTocData } from "@/lib/utils";
 import Category from "@/components/Category";
+import PageTocItem from "@/components/PageTocItem";
+import React from "react";
 
 export async function generateStaticParams() {
   const posts = await fetchPosts("/study");
@@ -41,6 +42,7 @@ export default async function Page({
   const { content, front } = posts[path];
   const { title, date, category, lock } = front;
 
+  const tocData = getTocData(content);
   const dateKR = dateFormat(date);
 
   const mdxComponents = {
@@ -67,26 +69,44 @@ export default async function Page({
 
       <div className="w-[85ch] text-foreground flex flex-col gap-10">
         <div
-          className="w-full flex flex-col px-5 py-8 bg-card gap-10 rounded-lg"
+          className="w-full flex flex-col px-5 pt-8 pb-5 bg-card gap-10 rounded-lg"
           style={{
             boxShadow: "var(--paper-shadow)",
           }}
         >
           <div className="flex flex-col">
             <h1 className="text-4xl font-semibold mb-5">{title}</h1>
-            <div className="flex gap-5 text-sm text-muted-foreground">
+            <div className="flex gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Tag className="w-4 h-4 text-muted-foreground" />
                 <Category category={category} className="text-sm" />
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-muted-foreground" />
-                <span>{dateKR}</span>
+                <span className="font-medium">{dateKR}</span>
               </div>
             </div>
           </div>
 
-          <div>목차 </div>
+          <div className="px-6 py-4 bg-accent/30 flex flex-col rounded-lg">
+            <div className="flex items-center gap-2 mb-5">
+              <List className="w-5 h-5 text-primary" />
+              <span className="text-xl font-semibold text-foreground">
+                목차
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              {tocData.map((data) => {
+                const { depth, text } = data;
+
+                return (
+                  <React.Fragment key={text}>
+                    <PageTocItem depth={depth} text={text} />
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
         </div>
         <div
           className="w-full px-5 py-8 bg-card gap-10 rounded-lg"
@@ -97,12 +117,7 @@ export default async function Page({
           <MDXRemote
             source={content}
             components={mdxComponents}
-            options={{
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-                format: "md",
-              },
-            }}
+            options={mdCustomOption}
           />
         </div>
       </div>
