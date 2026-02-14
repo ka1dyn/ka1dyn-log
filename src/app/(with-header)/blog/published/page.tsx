@@ -1,7 +1,9 @@
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
+import Category from "@/components/Category";
 import PostCard from "@/components/PostCard";
 import { publishedPosts } from "@/lib/fetch";
-import { dateFormat } from "@/lib/utils";
+import { cn, dateFormat } from "@/lib/utils";
+import Link from "next/link";
 
 export default async function Page({
   searchParams,
@@ -34,7 +36,7 @@ export default async function Page({
     <div className="flex flex-col p-8">
       <BreadCrumbUpdater path={"/Published"} />
 
-      <div className="flex justify-between mb-8">
+      <div className="relative flex justify-between mb-12">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col">
             <h1 className="text-3xl mb-2 font-semibold -translate-x-0.5">
@@ -50,30 +52,66 @@ export default async function Page({
             <span>최근 업데이트: {recentUpdated}</span>
           </div>
         </div>
-        <div className="w-50">필터 영역입니다.</div>
+        <div className="absolute bottom-0 right-0 flex flex-col gap-2">
+          {/* <div className="text-end text-sm">카테고리</div> */}
+          <div className="w-fit flex text-sm gap-2 text-primary">
+            <Link href="/blog/published?category=성능개선">
+              <Category
+                name="성능개선"
+                bgColor={true}
+                className="cursor-pointer"
+              />
+            </Link>
+            <Link href="/blog/published?category=트러블슈팅">
+              <Category
+                name="트러블슈팅"
+                bgColor={true}
+                className="cursor-pointer"
+              />
+            </Link>
+            <Link href="/blog/published?category=기능구현">
+              <Category
+                name="기능구현"
+                bgColor={true}
+                className="cursor-pointer"
+              />
+            </Link>
+            <Link href="/blog/published?category=전체">
+              <Category name="전체" bgColor={true} className="cursor-pointer" />
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Grid view */}
-      <div className="grid grid-cols-3 gap-x-8 gap-y-12">
-        {slugs.map((slug) => {
-          const info = published[slug];
+      <div className="flex w-full">
+        <div
+          className={cn(
+            "grid w-fit mx-auto justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12",
+            slugs.length === 1 && "md:grid-cols-1 xl:grid-cols-1 w-full",
+            slugs.length === 2 && "md:grid-cols-2 xl:grid-cols-2 w-full",
+          )}
+        >
+          {slugs.map((slug) => {
+            const info = published[slug];
 
-          const { content, front } = info;
-          const { title, date, category, lock, description } = front;
+            const { content, front } = info;
+            const { title, date, category, lock, description } = front;
 
-          return (
-            <PostCard
-              key={slug}
-              slug={slug}
-              title={title}
-              date={date}
-              category={category}
-              lock={lock}
-              description={description}
-              content={content}
-            />
-          );
-        })}
+            return (
+              <PostCard
+                key={slug}
+                slug={slug}
+                title={title}
+                date={date}
+                category={category}
+                lock={lock}
+                description={description}
+                content={content}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

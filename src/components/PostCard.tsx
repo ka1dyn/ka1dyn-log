@@ -31,7 +31,7 @@ export default function PostCard({
   return (
     <Link
       href={`/blog${slug}`}
-      className="relative h-[450px] flex flex-col gap-2 rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 ease-out hover:-translate-y-2 group shadow-lg hover:shadow-xl"
+      className="relative h-[450px] w-full max-w-[420px] flex flex-col gap-2 rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 ease-out hover:-translate-y-2 group shadow-lg hover:shadow-xl"
     >
       <div className="h-40 shrink-0"></div>
       <div className="h-full p-5 bg-card w-full">
@@ -45,7 +45,7 @@ export default function PostCard({
           </div>
           <p className="text-sm text-muted-foreground">{description}</p>
           <div className="absolute bottom-10 right-0">
-            <Category category={category} className="mb-2" />
+            <Category name={category} className="mb-2" />
           </div>
 
           <div className="absolute bottom-0 w-full text-xs text-foreground flex justify-between">

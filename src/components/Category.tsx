@@ -1,14 +1,23 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 interface CategoryProps {
-  category: string;
+  name: string;
   className?: string;
+  bgColor?: boolean;
 }
 
-export default function Category({ category, className }: CategoryProps) {
-  let fontColor = "";
+export default function Category({
+  name,
+  className,
+  bgColor = false,
+}: CategoryProps) {
+  const [isHovered, setIsHovered] = useState(false);
 
-  switch (category) {
+  let fontColor = "";
+  switch (name) {
     case "일반":
       fontColor = "#3d3529";
       break;
@@ -18,13 +27,15 @@ export default function Category({ category, className }: CategoryProps) {
     case "트러블슈팅":
       fontColor = "#c25450";
       break;
-    case "기능개선":
+    case "성능개선":
       fontColor = "#008779";
       break;
 
     default:
-      fontColor = "#008779";
+      fontColor = "#3d3529";
   }
+
+  const setBgColor = bgColor && isHovered;
 
   return (
     <div
@@ -32,9 +43,11 @@ export default function Category({ category, className }: CategoryProps) {
         "px-2 py-1 bolder text-xs rounded-md w-fit border",
         className,
       )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         borderColor: `${fontColor}55`,
-        // backgroundColor: `${fontColor}11`,
+        backgroundColor: setBgColor ? `${fontColor}11` : "",
       }}
     >
       <span
@@ -43,7 +56,7 @@ export default function Category({ category, className }: CategoryProps) {
           color: fontColor,
         }}
       >
-        {category}
+        {name}
       </span>
     </div>
   );
