@@ -31,20 +31,23 @@ export default function PostCard({
   return (
     <Link
       href={`/blog${slug}`}
-      className="h-[350px] flex gap-2 rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 eas-out hover:shadow-lg hover:-translate-y-2 group shadow-xl"
+      className="relative h-[450px] flex flex-col gap-2 rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 ease-out hover:-translate-y-2 group shadow-lg hover:shadow-xl"
     >
-      {/* <div className="relative w-4 bg-primary shrink-0"></div> */}
-      <div className="p-5 bg-card w-full">
+      <div className="h-40 shrink-0"></div>
+      <div className="h-full p-5 bg-card w-full">
         <div className="relative h-full flex flex-col">
-          <Category category={category} className="mb-4" />
           <div className="flex flex-col mb-6">
-            <h2 className="font-semibold text-2xl mb-3">{title}</h2>
-            <div className="text-sm flex gap-2 items-center pl-0.5">
-              <FolderOpen className="w-4 h-4 text-primary" />
-              <span className="text-xs">{slug}</span>
+            <h2 className="font-semibold text-[1.3rem] mb-1">{title}</h2>
+            <div className="text-sm flex gap-1 items-center pl-0.5">
+              <FolderOpen className="w-3 h-3 text-primary" />
+              <span className="text-muted-foreground/70 text-xs">{slug}</span>
             </div>
           </div>
           <p className="text-sm text-muted-foreground">{description}</p>
+          <div className="absolute bottom-10 right-0">
+            <Category category={category} className="mb-2" />
+          </div>
+
           <div className="absolute bottom-0 w-full text-xs text-foreground flex justify-between">
             <div className="absolute -top-4 left-0 w-16 h-px bg-primary/30"></div>
             <span>{formattedDate}</span>

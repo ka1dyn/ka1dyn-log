@@ -33,8 +33,8 @@ export default function Category({ category, className }: CategoryProps) {
         className,
       )}
       style={{
-        borderColor: `${fontColor}33`,
-        backgroundColor: `${fontColor}11`,
+        borderColor: `${fontColor}55`,
+        // backgroundColor: `${fontColor}11`,
       }}
     >
       <span
