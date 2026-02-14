@@ -17,6 +17,28 @@ import Link from "next/link";
 export default function Header() {
   const [crumbSegments, setCrumbSegments] = useState<Array<string>>(["Home"]);
   const crumb = useBreadStore((state) => state.crumb);
+  const [screenBreak, setScreenBreak] = useState<string>("sm");
+
+  useEffect(() => {
+    const checkScreen = () => {
+      let curWidth = window.innerWidth;
+
+      console.log(curWidth);
+
+      if (curWidth < 768) {
+        setScreenBreak("sm");
+      } else if (curWidth < 1280) {
+        setScreenBreak("md");
+      } else {
+        setScreenBreak("xl");
+      }
+    };
+
+    checkScreen();
+
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
   useEffect(() => {
     const segments = crumb.split("/").filter((segment) => Boolean(segment));
@@ -28,7 +50,30 @@ export default function Header() {
     const crumbLength = crumbSegments.length;
 
     return crumbSegments.map((segment, idx) => {
+      if (screenBreak === "sm") return;
+
       const finalSegment = idx === crumbLength - 1;
+
+      if (screenBreak === "xl") {
+        return (
+          <React.Fragment key={idx}>
+            <BreadcrumbItem>
+              {finalSegment ? (
+                <BreadcrumbPage className="text-sm p-2 text-foreground font-semibold">
+                  {segment}
+                </BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink className="text-sm p-2 text-primary hover:text-primary">
+                  {segment}
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+
+            {!finalSegment && <BreadcrumbSeparator />}
+          </React.Fragment>
+        );
+      }
+
       const tooMany = crumbLength > 3;
       const skip = tooMany && idx >= 2 && idx <= crumbLength - 3;
       const ellapse = tooMany && idx === 1;
@@ -55,7 +100,7 @@ export default function Header() {
         </React.Fragment>
       );
     });
-  }, [crumbSegments]);
+  }, [crumbSegments, screenBreak]);
 
   return (
     <header
