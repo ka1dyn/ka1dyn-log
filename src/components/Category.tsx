@@ -29,7 +29,7 @@ export default function Category({ category, className }: CategoryProps) {
   return (
     <div
       className={cn(
-        "px-2 py-0.5 bolder text-sm rounded-md w-fit border",
+        "px-2 py-1 bolder text-xs rounded-md w-fit border",
         className,
       )}
       style={{
