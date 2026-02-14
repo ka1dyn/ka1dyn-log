@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavDataContainer from "@/components/NavDataContainer";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +19,10 @@ export default function RootLayout({
         className={`antialiased bg-background text-foreground font-noto-serif`}
       >
         <div className="root flex w-full h-screen">
-          <NavDataContainer />
+          <Suspense>
+            <NavDataContainer />
+          </Suspense>
+
           <div id="main" className="w-full overflow-y-scroll">
             {children}
           </div>

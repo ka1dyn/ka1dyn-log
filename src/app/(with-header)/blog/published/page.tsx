@@ -3,9 +3,27 @@ import PostCard from "@/components/PostCard";
 import { publishedPosts } from "@/lib/fetch";
 import { dateFormat } from "@/lib/utils";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ category: string; series: string }>;
+}) {
+  let { category, series } = await searchParams;
+  if (!category) category = "전체";
+  if (!series) series = "전체";
+
   const published = await publishedPosts("/blog");
-  const slugs = Object.keys(published);
+
+  const slugs = Object.keys(published).filter((slug) => {
+    const post = published[slug];
+    const { front } = post;
+    const { category: frontCategory, series: frontSeries } = front;
+
+    const filterCategory = category === "전체" || category === frontCategory;
+    const filterSeries = series === "전체" || front.series.includes(series);
+
+    return filterCategory && filterSeries;
+  });
   const publishedCount = slugs.length;
 
   slugs.sort((a, b) => b.localeCompare(a));
@@ -36,7 +54,7 @@ export default async function Page() {
       </div>
 
       {/* Grid view */}
-      <div className="grid grid-cols-3 gap-x-5">
+      <div className="grid grid-cols-3 gap-x-8 gap-y-12">
         {slugs.map((slug) => {
           const info = published[slug];
 

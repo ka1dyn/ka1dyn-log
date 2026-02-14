@@ -9,7 +9,7 @@ export default function Layout({
     <div className="w-full">
       <Header />
       <div id="main" className="flex justify-center">
-        <div id="content-container" className="w-7xl">
+        <div id="content-container" className="w-6xl">
           {children}
         </div>
       </div>

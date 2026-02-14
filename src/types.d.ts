@@ -5,6 +5,7 @@ interface MarkdownFront {
   lock: boolean;
   isPublish: boolean;
   description: string;
+  series: Array<string>;
 }
 
 interface MarkdownData {

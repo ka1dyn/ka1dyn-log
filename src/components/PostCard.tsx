@@ -34,7 +34,7 @@ export default function PostCard({
       className="h-[350px] flex gap-2 shadow-sm rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 eas-out hover:shadow-lg hover:-translate-y-2 group"
     >
       <div className="relative w-4 bg-primary shrink-0"></div>
-      <div className="p-5 bg-card">
+      <div className="p-5 bg-card w-full">
         <div className="relative h-full flex flex-col">
           <Category category={category} className="mb-4" />
           <div className="flex flex-col mb-6">

@@ -43,10 +43,11 @@ const fetchPosts = cache(async (contentPath: string) => {
     const newFront: MarkdownFront = {
       title: front.title || postPath.split("/").slice(-1)[0].replace(".md", ""),
       date: front.date || new Date(fileCreationDate),
-      category: front.category in categoryList ? front.category : "일반",
+      category: categoryList.has(front.category) ? front.category : "일반",
       lock: front.lock || false,
       isPublish: front.isPublish || false,
       description: front.description || content.slice(0, 80),
+      series: front.series || [],
     };
 
     // Front validation
