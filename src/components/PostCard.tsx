@@ -6,6 +6,7 @@ import Category from "./Category";
 
 interface PostCardProps {
   slug: string;
+  thumbnail: string;
   title: string;
   date: Date;
   category: string;
@@ -16,6 +17,7 @@ interface PostCardProps {
 
 export default function PostCard({
   slug,
+  thumbnail,
   title,
   date,
   category,
@@ -31,19 +33,23 @@ export default function PostCard({
   return (
     <Link
       href={`/blog${slug}`}
-      className="relative h-[450px] w-full max-w-[420px] flex flex-col gap-2 rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 ease-out hover:-translate-y-2 group shadow-lg hover:shadow-xl"
+      className="relative h-[430px] w-full max-w-[420px] flex flex-col rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 ease-out hover:-translate-y-2 group shadow-lg hover:shadow-xl"
     >
-      <div className="h-40 shrink-0"></div>
+      <div className="h-47 shrink-0 flex items-center">
+        <img className="w-full min-h-full" src={thumbnail} />
+      </div>
       <div className="h-full p-5 bg-card w-full">
         <div className="relative h-full flex flex-col">
           <div className="flex flex-col mb-6">
-            <h2 className="font-semibold text-[1.3rem] mb-1">{title}</h2>
+            <h2 className="font-semibold text-[1.25rem] mb-1">{title}</h2>
             <div className="text-sm flex gap-1 items-center pl-0.5">
               <FolderOpen className="w-3 h-3 text-primary" />
               <span className="text-muted-foreground/70 text-xs">{slug}</span>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="text-xs text-muted-foreground">
+            {description.slice(0, 90)}
+          </p>
           <div className="absolute bottom-10 right-0">
             <Category name={category} className="mb-2" />
           </div>

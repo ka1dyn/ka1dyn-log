@@ -3,7 +3,7 @@ import { MDXRemote } from "next-mdx-remote-client/rsc";
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import { mdCustomOption, mdCustomStyle } from "./markdownOptions";
 import { Calendar, List, Tag } from "lucide-react";
-import { dateFormat, getTocData } from "@/lib/utils";
+import { dateFormat, getTocData, replaceSrc } from "@/lib/utils";
 import Category from "@/components/Category";
 import PageTocItem from "@/components/PageTocItem";
 import React from "react";
@@ -48,17 +48,10 @@ export default async function Page({
   const mdxComponents = {
     img: (props: any) => {
       const { src, alt } = props;
-
       // Image path change
-      let optimizedSrc = src;
-      if (src.startsWith("images/")) {
-        optimizedSrc = `/content-${src}`;
-      } else if (src.includes("images/")) {
-        const fileName = src.split("images/").pop();
-        optimizedSrc = `/content-images/${fileName}`;
-      }
+      const publicSrc = replaceSrc(src);
 
-      return <img src={optimizedSrc} alt={alt || "no image"} />;
+      return <img src={publicSrc} alt={alt || "no image"} />;
     },
     ...mdCustomStyle,
   };
@@ -79,7 +72,7 @@ export default async function Page({
             <div className="flex gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Tag className="w-4 h-4 text-muted-foreground" />
-                <Category category={category} className="text-sm" />
+                <Category name={category} className="text-sm" />
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-muted-foreground" />

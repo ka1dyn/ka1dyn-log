@@ -24,7 +24,7 @@ export default function Category({
     case "기능구현":
       fontColor = "#598156";
       break;
-    case "트러블슈팅":
+    case "문제해결":
       fontColor = "#c25450";
       break;
     case "성능개선":

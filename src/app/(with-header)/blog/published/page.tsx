@@ -64,7 +64,7 @@ export default async function Page({
             </Link>
             <Link href="/blog/published?category=트러블슈팅">
               <Category
-                name="트러블슈팅"
+                name="문제해결"
                 bgColor={true}
                 className="cursor-pointer"
               />
@@ -96,11 +96,13 @@ export default async function Page({
             const info = published[slug];
 
             const { content, front } = info;
-            const { title, date, category, lock, description } = front;
+            const { title, date, category, lock, description, thumbnail } =
+              front;
 
             return (
               <PostCard
                 key={slug}
+                thumbnail={thumbnail}
                 slug={slug}
                 title={title}
                 date={date}

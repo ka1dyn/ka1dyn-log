@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import React from "react";
 import Link from "next/link";
+import { Github } from "lucide-react";
 
 export default function Header() {
   const [crumbSegments, setCrumbSegments] = useState<Array<string>>(["Home"]);
@@ -22,9 +23,6 @@ export default function Header() {
   useEffect(() => {
     const checkScreen = () => {
       let curWidth = window.innerWidth;
-
-      console.log(curWidth);
-
       if (curWidth < 768) {
         setScreenBreak("sm");
       } else if (curWidth < 1280) {
@@ -118,7 +116,9 @@ export default function Header() {
         </Breadcrumb>
       </div>
 
-      <div>github</div>
+      <div>
+        <Github />
+      </div>
     </header>
   );
 }

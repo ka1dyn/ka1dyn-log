@@ -66,3 +66,15 @@ export const generateTree = (posts: PostData) => {
 
   return tree;
 };
+
+export const replaceSrc = (src: string) => {
+  let publicSrc = src;
+  if (src.startsWith("images/")) {
+    publicSrc = `/content-${src}`;
+  } else if (src.includes("images/")) {
+    const fileName = src.split("images/").pop();
+    publicSrc = `/content-images/${fileName}`;
+  }
+
+  return publicSrc;
+};
