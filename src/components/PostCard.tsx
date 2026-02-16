@@ -33,7 +33,8 @@ export default function PostCard({
   return (
     <Link
       href={`/blog${slug}`}
-      className="relative h-[430px] w-full max-w-[420px] flex flex-col rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 transition-all duration-200 ease-out hover:-translate-y-2 group shadow-lg hover:shadow-xl"
+      className="relative h-[430px] w-full max-w-[420px] flex flex-col rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50 
+      transition-all duration-200 ease-out hover:-translate-y-2 group shadow-lg hover:shadow-xl"
     >
       <div className="h-47 shrink-0 flex items-center">
         <img className="w-full min-h-full" src={thumbnail} />
@@ -65,7 +66,7 @@ export default function PostCard({
         </div>
       </div>
       <div
-        className="absolute -top-1 right-8 w-6 h-10 bg-primary/80 opacity-0 group-hover:opacity-100 transition-all duration-300"
+        className="absolute -top-1 right-8 w-6 h-10 bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300"
         style={{
           clipPath: "polygon(0px 0px, 100% 0px, 100% 100%, 50% 85%, 0px 100%)",
           boxShadow: "rgba(0, 0, 0, 0.2) 0px 2px 4px",

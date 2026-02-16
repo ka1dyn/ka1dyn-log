@@ -102,7 +102,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 h-20 flex justify-between bg-card py-4 px-8 items-center border-b border-sidebar-border`}
+      className={`sticky top-0 h-20 flex justify-between bg-card py-4 px-8 items-center border-b border-sidebar-borde z-15 shadow-md`}
     >
       <div className="flex gap-10">
         <Link

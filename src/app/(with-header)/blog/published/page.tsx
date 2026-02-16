@@ -3,6 +3,7 @@ import Category from "@/components/Category";
 import PostCard from "@/components/PostCard";
 import { publishedPosts } from "@/lib/fetch";
 import { cn, dateFormat } from "@/lib/utils";
+import { Filter } from "lucide-react";
 import Link from "next/link";
 
 export default async function Page({
@@ -32,19 +33,32 @@ export default async function Page({
   const recentUpdated =
     slugs.length === 0 ? "-" : dateFormat(published[slugs[0]].front.date);
 
+  const isSeries = series !== "전체";
+
   return (
-    <div className="flex flex-col p-8">
+    <div className="flex flex-col">
       <BreadCrumbUpdater path={"/Published"} />
 
-      <div className="relative flex justify-between mb-12">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col">
+      <div className="relative flex flex-col md:flex-row justify-between mb-8 md:mb-12">
+        <div className="flex flex-col gap-6 mb-6 md:m-0">
+          <div className="flex flex-col items-center md:items-start">
             <h1 className="text-3xl mb-2 font-semibold -translate-x-0.5">
-              출판 도서 목록
+              <span className="-translate-y-0.5">출판 도서 목록</span>
             </h1>
-            <p>서재에 보관된 모든 글을 둘러보세요</p>
+            <p className="hidden text-foreground md:block">
+              {isSeries ? (
+                <span>
+                  <span className="font-semibold underline underline-offset-1">
+                    {series}
+                  </span>{" "}
+                  주제에 관련된 글 모음입니다
+                </span>
+              ) : (
+                "서재에 보관된 모든 글을 둘러보세요"
+              )}
+            </p>
           </div>
-          <div className="flex gap-4 text-sm items-center font-light">
+          <div className="gap-4 text-sm items-center font-light hidden md:flex">
             <span>
               총 <span className="font-bold">{publishedCount}권</span>의 도서
             </span>
@@ -52,9 +66,12 @@ export default async function Page({
             <span>최근 업데이트: {recentUpdated}</span>
           </div>
         </div>
-        <div className="absolute bottom-0 right-0 flex flex-col gap-2">
-          {/* <div className="text-end text-sm">카테고리</div> */}
-          <div className="w-fit flex text-sm gap-2 text-primary">
+        <div className="flex flex-col items-center gap-2 md:gap-3 md:items-end md:absolute md:bottom-0 md:right-0">
+          <div className="flex items-center gap-1">
+            <Filter className="w-4 h-4 text-primary" />
+            <span className="text-foreground text-sm">카테고리 필터</span>
+          </div>
+          <div className="w-fit flex text gap-2 text-primary">
             <Link href="/blog/published?category=성능개선">
               <Category
                 name="성능개선"
@@ -62,7 +79,7 @@ export default async function Page({
                 className="cursor-pointer"
               />
             </Link>
-            <Link href="/blog/published?category=트러블슈팅">
+            <Link href="/blog/published?category=문제해결">
               <Category
                 name="문제해결"
                 bgColor={true}
@@ -88,8 +105,8 @@ export default async function Page({
         <div
           className={cn(
             "grid w-fit mx-auto justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12",
-            slugs.length === 1 && "md:grid-cols-1 xl:grid-cols-1 w-full",
-            slugs.length === 2 && "md:grid-cols-2 xl:grid-cols-2 w-full",
+            // slugs.length === 1 && "md:grid-cols-1 xl:grid-cols-1 w-full",
+            // slugs.length === 2 && "md:grid-cols-2 xl:grid-cols-2 w-full",
           )}
         >
           {slugs.map((slug) => {
