@@ -56,7 +56,7 @@ export default function Folder({
         )}
         <div className="flex gap-2 items-center">
           <span className="font-medium">{name}</span>
-          <span className="font-light text-xs">{count}권</span>
+          <span className="font-light text-xs">{count}편</span>
         </div>
       </div>
     </div>

@@ -111,7 +111,37 @@ const publishedPosts = cache(async (contentPath: string) => {
   return newPosts;
 });
 
+const getAllSeries = cache(async (contentPath: string) => {
+  const posts = await fetchPosts(contentPath);
+
+  let slugs = Object.keys(posts);
+  const publishedSlugs = slugs.filter((slug) => posts[slug].front.isPublish);
+
+  const seriesInfo: { [key: string]: number } = {
+    전체: 0,
+  };
+
+  publishedSlugs.forEach((slug) => {
+    const seriesList = posts[slug].front.series;
+
+    seriesInfo["전체"] += 1;
+
+    console.log(seriesList);
+    console.log(seriesInfo);
+
+    seriesList.forEach((series) => {
+      if (series in seriesInfo) {
+        seriesInfo[series] += 1;
+      } else {
+        seriesInfo[series] = 1;
+      }
+    });
+  });
+
+  return seriesInfo;
+});
+
 // debug
 // fetchPosts()
 
-export { fetchPosts, publishedPosts };
+export { fetchPosts, publishedPosts, getAllSeries };

@@ -61,7 +61,7 @@ export default function Header() {
                   {segment}
                 </BreadcrumbPage>
               ) : (
-                <BreadcrumbLink className="text-sm p-2 text-primary hover:text-primary">
+                <BreadcrumbLink className="text-sm p-2 text-muted-foreground hover:text-muted-foreground">
                   {segment}
                 </BreadcrumbLink>
               )}
@@ -82,13 +82,13 @@ export default function Header() {
         <React.Fragment key={idx}>
           <BreadcrumbItem>
             {ellapse ? (
-              <BreadcrumbEllipsis className="text-sm p-2 text-primary hover:text-primary" />
+              <BreadcrumbEllipsis className="text-sm p-2 text-muted-foreground hover:text-muted-foreground" />
             ) : finalSegment ? (
               <BreadcrumbPage className="text-sm p-2 text-foreground font-semibold">
                 {segment}
               </BreadcrumbPage>
             ) : (
-              <BreadcrumbLink className="text-sm p-2 text-primary hover:text-primary">
+              <BreadcrumbLink className="text-sm p-2 text-muted-foreground hover:text-muted-foreground">
                 {segment}
               </BreadcrumbLink>
             )}
@@ -116,8 +116,11 @@ export default function Header() {
         </Breadcrumb>
       </div>
 
-      <div>
-        <Github />
+      <div className="flex gap-8 mr-3">
+        {/* <div>Portfolio</div> */}
+        <Link href="https://github.com/ka1dyn" target="_blank">
+          Github
+        </Link>
       </div>
     </header>
   );

@@ -22,13 +22,13 @@ export default function Category({
       fontColor = "#3d3529";
       break;
     case "기능구현":
-      fontColor = "#598156";
+      fontColor = "#5b8300";
       break;
     case "문제해결":
       fontColor = "#c25450";
       break;
     case "성능개선":
-      fontColor = "#008779";
+      fontColor = "#2b7db1";
       break;
 
     default:

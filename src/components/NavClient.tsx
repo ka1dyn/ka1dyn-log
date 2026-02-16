@@ -111,7 +111,7 @@ export default function NavClient({ data }: NavClientProps) {
             <div className="flex items-center gap-3 text-md text-primary-foreground">
               <BookOpen className="w-5 h-5" />
               <div className="flex gap-2 items-center">
-                <span className="font-semibold">출판 도서 목록</span>
+                <span className="font-semibold">출판 글 목록</span>
                 <span className="font-medium text-xs">{publishedCount}편</span>
               </div>
             </div>
