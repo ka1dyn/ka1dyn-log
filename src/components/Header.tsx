@@ -1,6 +1,6 @@
 "use client";
 
-import { useBreadStore } from "@/stores";
+import { useBreadStore, useNavTriggerStore } from "@/stores";
 import { useEffect, useMemo, useState } from "react";
 import {
   Breadcrumb,
@@ -13,12 +13,13 @@ import {
 } from "@/components/ui/breadcrumb";
 import React from "react";
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { TextAlignJustify } from "lucide-react";
 
 export default function Header() {
   const [crumbSegments, setCrumbSegments] = useState<Array<string>>(["Home"]);
   const crumb = useBreadStore((state) => state.crumb);
   const [screenBreak, setScreenBreak] = useState<string>("sm");
+  const navOpen = useNavTriggerStore((state) => state.navOpen);
 
   useEffect(() => {
     const checkScreen = () => {
@@ -105,12 +106,19 @@ export default function Header() {
       className={`sticky top-0 h-20 flex justify-between bg-card py-4 px-8 items-center border-b border-sidebar-borde z-15 shadow-md`}
     >
       <div className="flex gap-10">
-        <Link
-          className="flex gap-3 items-center -translate-y-px cursor-pointer"
-          href={"/"}
-        >
-          <div className="font-semibold text-xl">Dev Library</div>
-        </Link>
+        <div className="flex gap-5 items-center">
+          <TextAlignJustify
+            className="size-5 2xl:hidden cursor-pointer"
+            onClick={() => navOpen()}
+          />
+          <Link
+            className="-translate-y-px cursor-pointer font-semibold text-xl"
+            href={"/"}
+          >
+            Dev Library
+          </Link>
+        </div>
+
         <Breadcrumb className="flex items-center">
           <BreadcrumbList>{RenderBreadCrumb}</BreadcrumbList>
         </Breadcrumb>

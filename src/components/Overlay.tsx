@@ -1,0 +1,22 @@
+"use client";
+
+import { useNavTriggerStore } from "@/stores";
+import { useShallow } from "zustand/shallow";
+
+export default function Overlay() {
+  const { open, navClose } = useNavTriggerStore(
+    useShallow((state) => ({
+      open: state.open,
+      navClose: state.navClose,
+    })),
+  );
+
+  return (
+    open && (
+      <div
+        className="absolute top-0 left-0 z-20 bg-black/80 2xl:hidden w-screen h-screen"
+        onClick={() => navClose()}
+      ></div>
+    )
+  );
+}

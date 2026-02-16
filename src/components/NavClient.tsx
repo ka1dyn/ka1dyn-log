@@ -9,6 +9,7 @@ import Link from "next/link";
 import { cn, generateTree } from "@/lib/utils";
 import { publishedPosts } from "@/lib/fetch";
 import { useNavTriggerStore } from "@/stores";
+import { useShallow } from "zustand/shallow";
 
 interface NavClientProps {
   data: {
@@ -21,7 +22,12 @@ export default function NavClient({ data }: NavClientProps) {
   const { blogPosts, blogPublished } = data;
   const publishedCount = Object.keys(blogPublished).length;
 
-  const isPublish = useNavTriggerStore((state) => state.isPublish);
+  const { isPublish, open } = useNavTriggerStore(
+    useShallow((state) => ({
+      isPublish: state.isPublish,
+      open: state.open,
+    })),
+  );
 
   // Overflow detector
   const [overflow, setOverflow] = useState<boolean>(false);
@@ -66,7 +72,10 @@ export default function NavClient({ data }: NavClientProps) {
 
   return (
     <aside
-      className="top-0 flex flex-col justify-between h-screen shrink-0 w-0 2xl:w-80 bg-card font-noto-serif overflow-hidden border-r border-sidebar-border"
+      className={cn(
+        "flex flex-col justify-between h-screen shrink-0 z-25 w-0 2xl:w-80 absolute top-0 left-0 2xl:static bg-card font-noto-serif overflow-hidden border-r border-sidebar-border",
+        open ? "w-80" : "w-0",
+      )}
       style={{
         backgroundImage:
           "repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(139, 115, 85, 0.02) 20px, rgba(139, 115, 85, 0.02) 21px)",

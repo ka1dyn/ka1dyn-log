@@ -6,6 +6,7 @@ export const useNavTriggerStore = create<NavTriggerStore>()(
   immer(
     devtools((set) => ({
       isPublish: true,
+      open: false,
       expand: 0,
       collapse: 0,
       triggerExpand: () =>
@@ -27,6 +28,14 @@ export const useNavTriggerStore = create<NavTriggerStore>()(
       changePublish: (newState: boolean) =>
         set((state) => {
           state.isPublish = newState;
+        }),
+      navOpen: () =>
+        set((state) => {
+          state.open = true;
+        }),
+      navClose: () =>
+        set((state) => {
+          state.open = false;
         }),
     })),
   ),

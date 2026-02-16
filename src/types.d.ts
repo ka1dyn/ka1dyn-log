@@ -33,9 +33,12 @@ type NavTriggerStore = {
   expand: number;
   collapse: number;
   isPublish: boolean;
+  open: boolean;
   triggerExpand: () => void;
   triggerCollapse: () => void;
   changePublish: (newState: boolean) => void;
+  navOpen: () => void;
+  navClose: () => void;
 };
 
 type BreadStore = {

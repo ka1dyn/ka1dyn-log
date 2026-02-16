@@ -126,9 +126,6 @@ const getAllSeries = cache(async (contentPath: string) => {
 
     seriesInfo["전체"] += 1;
 
-    console.log(seriesList);
-    console.log(seriesInfo);
-
     seriesList.forEach((series) => {
       if (series in seriesInfo) {
         seriesInfo[series] += 1;
