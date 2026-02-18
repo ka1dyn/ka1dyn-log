@@ -57,12 +57,12 @@ export default async function Page({
   };
 
   return (
-    <div className="w-full flex flex-col items-center p-8">
+    <div className="w-full flex flex-col items-center">
       <BreadCrumbUpdater path={path} />
 
-      <div className="w-[85ch] text-foreground flex flex-col gap-10">
+      <div className="w-full max-w-[90ch] text-foreground flex flex-col gap-10">
         <div
-          className="w-full flex flex-col px-5 pt-8 pb-5 bg-card gap-10 rounded-lg"
+          className="w-full flex flex-col p-8 pb-5 bg-card gap-10 rounded-lg"
           style={{
             boxShadow: "var(--paper-shadow)",
           }}
@@ -101,8 +101,9 @@ export default async function Page({
             </div>
           </div>
         </div>
+
         <div
-          className="w-full px-5 py-8 bg-card gap-10 rounded-lg"
+          className="w-full p-8 bg-card gap-10 rounded-lg font-pretendard"
           style={{
             boxShadow: "var(--paper-shadow)",
           }}
@@ -114,14 +115,6 @@ export default async function Page({
           />
         </div>
       </div>
-
-      <div className="bg-blue-500">{title}</div>
-      {/* <div>date: {date}</div> */}
-      <div>category: {category}</div>
-      <div>lock: {lock}</div>
-      <div>created_date: {date.toISOString()}</div>
-
-      {/* <p>content: {content}</p> */}
     </div>
   );
 }

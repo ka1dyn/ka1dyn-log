@@ -33,7 +33,10 @@ export const mdCustomStyle = {
     return <h3 id={id} className="text-xl mb-3 mt-8" {...props} />;
   },
   p: ({ ...props }) => (
-    <p className="mb-4 leading-relaxed text-foreground/90" {...props} />
+    <p
+      className="mb-4 last:mb-0 leading-relaxed text-foreground/90"
+      {...props}
+    />
   ),
   ul: ({ ...props }) => (
     <ul className="list-none space-y-2 mb-4 ml-6" {...props} />
@@ -59,14 +62,14 @@ export const mdCustomStyle = {
     const match = /language-(\w+)/.exec(className || "");
     return match ? (
       <code
-        className={`${className} block bg-slate-900 text-slate-100 rounded-lg p-4 mb-4 overflow-x-auto text-sm`}
+        className={`${className} block bg-slate-900 text-slate-100 rounded-lg p-4 mb-4 text-sm`}
         {...props}
       >
         {children}
       </code>
     ) : (
       <code
-        className="bg-accent/50 text-primary px-1.5 py-0.5 rounded text-sm"
+        className="bg-accent/30 text-primary px-1.5 py-0.5 rounded text-sm"
         {...props}
       >
         {children}
@@ -75,14 +78,14 @@ export const mdCustomStyle = {
   },
   pre: ({ ...props }) => (
     <pre
-      className="mb-4 rounded-lg overflow-hidden"
+      className="mb-4 rounded-lg whitespace-pre-wrap w-full overflow-x-auto"
       style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
       {...props}
     />
   ),
   blockquote: ({ ...props }) => (
     <blockquote
-      className="border-l-4 border-primary/60 bg-accent/30 pl-4 pr-4 py-3 mb-4 italic rounded-r-lg"
+      className="border-l-4 border-primary/60 bg-accent/30 px-4 py-3 mb-4 italic rounded-r-lg"
       {...props}
     />
   ),

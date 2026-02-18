@@ -41,7 +41,7 @@ export default function PostCard({
       </div>
       <div className="h-full p-5 bg-card w-full">
         <div className="relative h-full flex flex-col">
-          <div className="flex flex-col mb-6">
+          <div className="flex flex-col mb-5">
             <h2 className="font-semibold text-[1.25rem] mb-1">{title}</h2>
             <div className="text-sm flex gap-1 items-center pl-0.5">
               <FolderOpen className="w-3 h-3 text-primary" />

@@ -73,7 +73,7 @@ export default function NavClient({ data }: NavClientProps) {
   return (
     <aside
       className={cn(
-        "flex flex-col justify-between h-screen shrink-0 z-25 w-0 2xl:w-80 absolute top-0 left-0 2xl:static bg-card font-noto-serif overflow-hidden border-r border-sidebar-border",
+        "flex flex-col justify-between h-screen shrink-0 z-25 w-0 2xl:w-80 absolute top-0 left-0 2xl:static bg-card overflow-hidden border-r border-sidebar-border",
         open ? "w-80" : "w-0",
       )}
       style={{

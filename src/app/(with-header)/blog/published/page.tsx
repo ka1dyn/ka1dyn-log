@@ -47,7 +47,7 @@ export default async function Page({
             <Link
               href={`/blog/published?series=${key}`}
               key={key}
-              className="flex gap-1 bg-primary/20  border-sidebar-border px-3 py-[5px] rounded-full text-foreground text-md "
+              className="flex gap-1 bg-primary/20 transition-all duration-200 ease-out hover:bg-primary hover:text-primary-foreground border-sidebar-border px-3 py-[5px] rounded-full text-foreground text-md "
             >
               <span className="font-medium">{key}</span>
               <span>{`(${value})`}</span>
