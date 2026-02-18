@@ -62,7 +62,7 @@ export default async function Page({
 
       <div className="w-full max-w-[90ch] text-foreground flex flex-col gap-10">
         <div
-          className="w-full flex flex-col p-8 pb-5 bg-card gap-10 rounded-lg"
+          className="w-full flex flex-col p-8 pb-5 bg-card gap-10 rounded-md"
           style={{
             boxShadow: "var(--paper-shadow)",
           }}
@@ -81,20 +81,24 @@ export default async function Page({
             </div>
           </div>
 
-          <div className="px-6 py-4 bg-accent/30 flex flex-col rounded-lg">
-            <div className="flex items-center gap-2 mb-5">
+          <div className="flex flex-col mb-4">
+            <div className="px-2 py-2 flex items-center gap-2">
               <List className="w-5 h-5 text-primary" />
-              <span className="text-xl font-semibold text-foreground">
+              <span className="text-md font-semibold text-foreground">
                 목차
               </span>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col max-h-[350px] overflow-auto border-y border-sidebar-border">
               {tocData.map((data) => {
-                const { depth, text } = data;
+                const { orderTxt, depth, text } = data;
 
                 return (
                   <React.Fragment key={text}>
-                    <PageTocItem depth={depth} text={text} />
+                    <PageTocItem
+                      depth={depth}
+                      text={text}
+                      orderTxt={orderTxt}
+                    />
                   </React.Fragment>
                 );
               })}
@@ -103,7 +107,7 @@ export default async function Page({
         </div>
 
         <div
-          className="w-full p-8 bg-card gap-10 rounded-lg font-pretendard"
+          className="w-full p-8 bg-card gap-10 rounded-md font-pretendard"
           style={{
             boxShadow: "var(--paper-shadow)",
           }}

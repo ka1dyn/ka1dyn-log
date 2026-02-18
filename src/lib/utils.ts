@@ -16,13 +16,28 @@ export function dateFormat(date: Date) {
 export const getTocData = (source: string) => {
   const headings = source.split("\n").filter((str) => str.match(/^#+/));
 
+  const orderCntArr = [0, 0, 0, 0];
+
   return headings.map((str) => {
     const match = str.match(/^#+/) as RegExpMatchArray;
 
     const depth = match[0].length || 0;
+    orderCntArr[depth] += 1;
     const headingText = str.replace(/^#+/, "").trim();
 
-    return { depth: depth, text: headingText };
+    let orderTxt = "";
+    if (depth === 1) {
+      orderCntArr[2] = 0;
+      orderCntArr[3] = 0;
+      orderTxt = `${orderCntArr[1]}. `;
+    } else if (depth === 2) {
+      orderCntArr[3] = 0;
+      orderTxt = `${orderCntArr[1]}.${orderCntArr[2]}. `;
+    } else if (depth === 3) {
+      orderTxt = `${orderCntArr[1]}.${orderCntArr[2]}.${orderCntArr[3]}. `;
+    }
+
+    return { orderTxt: orderTxt, depth: depth, text: headingText };
   });
 };
 
