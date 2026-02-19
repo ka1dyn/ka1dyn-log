@@ -61,7 +61,7 @@ export default async function Page({
     <div className="relative w-full flex flex-col items-center">
       <BreadCrumbUpdater path={path} />
 
-      <div className="absolute h-full top-0 right-20 width-[1000px] translate-x-full hidden 2xl:block">
+      <div className="absolute h-full top-0 right-30 max-w-[140px] min-[1800px]:max-w-[300px] break-all translate-x-full hidden 2xl:block">
         <SideToc tocData={tocData} />
       </div>
 
