@@ -84,12 +84,24 @@ export const mdCustomStyle = {
   // ),
   blockquote: ({ ...props }) => (
     <blockquote
-      className="border-l-4 border-primary/60 bg-accent/30 px-4 py-3 mb-4 italic"
+      className="border-l-4 border-primary/60 bg-accent/30 px-4 py-3 mb-4 italic 
+      [&_p:first-child]:before:content-['💡'] 
+      [&_p:first-child]:before:mr-2 
+      [&_p:first-child]:before:not-italic"
       {...props}
     />
   ),
   strong: ({ ...props }) => (
     <strong className="font-semibold text-foreground" {...props} />
+  ),
+  a: ({ ...props }) => (
+    <a
+      className="underline underline-offset-4 text-primary mr-2
+      after:content-['↗'] 
+      after:text-[0.8em]"
+      target="_blank"
+      {...props}
+    />
   ),
 };
 

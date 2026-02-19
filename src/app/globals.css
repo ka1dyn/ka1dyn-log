@@ -146,6 +146,21 @@
   }
   body {
     @apply bg-background text-foreground;
+    overflow-y: overlay;
+  }
+
+  /* 스크롤바의 폭 너비 */
+  #toc::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  #toc::-webkit-scrollbar-thumb {
+    background: var(--color-primary); /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+  }
+
+  #toc::-webkit-scrollbar-track {
+    background: var(--color-background); /*스크롤바 뒷 배경 색상*/
   }
 
   /**

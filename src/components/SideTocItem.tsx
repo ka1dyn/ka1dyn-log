@@ -1,19 +1,18 @@
 "use client";
 
 import { cn, textToId } from "@/lib/utils";
-import Link from "next/link";
 
-interface PageTocItemProps {
+interface SideTocItemProps {
   depth: number;
   text: string;
-  orderTxt: string;
+  highlight: boolean;
 }
 
-export default function PageTocItem({
+export default function SideTocItem({
   depth,
   text,
-  orderTxt,
-}: PageTocItemProps) {
+  highlight,
+}: SideTocItemProps) {
   const textId = textToId(text);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -23,6 +22,7 @@ export default function PageTocItem({
 
     // Disable basic link operation
     e.preventDefault();
+
     const elementPosition = targetElement.offsetTop;
     const finalPosition = elementPosition;
 
@@ -37,24 +37,16 @@ export default function PageTocItem({
   return (
     <div
       className={cn(
-        "cursor-pointer bg-card px-2 py-2.5 border-x border-b border-sidebar-border text-sm",
-        depth === 1 && "bg-accent/30",
-        depth === 2 && "bg-accent/10",
-        depth === 3 && "",
+        "cursor-pointer",
+        highlight &&
+          "font-semibold text-foreground underline underline-offset-2",
+        depth === 1 && "",
+        depth === 2 && "ml-4 ",
+        depth === 3 && "ml-8 ",
       )}
       onClick={handleClick}
     >
-      <div
-        className={cn(
-          "flex gap-2",
-          depth === 1 && "",
-          depth === 2 && "ml-4",
-          depth === 3 && "ml-8",
-        )}
-      >
-        <span>{orderTxt}</span>
-        <span>{text}</span>
-      </div>
+      {text}
     </div>
   );
 }

@@ -50,7 +50,9 @@ code ::selection {
 pre {
   padding: 1em;
   margin: 0.5em 0;
-  overflow: auto;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
 }
 
 pre {
@@ -58,14 +60,17 @@ pre {
 }
 
 :not(pre) > code {
-  color: var(--color-primary);
-  background: color-mix(in srgb, var(--color-accent), transparent 70%);
+  color: color-mix(in srgb, var(--color-foreground) 90%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
 /* Inline code */
 :not(pre) > code {
   padding: 0.1em 0.3em;
   border-radius: 0.3em;
+  white-space: wrap;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .token.comment,

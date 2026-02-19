@@ -7,6 +7,7 @@ import { dateFormat, getTocData, replaceSrc } from "@/lib/utils";
 import Category from "@/components/Category";
 import PageTocItem from "@/components/PageTocItem";
 import React from "react";
+import SideToc from "@/components/SideToc";
 
 export async function generateStaticParams() {
   const posts = await fetchPosts("/blog");
@@ -57,8 +58,12 @@ export default async function Page({
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="relative w-full flex flex-col items-center">
       <BreadCrumbUpdater path={path} />
+
+      <div className="absolute h-full top-0 right-20 width-[1000px] translate-x-full hidden 2xl:block">
+        <SideToc tocData={tocData} />
+      </div>
 
       <div className="w-full max-w-[90ch] text-foreground flex flex-col gap-10">
         <div
@@ -72,7 +77,7 @@ export default async function Page({
             <div className="flex gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Tag className="w-4 h-4 text-muted-foreground" />
-                <Category name={category} className="text-sm" />
+                <Category name={category} className="text-sm py-0.5 px-1.5" />
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-muted-foreground" />
@@ -88,7 +93,10 @@ export default async function Page({
                 목차
               </span>
             </div>
-            <div className="flex flex-col max-h-[350px] overflow-auto border-y border-sidebar-border">
+            <div
+              id="toc"
+              className="flex flex-col max-h-[350px] overflow-auto border-y border-sidebar-border"
+            >
               {tocData.map((data) => {
                 const { orderTxt, depth, text } = data;
 
