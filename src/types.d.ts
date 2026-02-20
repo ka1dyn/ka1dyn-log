@@ -1,6 +1,6 @@
 interface MarkdownFront {
   title: string;
-  date: Date;
+  date: string;
   category: string;
   lock: boolean;
   isPublish: boolean;
@@ -24,7 +24,7 @@ interface TreeObj {
   children: Record<string, TreeObj>;
   isLeaf: boolean;
   path?: string;
-  createdDate?: Date;
+  createdDate?: string;
   isPublish?: boolean;
 }
 

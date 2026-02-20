@@ -3,7 +3,7 @@ import { readFileSync, statSync, existsSync } from "fs";
 import matter from "gray-matter";
 import { glob } from "glob";
 import { cache } from "react";
-import { replaceSrc } from "./utils";
+import { replaceSrc } from "../src/lib/utils";
 
 const fetchPosts = cache(async (contentPath: string) => {
   console.log("fetch start!");

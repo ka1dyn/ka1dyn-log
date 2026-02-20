@@ -1,7 +1,7 @@
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import Category from "@/components/Category";
 import PostCard from "@/components/PostCard";
-import { getAllSeries, publishedPosts } from "@/lib/fetch";
+import { getAllSeries, getPublishedPosts } from "@/lib/posts";
 import { cn, dateFormat } from "@/lib/utils";
 import { Filter } from "lucide-react";
 import Link from "next/link";
@@ -15,8 +15,8 @@ export default async function Page({
   if (!category) category = "전체";
   if (!series) series = "전체";
 
-  const published = await publishedPosts("/blog");
-  const seriesInfo = await getAllSeries("/blog");
+  const published = getPublishedPosts();
+  const seriesInfo = getAllSeries();
 
   console.log(published);
 
@@ -36,7 +36,9 @@ export default async function Page({
 
   slugs.sort((a, b) => b.localeCompare(a));
   const recentUpdated =
-    slugs.length === 0 ? "-" : dateFormat(published[slugs[0]].front.date);
+    slugs.length === 0
+      ? "-"
+      : dateFormat(new Date(published[slugs[0]].front.date));
 
   const isSeries = series !== "전체";
 
@@ -143,7 +145,7 @@ export default async function Page({
                 thumbnail={thumbnail}
                 slug={slug}
                 title={title}
-                date={date}
+                date={new Date(date)}
                 category={category}
                 lock={lock}
                 description={description}

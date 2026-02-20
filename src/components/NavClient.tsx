@@ -1,5 +1,6 @@
 "use client";
 
+import blogPosts from "@/generated/posts.json";
 import { TreeItem } from "./TreeItem";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { BookMarked, BookOpen } from "lucide-react";
@@ -7,19 +8,12 @@ import Line from "./Line";
 import NavFilter from "./NavFilter";
 import Link from "next/link";
 import { cn, generateTree } from "@/lib/utils";
-import { publishedPosts } from "@/lib/fetch";
 import { useNavTriggerStore } from "@/stores";
 import { useShallow } from "zustand/shallow";
+import { getPublishedPosts } from "@/lib/posts";
 
-interface NavClientProps {
-  data: {
-    blogPosts: PostData;
-    blogPublished: PostData;
-  };
-}
-
-export default function NavClient({ data }: NavClientProps) {
-  const { blogPosts, blogPublished } = data;
+export default function NavClient() {
+  const blogPublished = getPublishedPosts();
   const publishedCount = Object.keys(blogPublished).length;
 
   const { isPublish, open } = useNavTriggerStore(

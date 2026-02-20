@@ -1,4 +1,3 @@
-import { fetchPosts } from "@/lib/fetch";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import { mdCustomOption, mdCustomStyle } from "./markdownOptions";
@@ -8,10 +7,10 @@ import Category from "@/components/Category";
 import PageTocItem from "@/components/PageTocItem";
 import React from "react";
 import SideToc from "@/components/SideToc";
+import { getPosts } from "@/lib/posts";
 
 export async function generateStaticParams() {
-  const posts = await fetchPosts("/blog");
-
+  const posts = getPosts();
   const slugs = Object.keys(posts);
 
   return slugs.map((slug) => {
@@ -34,17 +33,16 @@ export default async function Page({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
+  const posts = getPosts();
   const decodedSlug = slug.map((segment) => decodeURIComponent(segment));
 
   const path = `/${decodedSlug.join("/")}`;
-
-  const posts = await fetchPosts("/blog");
 
   const { content, front } = posts[path];
   const { title, date, category, lock } = front;
 
   const tocData = getTocData(content);
-  const dateKR = dateFormat(date);
+  const dateKR = dateFormat(new Date(date));
 
   const mdxComponents = {
     img: (props: any) => {

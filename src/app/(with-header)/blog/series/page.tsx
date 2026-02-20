@@ -1,8 +1,8 @@
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
-import { getAllSeries } from "@/lib/fetch";
+import { getAllSeries } from "@/lib/posts";
 
-export default async function Page() {
-  const seriesList = await getAllSeries("/blog");
+export default function Page() {
+  const seriesList = getAllSeries();
 
   console.log(seriesList);
 

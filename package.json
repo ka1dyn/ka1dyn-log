@@ -2,11 +2,14 @@
   "name": "blog",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "contents-update": "git submodule update --remote --recursive",
-    "copy-images": "npm run contents-update && node scripts/copy-images.mjs",
-    "dev": "npm run copy-images && next dev",
-    "build": "npm run copy-images && next build",
+    "generate": "tsx ./scripts/generate-posts.ts",
+    "copy-images": "node scripts/copy-images.mjs",
+    "markdown-ready": "npm run contents-update && npm run copy-images && npm run generate",
+    "dev": "npm run markdown-ready && next dev",
+    "build": "npm run markdown-ready && next build",
     "start": "next start",
     "lint": "eslint"
   },

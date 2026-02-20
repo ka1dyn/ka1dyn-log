@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavDataContainer from "@/components/NavDataContainer";
 import { Suspense } from "react";
-import { useNavTriggerStore } from "@/stores";
-import { useShallow } from "zustand/shallow";
 import Overlay from "@/components/Overlay";
+import NavClient from "@/components/NavClient";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +21,7 @@ export default function RootLayout({
       >
         <div className="root flex w-full h-screen">
           <Suspense>
-            <NavDataContainer />
+            <NavClient />
           </Suspense>
 
           <div id="main" className="w-full overflow-y-scroll">

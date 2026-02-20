@@ -52,8 +52,8 @@ export function TreeItem({
 
     // If file, sort by created date
     if (a.isLeaf) {
-      const createdA = a.createdDate?.getTime() || 0;
-      const createdB = b.createdDate?.getTime() || 0;
+      const createdA = a.createdDate ? new Date(a.createdDate).getTime() : 0;
+      const createdB = b.createdDate ? new Date(b.createdDate).getTime() : 0;
       return createdA - createdB;
     }
 
