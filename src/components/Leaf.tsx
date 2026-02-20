@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { NotebookText, StickyNote } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface LeafProps {
   name: string;
@@ -9,20 +9,12 @@ interface LeafProps {
 }
 
 export default function Leaf({ name, path, isPublish }: LeafProps) {
-  const router = useRouter();
-
-  const navClick = () => {
-    if (path) {
-      router.push(`/blog${path}`);
-    } else {
-      router.push("/");
-    }
-  };
+  const fullPath = path ? `/blog${path}` : "/";
 
   return (
-    <div
+    <Link
+      href={fullPath}
       className="w-full rounded-lg flex items-center py-1.5 pl-2 hover:bg-accent/20 group/leaf relative"
-      onClick={navClick}
     >
       {/* <div className="w-4"></div> */}
       <div className="ml-7 flex items-center gap-3">
@@ -40,6 +32,6 @@ export default function Leaf({ name, path, isPublish }: LeafProps) {
           )}
         ></div>
       </div>
-    </div>
+    </Link>
   );
 }

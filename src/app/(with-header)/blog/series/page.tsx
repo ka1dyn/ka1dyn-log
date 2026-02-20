@@ -3,9 +3,6 @@ import { getAllSeries } from "@/lib/posts";
 
 export default function Page() {
   const seriesList = getAllSeries();
-
-  console.log(seriesList);
-
   return (
     <div>
       <BreadCrumbUpdater path={"/Series"} />

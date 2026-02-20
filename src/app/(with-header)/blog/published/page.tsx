@@ -18,10 +18,6 @@ export default async function Page({
   const published = getPublishedPosts();
   const seriesInfo = getAllSeries();
 
-  console.log(published);
-
-  console.log(seriesInfo);
-
   const slugs = Object.keys(published).filter((slug) => {
     const post = published[slug];
     const { front } = post;
