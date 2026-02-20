@@ -18,6 +18,10 @@ export default async function Page({
   const published = await publishedPosts("/blog");
   const seriesInfo = await getAllSeries("/blog");
 
+  console.log(published);
+
+  console.log(seriesInfo);
+
   const slugs = Object.keys(published).filter((slug) => {
     const post = published[slug];
     const { front } = post;

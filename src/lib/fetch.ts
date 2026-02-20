@@ -6,12 +6,15 @@ import { cache } from "react";
 import { replaceSrc } from "./utils";
 
 const fetchPosts = cache(async (contentPath: string) => {
+  console.log("fetch start!");
   const projectPath = process.cwd();
 
   // Get contents from submodule
   const fullPath = `${projectPath}/contents${contentPath}`;
   // Get Markdown file paths
   const mdFiles = await glob(`${fullPath}/**/*.md`);
+
+  console.log("check md Files:", mdFiles);
 
   // Get data from each posts
   const posts: PostData = {};
