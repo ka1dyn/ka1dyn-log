@@ -65,13 +65,13 @@ export default async function Page({
 
       <div className="w-full max-w-[90ch] text-foreground flex flex-col gap-10">
         <div
-          className="w-full flex flex-col p-8 pb-5 bg-card gap-10 rounded-md"
+          className="w-full flex flex-col px-3 py-6 sm:p-8 pb-5 bg-card gap-5 sm:gap-10 rounded-md"
           style={{
             boxShadow: "var(--paper-shadow)",
           }}
         >
           <div className="flex flex-col">
-            <h1 className="text-4xl font-semibold mb-5">{title}</h1>
+            <h1 className="text-3xl sm:text-4xl font-semibold mb-5">{title}</h1>
             <div className="flex gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Tag className="w-4 h-4 text-muted-foreground" />
@@ -113,7 +113,7 @@ export default async function Page({
         </div>
 
         <div
-          className="w-full p-8 bg-card gap-10 rounded-md font-pretendard"
+          className="w-full px-2 py-6 sm:p-8 bg-card gap-10 rounded-md font-pretendard text-sm sm:text-base"
           style={{
             boxShadow: "var(--paper-shadow)",
           }}

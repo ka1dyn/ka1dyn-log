@@ -12,7 +12,7 @@ code,
 pre {
   color: #a9b7c6;
   font-family: Consolas, Monaco, "Andale Mono", monospace;
-  font-size: 14px;
+  font-size: 0.8rem;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -52,7 +52,10 @@ pre {
   margin: 0.5em 0;
   width: 100%;
   min-width: 0;
-  overflow-x: auto;
+  overflow: auto;
+
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 pre {
