@@ -5,6 +5,7 @@ import { getAllSeries, getPublishedPosts } from "@/lib/posts";
 import { cn, dateFormat } from "@/lib/utils";
 import { Filter } from "lucide-react";
 import Link from "next/link";
+import AnimatedGrid from "./AnimatedGrid";
 
 export default async function Page({
   searchParams,
@@ -121,35 +122,7 @@ export default async function Page({
 
       {/* Grid view */}
       <div className="flex w-full">
-        <div
-          className={cn(
-            "grid w-fit mx-auto justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12",
-            // slugs.length === 1 && "md:grid-cols-1 xl:grid-cols-1 w-full",
-            // slugs.length === 2 && "md:grid-cols-2 xl:grid-cols-2 w-full",
-          )}
-        >
-          {slugs.map((slug) => {
-            const info = published[slug];
-
-            const { content, front } = info;
-            const { title, date, category, lock, description, thumbnail } =
-              front;
-
-            return (
-              <PostCard
-                key={slug}
-                thumbnail={thumbnail}
-                slug={slug}
-                title={title}
-                date={new Date(date)}
-                category={category}
-                lock={lock}
-                description={description}
-                content={content}
-              />
-            );
-          })}
-        </div>
+        <AnimatedGrid slugs={slugs} published={published} />
       </div>
     </div>
   );
