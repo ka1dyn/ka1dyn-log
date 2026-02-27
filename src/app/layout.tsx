@@ -24,10 +24,9 @@ export default function RootLayout({
             <NavClient />
           </Suspense>
 
-          <div id="main" className="w-full overflow-y-scroll">
-            <Overlay />
-            {children}
-          </div>
+          <Overlay />
+
+          <div className="w-full">{children}</div>
         </div>
       </body>
     </html>

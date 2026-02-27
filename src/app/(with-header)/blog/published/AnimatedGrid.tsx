@@ -1,6 +1,7 @@
 "use client";
 
 import PostCard from "@/components/PostCard";
+import { useMediaQuery } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,14 +15,24 @@ const POSTS_PER_PAGE = 6;
 export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
-  const totalPages = 16;
+  const totalPages = Math.ceil(slugs.length / POSTS_PER_PAGE);
 
   const getCurrentPageSlugs = () => {
     const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
     const endIndex = startIndex + POSTS_PER_PAGE;
     return slugs.slice(startIndex, endIndex);
   };
+
+  useEffect(() => {
+    if (slugs.length === 0) return;
+    setCurrentPage(1);
+  }, [slugs]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   useEffect(() => {
     if (getCurrentPageSlugs().length === 0) return;
@@ -60,18 +71,40 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
 
   const Pagination = () => {
     const getPageNumbers = () => {
-      if (totalPages <= 5) {
-        return Array.from({ length: totalPages }, (_, i) => i + 1);
-      }
-
-      if (currentPage <= 3) {
-        return [1, 2, 3, 4, "...", totalPages];
-      }
-
-      if (currentPage > totalPages - 3) {
+      if (isMobile) {
+        if (totalPages <= 5) {
+          return Array.from({ length: totalPages }, (_, i) => i + 1);
+        }
+        if (currentPage <= 3) {
+          return [1, 2, 3, "...", totalPages];
+        }
+        if (currentPage > totalPages - 3) {
+          return [1, "...", totalPages - 2, totalPages - 1, totalPages];
+        }
         return [
           1,
           "...",
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          "...",
+          totalPages,
+        ];
+      }
+
+      if (totalPages <= 7) {
+        return Array.from({ length: totalPages }, (_, i) => i + 1);
+      }
+
+      if (currentPage <= 4) {
+        return [1, 2, 3, 4, 5, "...", totalPages];
+      }
+
+      if (currentPage > totalPages - 4) {
+        return [
+          1,
+          "...",
+          totalPages - 4,
           totalPages - 3,
           totalPages - 2,
           totalPages - 1,
@@ -97,7 +130,7 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-4 py-2 disabled:opacity-50"
+          className="px-4 py-2 cursor-pointer disabled:opacity-50 disabled:cursor-default"
         >
           {"<"}
         </button>
@@ -106,12 +139,15 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
             <button
               key={index}
               onClick={() => setCurrentPage(page)}
-              className={cn("px-4 py-2", currentPage === page && "font-bold")}
+              className={cn(
+                "px-3 py-2 text-foreground cursor-pointer font-extralight",
+                currentPage === page && "font-bold",
+              )}
             >
               {page}
             </button>
           ) : (
-            <span key={index} className="px-4 py-2">
+            <span key={index} className="px-3 py-2">
               {page}
             </span>
           ),
@@ -121,7 +157,7 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
-          className="px-4 py-2 disabled:opacity-50"
+          className="px-4 py-2 cursor-pointer disabled:opacity-50 disabled:cursor-default"
         >
           {">"}
         </button>
@@ -130,7 +166,7 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
   };
 
   return (
-    <>
+    <div className="flex flex-col w-full gap-5">
       <div
         className={cn(
           "grid w-fit mx-auto justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12",
@@ -161,6 +197,6 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
         })}
       </div>
       {totalPages > 1 && <Pagination />}
-    </>
+    </div>
   );
 }

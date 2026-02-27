@@ -62,7 +62,7 @@ export default function SideToc({ tocData }: SideToc) {
   return (
     <div
       className={cn(
-        "sticky top-35 left-0 flex flex-col gap-2 text-sm text-muted-foreground pl-3 font-pretendard border-l-2 border-accent/30",
+        "sticky top-15 left-0 flex flex-col gap-2 text-sm text-muted-foreground pl-3 font-pretendard border-l-2 border-accent/30",
         "transition-all duration-400 ease-out opacity-100",
         scrollIdx === 0 && "opacity-0",
       )}
