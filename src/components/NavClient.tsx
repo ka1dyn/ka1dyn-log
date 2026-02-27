@@ -16,10 +16,11 @@ export default function NavClient() {
   const blogPublished = getPublishedPosts();
   const publishedCount = Object.keys(blogPublished).length;
 
-  const { isPublish, open } = useNavTriggerStore(
+  const { isPublish, open, navClose } = useNavTriggerStore(
     useShallow((state) => ({
       isPublish: state.isPublish,
       open: state.open,
+      navClose: state.navClose,
     })),
   );
 
@@ -90,13 +91,25 @@ export default function NavClient() {
           <Line isDefault={false} name="집필 공간" />
 
           <section className="w-full flex justify-center gap-2 text-sm mt-5">
-            <Link href="/" className="w-20 text-center">
+            <Link
+              href="/"
+              className="w-20 text-center"
+              onClick={() => navClose()}
+            >
               홈
             </Link>
-            <Link href="/introduce" className="w-20 text-center">
+            <Link
+              href="/introduce"
+              className="w-20 text-center"
+              onClick={() => navClose()}
+            >
               소개
             </Link>
-            <Link href="/blog/series" className="w-20 text-center">
+            <Link
+              href="/blog/series"
+              className="w-20 text-center"
+              onClick={() => navClose()}
+            >
               모음집
             </Link>
           </section>
@@ -105,6 +118,7 @@ export default function NavClient() {
 
           <Link
             href="/blog/published"
+            onClick={() => navClose()}
             className={cn(
               "relative group/publish w-full rounded-r-lg flex items-center mb-6 bg-linear-to-r from-primary hover:opacity-95 to-primary/90 border-secondary-foreground/60 hover:border-accent-foreground overflow-hidden",
               "px-3 py-3 border-l-6 transition-all duration-200 inset-shadow-2xs shadow-md",
