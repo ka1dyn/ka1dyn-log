@@ -2,19 +2,29 @@
 
 import PostCard from "@/components/PostCard";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface AnimatedGridProps {
   slugs: string[];
   published: { [key: string]: any };
 }
 
+const POSTS_PER_PAGE = 6;
+
 export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = 16;
+
+  const getCurrentPageSlugs = () => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    const endIndex = startIndex + POSTS_PER_PAGE;
+    return slugs.slice(startIndex, endIndex);
+  };
 
   useEffect(() => {
-    if (slugs.length === 0) return;
-    const cards = cardRefs.current;
+    if (getCurrentPageSlugs().length === 0) return;
 
     const observer = new IntersectionObserver((entries) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
@@ -46,40 +56,111 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
     return () => {
       observer.disconnect();
     };
-  }, [slugs]);
+  }, [slugs, currentPage]);
+
+  const Pagination = () => {
+    const getPageNumbers = () => {
+      if (totalPages <= 5) {
+        return Array.from({ length: totalPages }, (_, i) => i + 1);
+      }
+
+      if (currentPage <= 3) {
+        return [1, 2, 3, 4, "...", totalPages];
+      }
+
+      if (currentPage > totalPages - 3) {
+        return [
+          1,
+          "...",
+          totalPages - 3,
+          totalPages - 2,
+          totalPages - 1,
+          totalPages,
+        ];
+      }
+
+      return [
+        1,
+        "...",
+        currentPage - 1,
+        currentPage,
+        currentPage + 1,
+        "...",
+        totalPages,
+      ];
+    };
+
+    const pages = getPageNumbers();
+
+    return (
+      <div className="flex justify-center items-center space-x-2 mt-8">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 disabled:opacity-50"
+        >
+          {"<"}
+        </button>
+        {pages.map((page, index) =>
+          typeof page === "number" ? (
+            <button
+              key={index}
+              onClick={() => setCurrentPage(page)}
+              className={cn("px-4 py-2", currentPage === page && "font-bold")}
+            >
+              {page}
+            </button>
+          ) : (
+            <span key={index} className="px-4 py-2">
+              {page}
+            </span>
+          ),
+        )}
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 disabled:opacity-50"
+        >
+          {">"}
+        </button>
+      </div>
+    );
+  };
 
   return (
-    <div
-      className={cn(
-        "grid w-fit mx-auto justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12",
-        // slugs.length === 1 && "md:grid-cols-1 xl:grid-cols-1 w-full",
-        // slugs.length === 2 && "md:grid-cols-2 xl:grid-cols-2 w-full",
-      )}
-      key={slugs.join(",")}
-    >
-      {slugs.map((slug, idx) => {
-        const info = published[slug];
+    <>
+      <div
+        className={cn(
+          "grid w-fit mx-auto justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12",
+        )}
+        key={slugs.join(",") + currentPage}
+      >
+        {getCurrentPageSlugs().map((slug, idx) => {
+          const info = published[slug];
+          const { front } = info;
+          const { title, date, category, lock, description, thumbnail } = front;
 
-        const { content, front } = info;
-        const { title, date, category, lock, description, thumbnail } = front;
-
-        return (
-          <PostCard
-            ref={(card: HTMLAnchorElement | null) => {
-              cardRefs.current[idx] = card;
-            }}
-            key={slug}
-            thumbnail={thumbnail}
-            slug={slug}
-            title={title}
-            date={new Date(date)}
-            category={category}
-            lock={lock}
-            description={description}
-            content={content}
-          />
-        );
-      })}
-    </div>
+          return (
+            <PostCard
+              ref={(card: HTMLAnchorElement | null) => {
+                cardRefs.current[idx] = card;
+              }}
+              key={slug}
+              thumbnail={thumbnail}
+              slug={slug}
+              title={title}
+              date={new Date(date)}
+              category={category}
+              lock={lock}
+              description={description}
+              content={info.content}
+            />
+          );
+        })}
+      </div>
+      {totalPages > 1 && <Pagination />}
+    </>
   );
 }

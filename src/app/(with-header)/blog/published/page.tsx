@@ -121,7 +121,7 @@ export default async function Page({
       </div>
 
       {/* Grid view */}
-      <div className="flex w-full">
+      <div className="flex flex-col w-full">
         <AnimatedGrid slugs={slugs} published={published} />
       </div>
     </div>
