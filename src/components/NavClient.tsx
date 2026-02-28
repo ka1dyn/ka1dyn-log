@@ -68,8 +68,11 @@ export default function NavClient() {
   return (
     <aside
       className={cn(
-        "flex flex-col justify-between h-screen shrink-0 z-25 w-0 2xl:w-80 absolute top-0 left-0 2xl:static bg-card overflow-hidden border-r border-sidebar-border",
-        open ? "w-80" : "w-0",
+        "sticky top-0 left-0 flex flex-col justify-between h-screen shrink-0 z-25 w-0 bg-card overflow-hidden",
+        "transition-all duration-200 ease-out",
+        open
+          ? "opacity-100 w-80 border-r border-sidebar-border"
+          : "opacity-0 w-0 border-0",
       )}
       style={{
         backgroundImage:

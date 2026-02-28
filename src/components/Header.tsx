@@ -14,12 +14,19 @@ import {
 import React from "react";
 import Link from "next/link";
 import { TextAlignJustify } from "lucide-react";
+import { useShallow } from "zustand/shallow";
 
 export default function Header() {
   const [crumbSegments, setCrumbSegments] = useState<Array<string>>(["Home"]);
   const crumb = useBreadStore((state) => state.crumb);
   const [screenBreak, setScreenBreak] = useState<string>("sm");
-  const navOpen = useNavTriggerStore((state) => state.navOpen);
+  const { open, navOpen, navClose } = useNavTriggerStore(
+    useShallow((state) => ({
+      open: state.open,
+      navOpen: state.navOpen,
+      navClose: state.navClose,
+    })),
+  );
 
   useEffect(() => {
     const checkScreen = () => {
@@ -108,8 +115,8 @@ export default function Header() {
       <div className="flex gap-10">
         <div className="flex gap-5 items-center">
           <TextAlignJustify
-            className="size-5 2xl:hidden cursor-pointer"
-            onClick={() => navOpen()}
+            className="size-5 cursor-pointer"
+            onClick={() => (open ? navClose() : navOpen())}
           />
           <Link
             className="-translate-y-px cursor-pointer font-semibold text-xl"

@@ -19,7 +19,7 @@ export default function RootLayout({
       <body
         className={`antialiased bg-background text-foreground font-noto-serif`}
       >
-        <div className="root flex w-full h-screen">
+        <div className="root flex w-full min-h-screen">
           <Suspense>
             <NavClient />
           </Suspense>

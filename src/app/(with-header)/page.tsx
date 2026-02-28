@@ -21,41 +21,41 @@ export default function Page() {
 
   return (
     <div className="flex flex-col w-full items-center">
-      <BreadCrumbUpdater path={"/"} />
+      {/* <BreadCrumbUpdater path={"/"} /> */}
 
       {/* ── 1. Hero ── */}
-      <section className="relative flex justify-center items-end bg-background w-full mb-20 py-6 h-[55vh] max-h-[650px] shrink-0 overflow-hidden">
-        {/* <HeroBackground /> */}
+      <section className="relative flex justify-center items-center bg-[#1e1b16] w-full mb-20 py-6 h-[calc(100vh-80px)] shrink-0 overflow-hidden">
+        <HeroBackground />
         <div className="relative w-full max-w-6xl h-90 px-2 sm:px-8 mb-5 min-w-0 flex items-center justify-between gap-10">
           {/* 좌측 텍스트 */}
           <div className="w-80 flex flex-col h-full shrink-0">
-            <div className="flex flex-col gap-8 z-10">
+            <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-3">
-                <h1 className="text-4xl font-bold tracking-tight">
+                <h1 className="text-4xl font-bold tracking-tight text-[#f5f1e8]">
                   Dev Library
                 </h1>
-                <p className="text-muted-foreground text-lg max-w-sm">
+                <p className="text-[#f5f1e8]/70 text-lg max-w-sm">
                   개발하며 배운 것들을 기록합니다
                 </p>
               </div>
               <Link
                 href="/blog/published"
-                className="w-fit flex gap-1 bg-primary/20 transition-all duration-200 ease-out hover:bg-primary hover:text-primary-foreground border border-primary/20 px-4 py-2 rounded-lg font-medium"
+                className="w-fit flex gap-1 bg-primary/30 text-[#f5f1e8] transition-all duration-200 ease-out hover:bg-primary hover:text-white border border-primary/20 px-4 py-2 rounded-lg font-medium z-30"
               >
                 글 목록 보기 →
               </Link>
             </div>
 
             {/* ── 2. 통계 배지 ── */}
-            <div className="absolute bottom-0 flex gap-3 text-sm items-center font-light justify-center md:justify-start translate-x-1">
+            <div className="absolute bottom-0 flex gap-3 text-sm items-center font-light justify-center md:justify-start translate-x-1 text-[#f5f1e8]/80">
               <span>
                 글 <span className="font-bold">{totalCount}편</span>
               </span>
-              <div className="h-4 w-px bg-primary/30" />
+              <div className="h-4 w-px bg-[#f5f1e8]/30" />
               <span>
                 <span className="font-bold">{seriesCount}</span>개 모음집
               </span>
-              <div className="h-4 w-px bg-primary/30" />
+              <div className="h-4 w-px bg-[#f5f1e8]/30" />
               <span>업데이트: {recentDate}</span>
             </div>
           </div>
@@ -63,24 +63,33 @@ export default function Page() {
           {/* 우측 장식 */}
           <div className="w-full max-w-150 h-full hidden md:flex md:items-start">
             {/* 코드 스니펫 블록 */}
-            <div className="flex items-center w-full h-full bg-primary/10 border border-primary/20 rounded-xl px-5 py-4 font-mono text-xs text-primary/70 leading-relaxed backdrop-blur-sm">
+            <div className="flex items-center w-full h-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 font-mono text-xs text-[#f5f1e8]/70 leading-relaxed backdrop-blur-md">
               <div className="leading-6">
-                <span className="text-primary/50">const</span> blog = {"{"}
+                <span className="text-primary/70">const</span> blog = {"{"}
                 <br />
                 &nbsp;&nbsp;author:{" "}
-                <span className="text-primary">&quot;ka1dyn&quot;</span>,
+                <span className="text-primary-foreground/90">
+                  &quot;ka1dyn&quot;
+                </span>
+                ,
                 <br />
                 &nbsp;&nbsp;focus:{" "}
-                <span className="text-primary">&quot;Frontend&quot;</span>,
+                <span className="text-primary-foreground/90">
+                  &quot;Frontend&quot;
+                </span>
+                ,
                 <br />
                 &nbsp;&nbsp;github:{" "}
-                <span className="text-primary">
+                <span className="text-primary-foreground/90">
                   &quot;https://github.com/ka1dyn&quot;
                 </span>
                 ,
                 <br />
                 &nbsp;&nbsp;portfolio:{" "}
-                <span className="text-primary">&quot;Frontend&quot;</span>,
+                <span className="text-primary-foreground/90">
+                  &quot;Frontend&quot;
+                </span>
+                ,
                 <br />
                 {"}"}
               </div>
