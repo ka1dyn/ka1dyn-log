@@ -2,8 +2,8 @@ import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import HomeCards from "./HomeCards";
 import { getAllSeries, getPublishedPosts } from "@/lib/posts";
 import { dateFormat } from "@/lib/utils";
-import { BookOpen, Code2, Layers, Star, Terminal } from "lucide-react";
 import Link from "next/link";
+import HeroBackground from "@/components/HeroBackground";
 
 export default function Page() {
   const published = getPublishedPosts();
@@ -18,14 +18,14 @@ export default function Page() {
   const seriesCount = Object.keys(seriesInfo).length - 1;
 
   const recentSlugs = slugs.slice(0, 3);
-  const recommendedSlugs = slugs.filter((s) => published[s].front.recommended);
 
   return (
     <div className="flex flex-col w-full items-center">
       <BreadCrumbUpdater path={"/"} />
 
       {/* ── 1. Hero ── */}
-      <section className="relative flex justify-center items-end bg-primary/5 w-full mb-20 py-6 h-[55vh] max-h-[650px] shrink-0">
+      <section className="relative flex justify-center items-end bg-background w-full mb-20 py-6 h-[55vh] max-h-[650px] shrink-0 overflow-hidden">
+        {/* <HeroBackground /> */}
         <div className="relative w-full max-w-6xl h-90 px-2 sm:px-8 mb-5 min-w-0 flex items-center justify-between gap-10">
           {/* 좌측 텍스트 */}
           <div className="w-80 flex flex-col h-full shrink-0">
@@ -62,14 +62,8 @@ export default function Page() {
 
           {/* 우측 장식 */}
           <div className="w-full max-w-150 h-full hidden md:flex md:items-start">
-            {/* 아이콘 군집 */}
-            {/* <BookOpen className="absolute top-2 left-4 w-8 h-8 text-primary/50" />
-            <Layers className="absolute top-6 right-8 w-6 h-6 text-primary/40" />
-            <Terminal className="absolute bottom-10 left-10 w-7 h-7 text-primary/45" />
-            <Code2 className="absolute top-16 left-28 w-5 h-5 text-primary/35" /> */}
-
             {/* 코드 스니펫 블록 */}
-            <div className="flex items-center w-full h-full bg-primary/10 border border-primary/20 rounded-xl px-5 py-4 font-mono text-xs text-primary/70 leading-relaxed">
+            <div className="flex items-center w-full h-full bg-primary/10 border border-primary/20 rounded-xl px-5 py-4 font-mono text-xs text-primary/70 leading-relaxed backdrop-blur-sm">
               <div className="leading-6">
                 <span className="text-primary/50">const</span> blog = {"{"}
                 <br />
