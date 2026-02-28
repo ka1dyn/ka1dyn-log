@@ -11,6 +11,7 @@ import { cn, generateTree } from "@/lib/utils";
 import { useNavTriggerStore } from "@/stores";
 import { useShallow } from "zustand/shallow";
 import { getPublishedPosts } from "@/lib/posts";
+import { useMediaQuery } from "@/lib/hooks";
 
 export default function NavClient() {
   const blogPublished = getPublishedPosts();
@@ -24,10 +25,20 @@ export default function NavClient() {
     })),
   );
 
+  const lg = useMediaQuery("(min-width: 1280px)", () => navClose());
+
   // Overflow detector
   const [overflow, setOverflow] = useState<boolean>(false);
 
   const target = useRef<HTMLDivElement>(null!);
+
+  const linkClick = () => {
+    if (lg) {
+      return;
+    }
+
+    navClose();
+  };
 
   useEffect(() => {
     const el = target.current;
@@ -68,7 +79,7 @@ export default function NavClient() {
   return (
     <aside
       className={cn(
-        "sticky top-0 left-0 flex flex-col justify-between h-screen shrink-0 z-25 w-0 bg-card overflow-hidden overscroll-contain",
+        "sticky top-0 left-0 flex flex-col justify-between h-screen shrink-0 z-80 w-0 bg-card overflow-hidden overscroll-contain",
         "transition-all duration-200 ease-out",
         open
           ? "opacity-100 w-80 border-r border-sidebar-border"
@@ -94,24 +105,20 @@ export default function NavClient() {
           <Line isDefault={false} name="집필 공간" />
 
           <section className="w-full flex justify-center gap-2 text-sm mt-5">
-            <Link
-              href="/"
-              className="w-20 text-center"
-              onClick={() => navClose()}
-            >
+            <Link href="/" className="w-20 text-center" onClick={linkClick}>
               홈
             </Link>
             <Link
               href="/introduce"
               className="w-20 text-center"
-              onClick={() => navClose()}
+              onClick={linkClick}
             >
               소개
             </Link>
             <Link
               href="/blog/series"
               className="w-20 text-center"
-              onClick={() => navClose()}
+              onClick={linkClick}
             >
               모음집
             </Link>
@@ -121,7 +128,7 @@ export default function NavClient() {
 
           <Link
             href="/blog/published"
-            onClick={() => navClose()}
+            onClick={linkClick}
             className={cn(
               "relative group/publish w-full rounded-r-lg flex items-center mb-6 bg-linear-to-r from-primary hover:opacity-95 to-primary/90 border-secondary-foreground/60 hover:border-accent-foreground overflow-hidden",
               "px-3 py-3 border-l-6 transition-all duration-200 inset-shadow-2xs shadow-md",

@@ -14,7 +14,7 @@ export default function Overlay() {
   return (
     open && (
       <div
-        className="absolute top-0 left-0 z-20 bg-black/80 2xl:hidden w-screen h-screen"
+        className="absolute top-0 left-0 z-50 bg-black/80 2xl:hidden w-screen h-screen"
         onClick={() => navClose()}
       ></div>
     )

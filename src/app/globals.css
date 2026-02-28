@@ -56,6 +56,8 @@
   --paper-shadow-up: 0 -6px 6px -4px rgba(139, 115, 85, 0.16);
   --paper-shadow-hover:
     0 4px 12px rgba(139, 115, 85, 0.12), 0 2px 6px rgba(139, 115, 85, 0.16);
+
+  --background-dark: #1e1b16;
 }
 
 .dark {
@@ -93,6 +95,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  --background-dark: #1e1b16;
 }
 
 @theme inline {
@@ -138,6 +142,8 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background-dark: var(--background-dark);
 }
 
 @layer base {

@@ -24,7 +24,7 @@ export default function Page() {
       {/* <BreadCrumbUpdater path={"/"} /> */}
 
       {/* ── 1. Hero ── */}
-      <section className="relative flex justify-center items-center bg-[#1e1b16] w-full mb-20 py-6 h-[calc(100vh-80px)] shrink-0 overflow-hidden">
+      <section className="relative flex justify-center items-center bg-background-dark w-full mb-20 py-6 h-[calc(100vh-80px)] shrink-0 overflow-hidden">
         <HeroBackground />
         <div className="relative w-full max-w-6xl h-90 px-2 sm:px-8 mb-5 min-w-0 flex items-center justify-between gap-10">
           {/* 좌측 텍스트 */}
