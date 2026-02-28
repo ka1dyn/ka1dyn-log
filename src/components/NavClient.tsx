@@ -68,7 +68,7 @@ export default function NavClient() {
   return (
     <aside
       className={cn(
-        "sticky top-0 left-0 flex flex-col justify-between h-screen shrink-0 z-25 w-0 bg-card overflow-hidden",
+        "sticky top-0 left-0 flex flex-col justify-between h-screen shrink-0 z-25 w-0 bg-card overflow-hidden overscroll-contain",
         "transition-all duration-200 ease-out",
         open
           ? "opacity-100 w-80 border-r border-sidebar-border"
