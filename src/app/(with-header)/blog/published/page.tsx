@@ -45,7 +45,7 @@ export default async function Page({
 
       <div className="flex flex-col items-center md:items-start mb-16">
         <div className="text-3xl mb-6 font-semibold">모음집</div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           {Object.entries(seriesInfo).map(([key, value], index) => (
             <Link
               href={`/blog/published?series=${key}`}

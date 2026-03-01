@@ -27,9 +27,9 @@ export default function Page() {
       <BreadCrumbUpdater path={"/"} />
 
       {/* ── 1. Hero ── */}
-      <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 min-h-[calc(100vh-80px)] overflow-hidden">
+      <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 h-[calc(100vh-80px)] max-h-[1100px] overflow-hidden">
         <HeroBackground />
-        <div className="relative w-full max-w-6xl min-w-0 h-100 flex flex-col  md:flex-row md:items-center justify-between gap-10 mt-10 px-6">
+        <div className="relative w-full max-w-6xl min-w-0 h-100 flex flex-col  md:flex-row md:items-center justify-between gap-10 mt-5 px-6">
           {/* 좌측 텍스트 */}
           <div className="w-full md:w-80 flex flex-col h-full md:shrink-0">
             <div className="flex flex-col gap-8">
@@ -125,7 +125,7 @@ export default function Page() {
           {/* ── 3. 추천 글 ── */}
           {recommendedSlugs.length > 0 && (
             <section className="flex flex-col gap-8 w-full">
-              <div className="flex flex-col items-end gap-2 md:flex-row md:justify-between">
+              <div className="flex flex-col items-center gap-2 md:flex-row md:items-end md:justify-between">
                 <div>
                   <h2 className="text-center md:text-start text-2xl font-semibold">
                     추천 글
@@ -161,7 +161,7 @@ export default function Page() {
 
           {/* ── 4. 최신 글 ── */}
           <section className="flex flex-col gap-8 w-full">
-            <div className="flex flex-col items-end gap-2 md:flex-row md:justify-between">
+            <div className="flex flex-col items-center gap-2 md:flex-row md:items-end md:justify-between">
               <div>
                 <h2 className="text-center md:text-start text-2xl font-semibold">
                   최신 글
