@@ -76,6 +76,7 @@ const fetchPosts = cache(async (contentPath: string) => {
       description: front.description || content.slice(0, 80),
       series: front.series || [],
       thumbnail: front.thumbnail,
+      recommended: front.recommended || false,
     };
 
     // Front validation

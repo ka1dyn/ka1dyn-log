@@ -7,7 +7,7 @@ interface MarkdownFront {
   description: string;
   series: Array<string>;
   thumbnail: string;
-  recommended?: boolean;
+  recommended: boolean;
 }
 
 interface MarkdownData {

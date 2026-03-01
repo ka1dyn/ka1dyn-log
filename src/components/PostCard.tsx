@@ -1,5 +1,5 @@
 import { cn, dateFormat } from "@/lib/utils";
-import { Clock, FolderOpen } from "lucide-react";
+import { Clock, FolderOpen, Star } from "lucide-react";
 import Link from "next/link";
 import readingTime from "reading-time";
 import Category from "./Category";
@@ -14,11 +14,22 @@ interface PostCardProps {
   lock: boolean;
   description: string;
   content: string;
+  recommended: boolean;
 }
 
 const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
   (
-    { slug, thumbnail, title, date, category, lock, description, content },
+    {
+      slug,
+      thumbnail,
+      title,
+      date,
+      category,
+      lock,
+      description,
+      content,
+      recommended,
+    },
     ref,
   ) => {
     const formattedDate = dateFormat(date);
@@ -37,6 +48,11 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
         )}
         data-visible="false"
       >
+        {/* <span className="absolute top-3 left-4 z-10 flex items-center gap-1 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow"> */}
+        {recommended && (
+          <Star className="absolute top-3 left-4 text-transparent size-4 fill-background" />
+        )}
+        {/* </span> */}
         <div className="h-47 shrink-0 flex items-center">
           <img className="w-full min-h-full" src={thumbnail} />
         </div>
@@ -68,14 +84,6 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
             </div>
           </div>
         </div>
-        <div
-          className="absolute -top-1 right-8 w-6 h-10 bg-primary opacity-0 group-hover:opacity-100 transition-all duration-300"
-          style={{
-            clipPath:
-              "polygon(0px 0px, 100% 0px, 100% 100%, 50% 85%, 0px 100%)",
-            boxShadow: "rgba(0, 0, 0, 0.2) 0px 2px 4px",
-          }}
-        />
       </Link>
     );
   },

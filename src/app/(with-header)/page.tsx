@@ -5,6 +5,7 @@ import { cn, dateFormat } from "@/lib/utils";
 import Link from "next/link";
 import HeroBackground from "@/components/HeroBackground";
 import TextType from "@/components/TextType";
+import { Star } from "lucide-react";
 
 export default function Page() {
   const published = getPublishedPosts();
@@ -19,6 +20,7 @@ export default function Page() {
   const seriesCount = Object.keys(seriesInfo).length - 1;
 
   const recentSlugs = slugs.slice(0, 3);
+  const recommendedSlugs = slugs.filter((s) => published[s].front.recommended);
 
   return (
     <div className="flex flex-col flex-1 items-center">
@@ -87,7 +89,7 @@ export default function Page() {
                 )}
               >
                 <div className="h-px w-8 bg-primary/30" />
-                Recomended Series
+                tech stack series
               </div>
               <div className="flex flex-wrap justify-start gap-2.5">
                 {Object.entries(seriesInfo)
@@ -121,38 +123,45 @@ export default function Page() {
       <div className="flex justify-center">
         <div className="w-full max-w-6xl min-w-0 flex flex-col gap-20 px-4 sm:px-8">
           {/* ── 3. 추천 글 ── */}
-          {/* {recommendedSlugs.length > 0 && (
-          <section className="flex flex-col gap-6">
-            <div className="flex flex-col items-center md:items-start gap-1">
-              <h2 className="text-2xl font-semibold flex items-center gap-2">
-                <Star className="w-5 h-5 text-primary fill-primary" />
-                추천 글
-              </h2>
-              <p className="text-muted-foreground text-sm">
-                꼭 한 번 읽어보길 추천하는 글이에요
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-fit mx-auto md:mx-0 justify-items-center">
-              <HomeCards
-                recommended
-                cards={recommendedSlugs.slice(0, 2).map((slug) => ({
-                  slug,
-                  thumbnail: published[slug].front.thumbnail,
-                  title: published[slug].front.title,
-                  date: published[slug].front.date,
-                  category: published[slug].front.category,
-                  lock: published[slug].front.lock,
-                  description: published[slug].front.description,
-                  content: published[slug].content,
-                }))}
-              />
-            </div>
-          </section>
-        )} */}
+          {recommendedSlugs.length > 0 && (
+            <section className="flex flex-col gap-8 w-full">
+              <div className="flex flex-col items-end gap-2 md:flex-row md:justify-between">
+                <div>
+                  <h2 className="text-center md:text-start text-2xl font-semibold">
+                    추천 글
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    꼭 한번 읽어보시길 추천하는 글이에요
+                  </p>
+                </div>
+                <Link
+                  href="/blog/published"
+                  className="hidden md:block text-xs text-primary hover:underline underline-offset-4 decoration-accent transition-all"
+                >
+                  전체 글 보기 →
+                </Link>
+              </div>
+              <div className="grid w-fit justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
+                <HomeCards
+                  cards={recommendedSlugs.slice(0, 6).map((slug) => ({
+                    slug,
+                    thumbnail: published[slug].front.thumbnail,
+                    title: published[slug].front.title,
+                    date: published[slug].front.date,
+                    category: published[slug].front.category,
+                    lock: published[slug].front.lock,
+                    description: published[slug].front.description,
+                    content: published[slug].content,
+                    recommended: published[slug].front.recommended,
+                  }))}
+                />
+              </div>
+            </section>
+          )}
 
-          {/* ── 4. 최근 글 ── */}
-          <section className="flex flex-col gap-6 w-full">
-            <div className="flex flex-col items-center gap-1 md:flex-row md:justify-between">
+          {/* ── 4. 최신 글 ── */}
+          <section className="flex flex-col gap-8 w-full">
+            <div className="flex flex-col items-center gap-2 md:flex-row md:justify-between">
               <div>
                 <h2 className="text-center md:text-start text-2xl font-semibold">
                   최신 글
@@ -163,7 +172,7 @@ export default function Page() {
               </div>
               <Link
                 href="/blog/published"
-                className="hidden md:block text-sm text-primary hover:underline underline-offset-4 transition-all"
+                className="hidden md:block text-xs text-primary hover:underline underline-offset-4 decoration-accent transition-all"
               >
                 전체 글 보기 →
               </Link>
@@ -179,6 +188,7 @@ export default function Page() {
                   lock: published[slug].front.lock,
                   description: published[slug].front.description,
                   content: published[slug].content,
+                  recommended: published[slug].front.recommended,
                 }))}
               />
             </div>

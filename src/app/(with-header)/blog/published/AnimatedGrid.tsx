@@ -177,7 +177,15 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
         {getCurrentPageSlugs().map((slug, idx) => {
           const info = published[slug];
           const { front } = info;
-          const { title, date, category, lock, description, thumbnail } = front;
+          const {
+            title,
+            date,
+            category,
+            lock,
+            description,
+            thumbnail,
+            recommended,
+          } = front as MarkdownFront;
 
           return (
             <PostCard
@@ -193,6 +201,7 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
               lock={lock}
               description={description}
               content={info.content}
+              recommended={recommended}
             />
           );
         })}

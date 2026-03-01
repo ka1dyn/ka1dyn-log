@@ -13,14 +13,14 @@ interface CardInfo {
   lock: boolean;
   description: string;
   content: string;
+  recommended: boolean;
 }
 
 interface HomeCardsProps {
   cards: CardInfo[];
-  recommended?: boolean;
 }
 
-export default function HomeCards({ cards, recommended }: HomeCardsProps) {
+export default function HomeCards({ cards }: HomeCardsProps) {
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function HomeCards({ cards, recommended }: HomeCardsProps) {
         .forEach((entry, i) => {
           const el = entry.target as HTMLElement;
           el.style.transitionDuration = "800ms";
-          el.style.transitionDelay = `${i * 150}ms`;
+          el.style.transitionDelay = `${(i + 1) * 150}ms`;
           el.setAttribute("data-visible", "true");
           el.addEventListener(
             "transitionend",
@@ -52,12 +52,6 @@ export default function HomeCards({ cards, recommended }: HomeCardsProps) {
     <>
       {cards.map((card, idx) => (
         <div key={card.slug} className="relative w-full max-w-[400px]">
-          {recommended && (
-            <span className="absolute -top-3 left-4 z-10 flex items-center gap-1 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow">
-              <Star className="w-3 h-3 fill-primary-foreground" />
-              추천
-            </span>
-          )}
           <PostCard
             ref={(el: HTMLAnchorElement | null) => {
               cardRefs.current[idx] = el;
@@ -70,6 +64,7 @@ export default function HomeCards({ cards, recommended }: HomeCardsProps) {
             lock={card.lock}
             description={card.description}
             content={card.content}
+            recommended={card.recommended}
           />
         </div>
       ))}
