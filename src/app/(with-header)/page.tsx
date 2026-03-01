@@ -153,14 +153,16 @@ export default function Page() {
           <section className="flex flex-col gap-6 w-full">
             <div className="flex flex-col items-center gap-1 md:flex-row md:justify-between">
               <div>
-                <h2 className="text-2xl font-semibold">최근 글</h2>
+                <h2 className="text-center md:text-start text-2xl font-semibold">
+                  최신 글
+                </h2>
                 <p className="text-muted-foreground text-sm mt-1">
                   서재에 새로 추가된 글이에요
                 </p>
               </div>
               <Link
                 href="/blog/published"
-                className="text-sm text-primary hover:underline underline-offset-4 transition-all"
+                className="hidden md:block text-sm text-primary hover:underline underline-offset-4 transition-all"
               >
                 전체 글 보기 →
               </Link>
