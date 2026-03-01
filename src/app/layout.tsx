@@ -3,6 +3,7 @@ import "./globals.css";
 import { Suspense } from "react";
 import Overlay from "@/components/Overlay";
 import NavClient from "@/components/NavClient";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +27,10 @@ export default function RootLayout({
 
           <Overlay />
 
-          <div className="flex-1 min-w-0">{children}</div>
+          <div className="flex-1 flex flex-col min-w-0">
+            <main className="flex-1 mb-20">{children}</main>
+            <Footer />
+          </div>
         </div>
       </body>
     </html>
