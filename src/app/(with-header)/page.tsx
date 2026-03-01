@@ -1,9 +1,10 @@
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import HomeCards from "./HomeCards";
 import { getAllSeries, getPublishedPosts } from "@/lib/posts";
-import { dateFormat } from "@/lib/utils";
+import { cn, dateFormat } from "@/lib/utils";
 import Link from "next/link";
 import HeroBackground from "@/components/HeroBackground";
+import TextType from "@/components/TextType";
 
 export default function Page() {
   const published = getPublishedPosts();
@@ -21,7 +22,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col flex-1 items-center">
-      {/* <BreadCrumbUpdater path={"/"} /> */}
+      <BreadCrumbUpdater path={"/"} />
 
       {/* ── 1. Hero ── */}
       <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 min-h-[calc(100vh-80px)] shrink-0 overflow-hidden">
@@ -66,49 +67,41 @@ export default function Page() {
               {/* 코드 스니펫 블록 */}
               <div className="flex w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 font-mono text-xs text-[#f5f1e8]/70 leading-relaxed backdrop-blur-md">
                 <div className="leading-7">
-                  <span className="text-primary/70">const</span> blog = {"{"}
-                  <br />
-                  &nbsp;&nbsp;author:{" "}
-                  <span className="text-primary-foreground/90">
-                    &quot;ka1dyn&quot;
-                  </span>
-                  ,
-                  <br />
-                  &nbsp;&nbsp;focus:{" "}
-                  <span className="text-primary-foreground/90">
-                    &quot;Frontend&quot;
-                  </span>
-                  ,
-                  <br />
-                  &nbsp;&nbsp;github:{" "}
-                  <span className="text-primary-foreground/90">
-                    &quot;https://github.com/ka1dyn&quot;
-                  </span>
-                  ,
-                  <br />
-                  &nbsp;&nbsp;portfolio:{" "}
-                  <span className="text-primary-foreground/90">
-                    &quot;Frontend&quot;
-                  </span>
-                  ,
-                  <br />
-                  {"}"}
+                  <TextType
+                    text={[
+                      'const blog = { \n  author: "ka1dyn", \n  focus: "Frontend", \n  github: "https://github.com/ka1dyn", \n  portfolio: "https://test.com", \n};',
+                    ]}
+                    typingSpeed={40}
+                    showCursor
+                    cursorCharacter="_"
+                    cursorBlinkDuration={0.5}
+                    loop={false}
+                  />
                 </div>
               </div>
 
               <div className="absolute w-full bottom-0 translate-y-[calc(100%-60px)] flex flex-col gap-6 items-start">
-                <div className="flex items-center gap-3 text-[#f5f1e8]/40 text-xs font-medium uppercase tracking-[0.2em]">
+                <div
+                  className={cn(
+                    "flex items-center gap-3 text-[#f5f1e8]/40 text-xs font-medium uppercase tracking-[0.2em]",
+                    "animate-slide-in-left opacity-0",
+                  )}
+                >
                   <div className="h-px w-8 bg-primary/30" />
                   Recomended Series
                 </div>
                 <div className="flex flex-wrap justify-start gap-2.5">
                   {Object.entries(seriesInfo)
                     .filter(([key]) => key !== "전체")
-                    .map(([key, value]) => (
+                    .map(([key, value], index) => (
                       <Link
                         href={`/blog/published?series=${key}`}
                         key={key}
-                        className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f5f1e8]/80 text-sm hover:bg-primary/40 hover:text-white hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm group"
+                        className={cn(
+                          "px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f5f1e8]/80 text-sm hover:bg-primary/40 hover:text-white hover:border-primary/50 hover:-translate-y-1 transition-all backdrop-blur-sm group",
+                          "animate-slide-in-up opacity-0",
+                        )}
+                        style={{ animationDelay: `${1.5 + index * 0.1}s` }}
                       >
                         <span className="text-primary/60 group-hover:text-primary transition-colors mr-1">
                           #
@@ -123,32 +116,6 @@ export default function Page() {
               </div>
             </div>
           </div>
-
-          {/* <div className="absolute -bottom-50 flex flex-col gap-6">
-            <div className="flex items-center gap-3 text-[#f5f1e8]/40 text-xs font-medium uppercase tracking-[0.2em]">
-              <div className="h-px w-8 bg-primary/30" />
-              Explore Series
-            </div>
-            <div className="flex flex-wrap gap-2.5">
-              {Object.entries(seriesInfo)
-                .filter(([key]) => key !== "전체")
-                .map(([key, value]) => (
-                  <Link
-                    href={`/blog/published?series=${key}`}
-                    key={key}
-                    className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f5f1e8]/80 text-sm hover:bg-primary/40 hover:text-white hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm group"
-                  >
-                    <span className="text-primary/60 group-hover:text-primary transition-colors mr-1">
-                      #
-                    </span>
-                    {key}
-                    <span className="ml-2 text-xs opacity-40 group-hover:opacity-100 transition-opacity">
-                      {value}
-                    </span>
-                  </Link>
-                ))}
-            </div>
-          </div> */}
         </div>
       </section>
 

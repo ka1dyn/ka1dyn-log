@@ -1,5 +1,6 @@
 "use client";
 
+import { useMediaQuery } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { useNavTriggerStore } from "@/stores";
 import { NotebookText, StickyNote } from "lucide-react";
@@ -13,12 +14,13 @@ interface LeafProps {
 
 export default function Leaf({ name, path, isPublish }: LeafProps) {
   const fullPath = path ? `/blog${path}` : "/";
+  const lg = useMediaQuery("(min-width: 1280px)");
   const navClose = useNavTriggerStore((state) => state.navClose);
 
   return (
     <Link
       href={fullPath}
-      onClick={() => navClose()}
+      onClick={() => !lg && navClose()}
       className="w-full rounded-lg flex items-center py-1.5 pl-2 hover:bg-accent/20 group/leaf relative"
     >
       {/* <div className="w-4"></div> */}

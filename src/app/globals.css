@@ -144,6 +144,31 @@
   --radius-4xl: calc(var(--radius) + 16px);
 
   --color-background-dark: var(--background-dark);
+
+  --animate-slide-in-left: slide-in-left 0.8s ease-out 0.5s forwards;
+  --animate-slide-in-up: slide-in-up 1s ease-out forwards;
+
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-up {
+    from {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {
