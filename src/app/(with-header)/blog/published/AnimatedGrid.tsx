@@ -4,6 +4,7 @@ import PostCard from "@/components/PostCard";
 import { useMediaQuery } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
+import { BreakPointQuery } from "@/enums";
 
 interface AnimatedGridProps {
   slugs: string[];
@@ -15,7 +16,7 @@ const POSTS_PER_PAGE = 6;
 export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const md = useMediaQuery(BreakPointQuery.MD);
 
   const totalPages = Math.ceil(slugs.length / POSTS_PER_PAGE);
 
@@ -71,7 +72,7 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
 
   const Pagination = () => {
     const getPageNumbers = () => {
-      if (isMobile) {
+      if (md) {
         if (totalPages <= 5) {
           return Array.from({ length: totalPages }, (_, i) => i + 1);
         }

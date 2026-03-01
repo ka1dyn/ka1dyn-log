@@ -1,9 +1,10 @@
 "use client";
 
+import { BreakPointQuery } from "@/enums";
 import { useState, useEffect } from "react";
 
 export function useMediaQuery(
-  query: string,
+  query: BreakPointQuery,
   changeFunc?: Function,
   initTrigger: boolean = false,
 ) {

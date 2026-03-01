@@ -12,6 +12,7 @@ import { useNavTriggerStore } from "@/stores";
 import { useShallow } from "zustand/shallow";
 import { getPublishedPosts } from "@/lib/posts";
 import { useMediaQuery } from "@/lib/hooks";
+import { BreakPointQuery } from "@/enums";
 
 export default function NavClient() {
   const blogPublished = getPublishedPosts();
@@ -25,7 +26,7 @@ export default function NavClient() {
     })),
   );
 
-  const xl2 = useMediaQuery("(min-width: 96rem)", () => navClose());
+  const xl2 = useMediaQuery(BreakPointQuery.XL2, () => navClose());
 
   // Overflow detector
   const [overflow, setOverflow] = useState<boolean>(false);

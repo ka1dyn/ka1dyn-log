@@ -1,5 +1,6 @@
 "use client";
 
+import { BreakPointQuery } from "@/enums";
 import { useMediaQuery } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { useNavTriggerStore } from "@/stores";
@@ -14,7 +15,7 @@ interface LeafProps {
 
 export default function Leaf({ name, path, isPublish }: LeafProps) {
   const fullPath = path ? `/blog${path}` : "/";
-  const xl2 = useMediaQuery("(min-width: 96rem)");
+  const xl2 = useMediaQuery(BreakPointQuery.XL2);
   const navClose = useNavTriggerStore((state) => state.navClose);
 
   return (
