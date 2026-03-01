@@ -145,7 +145,7 @@
 
   --color-background-dark: var(--background-dark);
 
-  --animate-slide-in-left: slide-in-left 0.8s ease-out 0.5s forwards;
+  --animate-slide-in-left: slide-in-left 0.8s ease-out 0.2s forwards;
   --animate-slide-in-up: slide-in-up 1s ease-out forwards;
 
   @keyframes slide-in-left {

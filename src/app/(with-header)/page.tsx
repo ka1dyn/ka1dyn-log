@@ -79,7 +79,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="w-full md:absolute md:bottom-0 md:translate-y-[calc(100%-60px)] flex flex-col gap-6 items-start">
+            <div className="w-full h-fit md:absolute md:top-[calc(100%-60px)] flex flex-col gap-6 items-start">
               <div
                 className={cn(
                   "flex items-center gap-3 text-[#f5f1e8]/40 text-xs font-medium uppercase tracking-[0.2em]",
@@ -97,10 +97,11 @@ export default function Page() {
                       href={`/blog/published?series=${key}`}
                       key={key}
                       className={cn(
-                        "px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f5f1e8]/80 text-sm hover:bg-primary/40 hover:text-white hover:border-primary/50 hover:-translate-y-1 transition-all backdrop-blur-sm group",
+                        "px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f5f1e8]/80 text-sm hover:bg-primary/40 hover:text-white hover:border-primary/50 hover:-translate-y-0.5 transition-all duration-300 ease-out backdrop-blur-sm group",
                         "animate-slide-in-up opacity-0",
+                        "cursor-pointer z-30",
                       )}
-                      style={{ animationDelay: `${1.5 + index * 0.1}s` }}
+                      style={{ animationDelay: `${1.2 + index * 0.1}s` }}
                     >
                       <span className="text-primary/60 group-hover:text-primary transition-colors mr-1">
                         #
