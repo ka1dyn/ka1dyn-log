@@ -14,13 +14,13 @@ interface LeafProps {
 
 export default function Leaf({ name, path, isPublish }: LeafProps) {
   const fullPath = path ? `/blog${path}` : "/";
-  const lg = useMediaQuery("(min-width: 1280px)");
+  const xl2 = useMediaQuery("(min-width: 96rem)");
   const navClose = useNavTriggerStore((state) => state.navClose);
 
   return (
     <Link
       href={fullPath}
-      onClick={() => !lg && navClose()}
+      onClick={() => !xl2 && navClose()}
       className="w-full rounded-lg flex items-center py-1.5 pl-2 hover:bg-accent/20 group/leaf relative"
     >
       {/* <div className="w-4"></div> */}

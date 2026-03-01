@@ -25,7 +25,7 @@ export default function NavClient() {
     })),
   );
 
-  const lg = useMediaQuery("(min-width: 1280px)", () => navClose());
+  const xl2 = useMediaQuery("(min-width: 96rem)", () => navClose());
 
   // Overflow detector
   const [overflow, setOverflow] = useState<boolean>(false);
@@ -33,7 +33,7 @@ export default function NavClient() {
   const target = useRef<HTMLDivElement>(null!);
 
   const linkClick = () => {
-    if (lg) {
+    if (xl2) {
       return;
     }
 
@@ -79,7 +79,7 @@ export default function NavClient() {
   return (
     <aside
       className={cn(
-        "sticky top-0 left-0 flex flex-col justify-between h-screen shrink-0 z-80 w-0 bg-card overflow-hidden overscroll-contain",
+        "fixed 2xl:sticky top-0 left-0 flex flex-col justify-between h-screen shrink-0 z-80 w-0 bg-card overflow-hidden overscroll-contain",
         "transition-all duration-200 ease-out",
         open
           ? "opacity-100 w-80 border-r border-sidebar-border"
