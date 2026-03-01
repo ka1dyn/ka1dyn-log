@@ -20,81 +20,135 @@ export default function Page() {
   const recentSlugs = slugs.slice(0, 3);
 
   return (
-    <div className="flex flex-col w-full items-center">
+    <div className="flex flex-col flex-1 items-center">
       {/* <BreadCrumbUpdater path={"/"} /> */}
 
       {/* ── 1. Hero ── */}
-      <section className="relative flex justify-center items-center bg-background-dark w-full mb-20 py-6 h-[calc(100vh-80px)] shrink-0 overflow-hidden">
+      <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 min-h-[calc(100vh-80px)] shrink-0 overflow-hidden">
         <HeroBackground />
-        <div className="relative w-full max-w-6xl h-90 px-2 sm:px-8 mb-5 min-w-0 flex items-center justify-between gap-10">
-          {/* 좌측 텍스트 */}
-          <div className="w-80 flex flex-col h-full shrink-0">
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-3">
-                <h1 className="text-4xl font-bold tracking-tight text-[#f5f1e8]">
-                  Dev Library
-                </h1>
-                <p className="text-[#f5f1e8]/70 text-lg max-w-sm">
-                  개발하며 배운 것들을 기록합니다
-                </p>
+        <div className="relative flex flex-col w-full max-w-6xl px-2 sm:px-8 gap-8">
+          <div className="w-full h-100 min-w-0 flex items-center justify-between gap-10 mt-10">
+            {/* 좌측 텍스트 */}
+            <div className="w-80 flex flex-col h-full shrink-0">
+              <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-3">
+                  <h1 className="text-4xl font-bold tracking-tight text-[#f5f1e8]">
+                    Dev Library
+                  </h1>
+                  <p className="text-[#f5f1e8]/70 text-lg max-w-sm">
+                    개발하며 배운 것들을 기록합니다
+                  </p>
+                </div>
+                <Link
+                  href="/blog/published"
+                  className="relative w-fit flex gap-1 bg-primary/30 text-[#f5f1e8] transition-all duration-200 ease-out hover:bg-primary hover:text-white border border-primary/20 px-4 py-2 rounded-lg font-medium z-30"
+                >
+                  글 목록 보기 →
+                </Link>
               </div>
-              <Link
-                href="/blog/published"
-                className="w-fit flex gap-1 bg-primary/30 text-[#f5f1e8] transition-all duration-200 ease-out hover:bg-primary hover:text-white border border-primary/20 px-4 py-2 rounded-lg font-medium z-30"
-              >
-                글 목록 보기 →
-              </Link>
+
+              {/* ── 2. 통계 배지 ── */}
+              <div className="absolute bottom-0 flex gap-3 text-sm items-center font-light justify-center md:justify-start translate-x-1 text-[#f5f1e8]/80">
+                <span>
+                  글 <span className="font-bold">{totalCount}편</span>
+                </span>
+                <div className="h-4 w-px bg-[#f5f1e8]/30" />
+                <span>
+                  <span className="font-bold">{seriesCount}</span>개 모음집
+                </span>
+                <div className="h-4 w-px bg-[#f5f1e8]/30" />
+                <span>업데이트: {recentDate}</span>
+              </div>
             </div>
 
-            {/* ── 2. 통계 배지 ── */}
-            <div className="absolute bottom-0 flex gap-3 text-sm items-center font-light justify-center md:justify-start translate-x-1 text-[#f5f1e8]/80">
-              <span>
-                글 <span className="font-bold">{totalCount}편</span>
-              </span>
-              <div className="h-4 w-px bg-[#f5f1e8]/30" />
-              <span>
-                <span className="font-bold">{seriesCount}</span>개 모음집
-              </span>
-              <div className="h-4 w-px bg-[#f5f1e8]/30" />
-              <span>업데이트: {recentDate}</span>
+            {/* 우측 장식 */}
+            <div className="relative flex flex-col justify-between w-full max-w-150 h-full md:flex md:items-start">
+              {/* 코드 스니펫 블록 */}
+              <div className="flex w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 font-mono text-xs text-[#f5f1e8]/70 leading-relaxed backdrop-blur-md">
+                <div className="leading-7">
+                  <span className="text-primary/70">const</span> blog = {"{"}
+                  <br />
+                  &nbsp;&nbsp;author:{" "}
+                  <span className="text-primary-foreground/90">
+                    &quot;ka1dyn&quot;
+                  </span>
+                  ,
+                  <br />
+                  &nbsp;&nbsp;focus:{" "}
+                  <span className="text-primary-foreground/90">
+                    &quot;Frontend&quot;
+                  </span>
+                  ,
+                  <br />
+                  &nbsp;&nbsp;github:{" "}
+                  <span className="text-primary-foreground/90">
+                    &quot;https://github.com/ka1dyn&quot;
+                  </span>
+                  ,
+                  <br />
+                  &nbsp;&nbsp;portfolio:{" "}
+                  <span className="text-primary-foreground/90">
+                    &quot;Frontend&quot;
+                  </span>
+                  ,
+                  <br />
+                  {"}"}
+                </div>
+              </div>
+
+              <div className="absolute w-full bottom-0 translate-y-[calc(100%-60px)] flex flex-col gap-6 items-start">
+                <div className="flex items-center gap-3 text-[#f5f1e8]/40 text-xs font-medium uppercase tracking-[0.2em]">
+                  <div className="h-px w-8 bg-primary/30" />
+                  Recomended Series
+                </div>
+                <div className="flex flex-wrap justify-start gap-2.5">
+                  {Object.entries(seriesInfo)
+                    .filter(([key]) => key !== "전체")
+                    .map(([key, value]) => (
+                      <Link
+                        href={`/blog/published?series=${key}`}
+                        key={key}
+                        className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f5f1e8]/80 text-sm hover:bg-primary/40 hover:text-white hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm group"
+                      >
+                        <span className="text-primary/60 group-hover:text-primary transition-colors mr-1">
+                          #
+                        </span>
+                        {key}
+                        <span className="ml-2 text-xs opacity-40 group-hover:opacity-100 transition-opacity">
+                          {value}
+                        </span>
+                      </Link>
+                    ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* 우측 장식 */}
-          <div className="w-full max-w-150 h-full hidden md:flex md:items-start">
-            {/* 코드 스니펫 블록 */}
-            <div className="flex items-center w-full h-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 font-mono text-xs text-[#f5f1e8]/70 leading-relaxed backdrop-blur-md">
-              <div className="leading-6">
-                <span className="text-primary/70">const</span> blog = {"{"}
-                <br />
-                &nbsp;&nbsp;author:{" "}
-                <span className="text-primary-foreground/90">
-                  &quot;ka1dyn&quot;
-                </span>
-                ,
-                <br />
-                &nbsp;&nbsp;focus:{" "}
-                <span className="text-primary-foreground/90">
-                  &quot;Frontend&quot;
-                </span>
-                ,
-                <br />
-                &nbsp;&nbsp;github:{" "}
-                <span className="text-primary-foreground/90">
-                  &quot;https://github.com/ka1dyn&quot;
-                </span>
-                ,
-                <br />
-                &nbsp;&nbsp;portfolio:{" "}
-                <span className="text-primary-foreground/90">
-                  &quot;Frontend&quot;
-                </span>
-                ,
-                <br />
-                {"}"}
-              </div>
+          {/* <div className="absolute -bottom-50 flex flex-col gap-6">
+            <div className="flex items-center gap-3 text-[#f5f1e8]/40 text-xs font-medium uppercase tracking-[0.2em]">
+              <div className="h-px w-8 bg-primary/30" />
+              Explore Series
             </div>
-          </div>
+            <div className="flex flex-wrap gap-2.5">
+              {Object.entries(seriesInfo)
+                .filter(([key]) => key !== "전체")
+                .map(([key, value]) => (
+                  <Link
+                    href={`/blog/published?series=${key}`}
+                    key={key}
+                    className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f5f1e8]/80 text-sm hover:bg-primary/40 hover:text-white hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm group"
+                  >
+                    <span className="text-primary/60 group-hover:text-primary transition-colors mr-1">
+                      #
+                    </span>
+                    {key}
+                    <span className="ml-2 text-xs opacity-40 group-hover:opacity-100 transition-opacity">
+                      {value}
+                    </span>
+                  </Link>
+                ))}
+            </div>
+          </div> */}
         </div>
       </section>
 
