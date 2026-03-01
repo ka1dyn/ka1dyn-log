@@ -46,10 +46,12 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
               <h2 className="font-semibold text-[1.25rem] mb-1">{title}</h2>
               <div className="text-sm flex gap-1 items-center pl-0.5">
                 <FolderOpen className="w-3 h-3 text-primary" />
-                <span className="text-muted-foreground/70 text-xs">{slug.replace('/blog','')}</span>
+                <span className="text-muted-foreground/70 text-xs">
+                  {slug.replace("/blog", "")}
+                </span>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground break-all">
               {description.slice(0, 90)}
             </p>
             <div className="absolute bottom-10 right-0">

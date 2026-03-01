@@ -51,7 +51,7 @@ export default function HomeCards({ cards, recommended }: HomeCardsProps) {
   return (
     <>
       {cards.map((card, idx) => (
-        <div key={card.slug} className="relative">
+        <div key={card.slug} className="relative w-full max-w-[400px]">
           {recommended && (
             <span className="absolute -top-3 left-4 z-10 flex items-center gap-1 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow">
               <Star className="w-3 h-3 fill-primary-foreground" />
