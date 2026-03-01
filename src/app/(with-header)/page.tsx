@@ -109,8 +109,8 @@ export default function Page() {
                         #
                       </span>
                       {key}
-                      <span className="ml-2 text-xs opacity-40 group-hover:opacity-100 transition-opacity">
-                        {value}
+                      <span className="ml-2 text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                        {value}편
                       </span>
                     </Link>
                   ))}
@@ -161,7 +161,7 @@ export default function Page() {
 
           {/* ── 4. 최신 글 ── */}
           <section className="flex flex-col gap-8 w-full">
-            <div className="flex flex-col items-center gap-2 md:flex-row md:justify-between">
+            <div className="flex flex-col items-end gap-2 md:flex-row md:justify-between">
               <div>
                 <h2 className="text-center md:text-start text-2xl font-semibold">
                   최신 글

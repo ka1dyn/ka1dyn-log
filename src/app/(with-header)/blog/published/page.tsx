@@ -46,14 +46,23 @@ export default async function Page({
       <div className="flex flex-col items-center md:items-start mb-16">
         <div className="text-3xl mb-6 font-semibold">모음집</div>
         <div className="flex gap-3">
-          {Object.entries(seriesInfo).map(([key, value]) => (
+          {Object.entries(seriesInfo).map(([key, value], index) => (
             <Link
               href={`/blog/published?series=${key}`}
               key={key}
-              className="flex gap-1 bg-primary/20 transition-all duration-200 ease-out hover:bg-primary hover:text-primary-foreground border-sidebar-border px-3 py-[5px] rounded-full text-foreground text-md "
+              className={cn(
+                "px-4 py-2 rounded-lg bg-accent/10 border border-primary/30 text-foreground text-sm hover:bg-primary/90 hover:text-white transition-all duration-300 ease-out backdrop-blur-sm group",
+                "animate-slide-in-up opacity-0",
+                "cursor-pointer z-30",
+                series === key && "bg-primary/90 text-white",
+              )}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <span className="font-medium">{key}</span>
-              <span>{`(${value})`}</span>
+              <span className="transition-colors mr-1">#</span>
+              {key}
+              <span className="ml-2 text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                {value}편
+              </span>
             </Link>
           ))}
         </div>

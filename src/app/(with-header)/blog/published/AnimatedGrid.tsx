@@ -127,7 +127,7 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
     const pages = getPageNumbers();
 
     return (
-      <div className="flex justify-center items-center space-x-2 mt-8">
+      <div className="flex justify-center items-center space-x-2 mt-12">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
