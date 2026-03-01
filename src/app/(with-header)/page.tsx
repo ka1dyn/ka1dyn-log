@@ -25,7 +25,7 @@ export default function Page() {
       <BreadCrumbUpdater path={"/"} />
 
       {/* ── 1. Hero ── */}
-      <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 min-h-[calc(100vh-80px)] shrink-0 overflow-hidden">
+      <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 min-h-[calc(100vh-80px)] overflow-hidden">
         <HeroBackground />
         <div className="relative flex flex-col w-full max-w-6xl px-2 sm:px-8 gap-8">
           <div className="w-full h-100 min-w-0 flex items-center justify-between gap-10 mt-10">
@@ -120,7 +120,7 @@ export default function Page() {
       </section>
 
       <div className="flex justify-center w-full">
-        <div className="w-6xl min-w-0 flex flex-col gap-20 px-2 sm:px-8">
+        <div className="w-full max-w-6xl min-w-0 flex flex-col gap-20 px-2 sm:px-8">
           {/* ── 3. 추천 글 ── */}
           {/* {recommendedSlugs.length > 0 && (
           <section className="flex flex-col gap-6">
