@@ -29,13 +29,9 @@ export default function SideToc({ tocData }: SideToc) {
 
     const onScroll = (e: Event) => {
       const prevScroll = prevScrollIdx.current;
-      const curScrollIdx = getScrollIdx(mainDiv!.scrollTop);
+      const curScrollIdx = getScrollIdx(window.scrollY);
       if (prevScroll !== curScrollIdx) setScrollIdx(curScrollIdx);
     };
-
-    // Get main div
-    const mainDiv = document.getElementById("main");
-    if (!mainDiv) return;
 
     // Calculate each scroll breakpoint
     const breakPoint: number[] = [0];
@@ -54,15 +50,15 @@ export default function SideToc({ tocData }: SideToc) {
       breakPoint.push(scrollPosition);
     });
 
-    mainDiv.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll);
 
-    return () => mainDiv.removeEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <div
       className={cn(
-        "sticky top-15 left-0 flex flex-col gap-2 text-sm text-muted-foreground pl-3 font-pretendard border-l-2 border-accent/30",
+        "sticky top-40 left-0 flex flex-col gap-2 text-sm text-muted-foreground pl-3 font-pretendard border-l-2 border-accent/30",
         "transition-all duration-400 ease-out opacity-100",
         scrollIdx === 0 && "opacity-0",
       )}

@@ -26,9 +26,7 @@ export default function SideTocItem({
     const elementPosition = targetElement.offsetTop;
     const finalPosition = elementPosition;
 
-    const mainDiv = document.getElementById("main") as HTMLDivElement;
-
-    mainDiv.scrollTo({
+    window.scrollTo({
       top: finalPosition,
       behavior: "smooth",
     });

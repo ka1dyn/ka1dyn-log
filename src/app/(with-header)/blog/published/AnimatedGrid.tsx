@@ -72,7 +72,7 @@ export default function AnimatedGrid({ slugs, published }: AnimatedGridProps) {
 
   const Pagination = () => {
     const getPageNumbers = () => {
-      if (md) {
+      if (!md) {
         if (totalPages <= 5) {
           return Array.from({ length: totalPages }, (_, i) => i + 1);
         }
