@@ -127,11 +127,11 @@ export default function NavClient() {
                 홈
               </Link>
               <Link
-                href="/introduce"
+                href="/daily"
                 className="w-20 text-center"
                 onClick={linkClick}
               >
-                소개
+                일상
               </Link>
               <Link
                 href="/blog/series"
