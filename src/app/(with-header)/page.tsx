@@ -8,29 +8,30 @@ import TextType from "@/components/TextType";
 import { Star } from "lucide-react";
 
 export default function Page() {
-  const published = getPublishedPosts();
+  const { published, sortedSlugs } = getPublishedPosts();
   const seriesInfo = getAllSeries();
 
-  const slugs = Object.keys(published).sort((a, b) => b.localeCompare(a));
-  const totalCount = slugs.length;
+  const totalCount = sortedSlugs.length;
   const recentDate =
-    slugs.length > 0
-      ? dateFormat(new Date(published[slugs[0]].front.date))
+    sortedSlugs.length > 0
+      ? dateFormat(new Date(published[sortedSlugs[0]].front.date))
       : "-";
   const seriesCount = Object.keys(seriesInfo).length - 1;
 
-  const recentSlugs = slugs.slice(0, 3);
-  const recommendedSlugs = slugs.filter((s) => published[s].front.recommended);
+  const recentSlugs = sortedSlugs.slice(0, 3);
+  const recommendedSlugs = sortedSlugs.filter(
+    (s) => published[s].front.recommended,
+  );
 
   return (
     <div className="flex flex-col flex-1 items-center">
       <BreadCrumbUpdater path={"/"} />
 
-      {/* ── 1. Hero ── */}
+      {/* Hero section */}
       <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 h-[calc(100vh-80px)] max-h-[1100px] overflow-hidden">
         <HeroBackground />
         <div className="relative w-full max-w-6xl min-w-0 h-100 flex flex-col  md:flex-row md:items-center justify-between gap-10 mt-5 px-6">
-          {/* 좌측 텍스트 */}
+          {/* Left section */}
           <div className="w-full md:w-80 flex flex-col h-full md:shrink-0">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-3">
@@ -49,7 +50,6 @@ export default function Page() {
               </Link>
             </div>
 
-            {/* ── 2. 통계 배지 ── */}
             <div className="absolute hidden md:flex bottom-0 gap-3 text-sm items-center font-light justify-center md:justify-start translate-x-1 text-[#f5f1e8]/80">
               <span>
                 글 <span className="font-bold">{totalCount}편</span>
@@ -63,9 +63,8 @@ export default function Page() {
             </div>
           </div>
 
-          {/* 우측 장식 */}
+          {/* Right section */}
           <div className="relative flex flex-col justify-between w-full max-w-150 h-full md:flex md:items-start">
-            {/* 코드 스니펫 블록 */}
             <div className="hidden md:flex w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 font-mono text-xs text-[#f5f1e8]/70 leading-relaxed backdrop-blur-md">
               <div className="leading-7">
                 <TextType
@@ -122,7 +121,7 @@ export default function Page() {
 
       <div className="flex justify-center">
         <div className="w-full max-w-6xl min-w-0 flex flex-col gap-20 px-4 sm:px-8">
-          {/* ── 3. 추천 글 ── */}
+          {/* Recommended posts */}
           {recommendedSlugs.length > 0 && (
             <section className="flex flex-col gap-8 w-full">
               <div className="flex flex-col items-center gap-2 md:flex-row md:items-end md:justify-between">
@@ -159,7 +158,7 @@ export default function Page() {
             </section>
           )}
 
-          {/* ── 4. 최신 글 ── */}
+          {/* Recent Posts */}
           <section className="flex flex-col gap-8 w-full">
             <div className="flex flex-col items-center gap-2 md:flex-row md:items-end md:justify-between">
               <div>
@@ -193,30 +192,6 @@ export default function Page() {
               />
             </div>
           </section>
-
-          {/* ── 5. 시리즈 ── */}
-          {/* <section className="flex flex-col gap-6">
-          <div className="flex flex-col items-center md:items-start gap-1">
-            <h2 className="text-2xl font-semibold">모음집</h2>
-            <p className="text-muted-foreground text-sm">
-              주제별로 묶어둔 시리즈 글 모음이에요
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-            {Object.entries(seriesInfo)
-              .filter(([key]) => key !== "전체")
-              .map(([key, value]) => (
-                <Link
-                  href={`/blog/published?series=${key}`}
-                  key={key}
-                  className="flex gap-1 bg-primary/20 transition-all duration-200 ease-out hover:bg-primary hover:text-primary-foreground border-sidebar-border px-4 py-2 rounded-full text-foreground"
-                >
-                  <span className="font-medium">{key}</span>
-                  <span className="text-muted-foreground">{`(${value})`}</span>
-                </Link>
-              ))}
-          </div>
-        </section> */}
         </div>
       </div>
     </div>

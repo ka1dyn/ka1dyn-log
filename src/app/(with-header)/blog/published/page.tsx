@@ -16,10 +16,10 @@ export default async function Page({
   if (!category) category = "전체";
   if (!series) series = "전체";
 
-  const published = getPublishedPosts();
+  const { published, sortedSlugs } = getPublishedPosts();
   const seriesInfo = getAllSeries();
 
-  const slugs = Object.keys(published).filter((slug) => {
+  const slugs = sortedSlugs.filter((slug) => {
     const post = published[slug];
     const { front } = post;
     const { category: frontCategory, series: frontSeries } = front;
@@ -31,7 +31,6 @@ export default async function Page({
   });
   const publishedCount = slugs.length;
 
-  slugs.sort((a, b) => b.localeCompare(a));
   const recentUpdated =
     slugs.length === 0
       ? "-"

@@ -26,20 +26,11 @@ export default function Footer() {
               <Github className="w-5 h-5" />
             </Link>
             <Link
-              href="mailto:contact@example.com"
+              href="mailto:dm.kaidyn@gmail.com"
               className="text-[#f5f1e8]/50 hover:text-primary transition-colors"
               aria-label="Email"
             >
               <Mail className="w-5 h-5" />
-            </Link>
-            <Link
-              href="https://test.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#f5f1e8]/50 hover:text-primary transition-colors"
-              aria-label="Portfolio"
-            >
-              <Globe className="w-5 h-5" />
             </Link>
           </div>
           <p className="text-[10px] uppercase tracking-[0.2em] text-[#f5f1e8]/30">
