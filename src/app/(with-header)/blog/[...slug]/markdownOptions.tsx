@@ -1,5 +1,6 @@
 import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 
 export const mdCustomStyle = {
@@ -107,7 +108,7 @@ export const mdCustomStyle = {
 
 export const mdCustomOption = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkBreaks],
     rehypePlugins: [
       rehypeSlug,
       [rehypePrism, { showLineNumbers: true }],

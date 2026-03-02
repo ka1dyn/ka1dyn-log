@@ -90,7 +90,6 @@ const fetchPosts = cache(async (contentPath: string) => {
     //     `category warning: ${newFront.category} in file ${postPath}.`,
     //   );
     // }
-
     posts[slug] = {
       content,
       front: newFront,
