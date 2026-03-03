@@ -22,7 +22,7 @@ export default function Page() {
             <span className="-translate-y-0.5">일상 글</span>
           </h1>
           <p className="hidden text-foreground md:block">
-            "평소의 생각이나 일상을 담은 글 목록입니다"
+            평소의 생각이나 일상을 담은 글 목록입니다
           </p>
         </div>
         <div className="gap-4 text-sm items-center font-light hidden md:flex">

@@ -127,7 +127,7 @@ export default function NavClient() {
                 홈
               </Link>
               <Link
-                href="/daily"
+                href="/blog/daily"
                 className="w-20 text-center"
                 onClick={linkClick}
               >

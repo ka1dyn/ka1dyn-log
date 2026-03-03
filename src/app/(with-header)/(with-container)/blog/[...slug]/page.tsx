@@ -7,11 +7,12 @@ import Category from "@/components/Category";
 import PageTocItem from "@/components/PageTocItem";
 import React from "react";
 import SideToc from "@/components/SideToc";
-import { getPosts } from "@/lib/posts";
+import { getDailyPosts, getPosts } from "@/lib/posts";
 
 export async function generateStaticParams() {
   const posts = getPosts();
-  const slugs = Object.keys(posts);
+  const { dailySortedSlugs } = getDailyPosts();
+  const slugs = [...Object.keys(posts), ...dailySortedSlugs];
 
   return slugs.map((slug) => {
     const slugPieces = slug
@@ -34,11 +35,13 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const posts = getPosts();
+  const { dailyPosts, dailySortedSlugs } = getDailyPosts();
+
   const decodedSlug = slug.map((segment) => decodeURIComponent(segment));
 
   const path = `/${decodedSlug.join("/")}`;
 
-  const { content, front } = posts[path];
+  const { content, front } = path in posts ? posts[path] : dailyPosts[path];
   const { title, date, category, lock } = front;
 
   const tocData = getTocData(content);

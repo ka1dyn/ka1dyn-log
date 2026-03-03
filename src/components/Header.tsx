@@ -38,7 +38,7 @@ export default function Header() {
         <div className="translate-y-px flex items-center">
           <HeaderNavItem path={"/"}>Home</HeaderNavItem>
           <HeaderNavItem path={"/blog/published"}>Posts</HeaderNavItem>
-          <HeaderNavItem path={"/daily"}>Daily</HeaderNavItem>
+          <HeaderNavItem path={"/blog/daily"}>Daily</HeaderNavItem>
         </div>
       </div>
 
