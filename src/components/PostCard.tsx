@@ -53,13 +53,15 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
           <Star className="absolute top-3 left-4 text-transparent size-4 fill-background" />
         )}
         {/* </span> */}
-        <div className="h-47 shrink-0 flex items-center">
+        <div className="h-47 shrink-0 flex items-center overflow-hidden">
           <img className="w-full min-h-full" src={thumbnail} />
         </div>
-        <div className="h-full p-5 bg-card w-full">
+        <div className="flex-1 p-5 bg-card w-full">
           <div className="relative h-full flex flex-col">
             <div className="flex flex-col mb-5">
-              <h2 className="font-semibold text-[1.25rem] mb-1">{title}</h2>
+              <h2 className="font-semibold text-[1.25rem] mb-1 group-hover:text-primary">
+                {title}
+              </h2>
               <div className="text-sm flex gap-1 items-center pl-0.5">
                 <FolderOpen className="w-3 h-3 text-primary" />
                 <span className="text-muted-foreground/70 text-xs">

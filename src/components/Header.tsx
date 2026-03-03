@@ -5,8 +5,6 @@ import { useNavTriggerStore } from "@/stores";
 import Link from "next/link";
 import { TextAlignJustify } from "lucide-react";
 import { useShallow } from "zustand/shallow";
-import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
 import HeaderNavItem from "./HeaderNavItem";
 
 export default function Header() {

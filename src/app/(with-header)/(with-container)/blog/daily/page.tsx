@@ -16,7 +16,7 @@ export default function Page() {
     <div className="flex flex-col">
       <BreadCrumbUpdater path={"/Daily"} />
 
-      <div className="flex flex-col gap-6 mb-6">
+      <div className="flex flex-col gap-6 mb-8">
         <div className="flex flex-col items-center md:items-start">
           <h1 className="text-3xl mb-2 font-semibold">
             <span className="-translate-y-0.5">일상 글</span>

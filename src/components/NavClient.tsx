@@ -133,12 +133,18 @@ export default function NavClient() {
               >
                 일상
               </Link>
+
+              {/* Disable now */}
               <Link
                 href="/blog/series"
-                className="w-20 text-center"
+                className="w-20 text-center text-muted-foreground"
+                style={{
+                  pointerEvents: "none",
+                }}
                 onClick={linkClick}
+                aria-disabled={true}
               >
-                모음집
+                방명록
               </Link>
             </section>
 

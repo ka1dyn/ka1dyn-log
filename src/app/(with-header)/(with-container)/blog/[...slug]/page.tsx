@@ -1,13 +1,14 @@
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import { mdCustomOption, mdCustomStyle } from "./markdownOptions";
-import { Calendar, List, Tag } from "lucide-react";
+import { Calendar, FolderOpen, List, Tag } from "lucide-react";
 import { dateFormat, getTocData, replaceSrc } from "@/lib/utils";
 import Category from "@/components/Category";
 import PageTocItem from "@/components/PageTocItem";
 import React from "react";
 import SideToc from "@/components/SideToc";
 import { getDailyPosts, getPosts } from "@/lib/posts";
+// import BreadCrumbRenderer from "@/components/BreadCrumbRenderer";
 
 export async function generateStaticParams() {
   const posts = getPosts();
@@ -75,14 +76,22 @@ export default async function Page({
         >
           <div className="flex flex-col">
             <h1 className="text-3xl sm:text-4xl font-semibold mb-5">{title}</h1>
-            <div className="flex gap-8 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Tag className="w-4 h-4 text-muted-foreground" />
-                <Category name={category} className="text-sm py-0.5 px-1.5" />
+            <div className="flex flex-col gap-3">
+              <div className="flex gap-8 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Tag className="w-4 h-4 text-muted-foreground" />
+                  <Category name={category} className="text-sm py-0.5 px-1.5" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  <span className="font-medium">{dateKR}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-muted-foreground" />
-                <span className="font-medium">{dateKR}</span>
+              <div className="text-base flex gap-2 items-center pl-0.5">
+                <FolderOpen className="w-4 h-4 text-primary/70 translate-y-px" />
+                <span className="text-muted-foreground/70 text-sm">
+                  {path.replace("/blog", "")}
+                </span>
               </div>
             </div>
           </div>
