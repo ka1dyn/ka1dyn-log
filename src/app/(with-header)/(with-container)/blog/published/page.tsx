@@ -1,6 +1,5 @@
 import BreadCrumbUpdater from "@/components/BreadCrumbUpdater";
 import Category from "@/components/Category";
-import PostCard from "@/components/PostCard";
 import { getAllSeries, getPublishedPosts } from "@/lib/posts";
 import { cn, dateFormat } from "@/lib/utils";
 import { Filter } from "lucide-react";
@@ -129,8 +128,13 @@ export default async function Page({
       </div>
 
       {/* Grid view */}
-
-      <AnimatedGrid slugs={slugs} published={published} />
+      {slugs.length > 0 ? (
+        <AnimatedGrid slugs={slugs} published={published} />
+      ) : (
+        <div className="py-20 text-center text-muted-foreground bg-card/50 rounded-xl border border-border/50">
+          아직 등록된 글이 없습니다.
+        </div>
+      )}
     </div>
   );
 }

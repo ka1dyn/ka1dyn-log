@@ -1,4 +1,5 @@
 import postData from "@/generated/posts.json";
+import dailyData from "@/generated/daily.json";
 
 const compareDate = (a: string, b: string) => {
   const createdA = posts[a].front.date
@@ -11,6 +12,7 @@ const compareDate = (a: string, b: string) => {
   return createdB - createdA;
 };
 
+// Blog Posts
 const posts = postData as PostData;
 
 let slugs = Object.keys(posts);
@@ -44,12 +46,19 @@ publishedSlugs.forEach((slug) => {
   });
 });
 
+const dailyPosts = dailyData as PostData;
+const dailySortedSlugs = Object.keys(dailyPosts).sort(compareDate);
+
 export function getPosts() {
   return posts;
 }
 
 export function getPublishedPosts() {
   return { published: newPosts, sortedSlugs: publishedSlugs };
+}
+
+export function getDailyPosts() {
+  return { dailyPosts, dailySortedSlugs };
 }
 
 export function getAllSeries() {
