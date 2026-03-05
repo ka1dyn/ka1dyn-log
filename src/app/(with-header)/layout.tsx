@@ -6,11 +6,9 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full">
+    <>
       <Header />
-      <div id="main" className="flex justify-center">
-        {children}
-      </div>
-    </div>
+      <div className="flex justify-center">{children}</div>
+    </>
   );
 }

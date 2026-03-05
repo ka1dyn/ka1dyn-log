@@ -28,7 +28,7 @@ export default function Page() {
       <BreadCrumbUpdater path={"/"} />
 
       {/* Hero section */}
-      <section className="flex justify-center items-center bg-background-dark w-full mb-20 py-16 h-[calc(100vh-80px)] max-h-[1100px] overflow-hidden">
+      <section className="relative flex justify-center items-center bg-background-dark w-full mb-20 py-16 h-[calc(100vh-80px)] max-h-[1100px] overflow-hidden">
         <HeroBackground />
         <div className="relative w-full max-w-6xl min-w-0 h-100 flex flex-col  md:flex-row md:items-center justify-between gap-10 mt-5 px-6">
           {/* Left section */}
@@ -119,7 +119,7 @@ export default function Page() {
         </div>
       </section>
 
-      <div className="flex justify-center">
+      <div className="w-full flex justify-center">
         <div className="w-full max-w-6xl min-w-0 flex flex-col gap-20 px-4 sm:px-8">
           {/* Recommended posts */}
           {recommendedSlugs.length > 0 && (
@@ -159,39 +159,41 @@ export default function Page() {
           )}
 
           {/* Recent Posts */}
-          <section className="flex flex-col gap-8 w-full">
-            <div className="flex flex-col items-center gap-2 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h2 className="text-center md:text-start text-2xl font-semibold">
-                  최신 글
-                </h2>
-                <p className="text-muted-foreground text-sm mt-1">
-                  서재에 새로 추가된 글이에요
-                </p>
+          {recentSlugs.length > 0 && (
+            <section className="flex flex-col gap-8 w-full">
+              <div className="flex flex-col items-center gap-2 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <h2 className="text-center md:text-start text-2xl font-semibold">
+                    최신 글
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    서재에 새로 추가된 글이에요
+                  </p>
+                </div>
+                <Link
+                  href="/blog/published"
+                  className="hidden md:block text-xs text-primary hover:underline underline-offset-4 decoration-accent transition-all"
+                >
+                  전체 글 보기 →
+                </Link>
               </div>
-              <Link
-                href="/blog/published"
-                className="hidden md:block text-xs text-primary hover:underline underline-offset-4 decoration-accent transition-all"
-              >
-                전체 글 보기 →
-              </Link>
-            </div>
-            <div className="grid w-fit justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
-              <HomeCards
-                cards={recentSlugs.map((slug) => ({
-                  slug,
-                  thumbnail: published[slug].front.thumbnail,
-                  title: published[slug].front.title,
-                  date: published[slug].front.date,
-                  category: published[slug].front.category,
-                  lock: published[slug].front.lock,
-                  description: published[slug].front.description,
-                  content: published[slug].content,
-                  recommended: published[slug].front.recommended,
-                }))}
-              />
-            </div>
-          </section>
+              <div className="grid w-fit justify-center justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
+                <HomeCards
+                  cards={recentSlugs.map((slug) => ({
+                    slug,
+                    thumbnail: published[slug].front.thumbnail,
+                    title: published[slug].front.title,
+                    date: published[slug].front.date,
+                    category: published[slug].front.category,
+                    lock: published[slug].front.lock,
+                    description: published[slug].front.description,
+                    content: published[slug].content,
+                    recommended: published[slug].front.recommended,
+                  }))}
+                />
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>

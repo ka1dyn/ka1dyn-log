@@ -14,7 +14,19 @@ export function dateFormat(date: Date) {
 }
 
 export const getTocData = (source: string) => {
-  const headings = source.split("\n").filter((str) => str.match(/^#+/));
+  let isCodeBlock = false;
+
+  // Check code block
+  const headings = source.split("\n").filter((str) => {
+    const trimmedStr = str.trim();
+
+    if (trimmedStr.startsWith("```")) {
+      isCodeBlock = !isCodeBlock;
+      return false;
+    }
+
+    return !isCodeBlock && str.match(/^#+/);
+  });
 
   const orderCntArr = [0, 0, 0, 0];
 

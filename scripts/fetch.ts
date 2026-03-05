@@ -12,7 +12,9 @@ const fetchPosts = cache(async (contentPath: string) => {
   // Get contents from submodule
   const fullPath = `${projectPath}/contents${contentPath}`;
   // Get Markdown file paths
-  const mdFiles = await glob(`${fullPath}/**/*.md`);
+  const mdFiles = await glob(`${fullPath}/**/*.md`, {
+    ignore: "**/*temp.md",
+  });
 
   console.log("check md Files:", mdFiles);
 

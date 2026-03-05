@@ -56,18 +56,18 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
         <div className="h-47 shrink-0 flex items-center overflow-hidden">
           <img className="w-full min-h-full" src={thumbnail} />
         </div>
-        <div className="flex-1 p-5 bg-card w-full">
+        <div className="flex-1 px-5 py-4 bg-card w-full">
           <div className="relative h-full flex flex-col">
-            <div className="flex flex-col mb-5">
-              <h2 className="font-semibold text-[1.25rem] mb-1 group-hover:text-primary">
+            <div className="flex flex-col mb-3">
+              <h2 className="font-semibold text-[1.25rem] group-hover:text-primary">
                 {title}
               </h2>
-              <div className="text-sm flex gap-1 items-center pl-0.5">
+              {/* <div className="text-sm flex gap-1 items-center pl-0.5">
                 <FolderOpen className="w-3 h-3 text-primary" />
                 <span className="text-muted-foreground/70 text-xs">
                   {slug.replace("/blog", "")}
                 </span>
-              </div>
+              </div> */}
             </div>
             <p className="text-xs text-muted-foreground break-all">
               {description.slice(0, 90)}
