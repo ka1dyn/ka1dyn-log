@@ -1,0 +1,33 @@
+{
+  "/Projects/Ka1dyn-devlog/vercel private submodule 배포 시 인증문제 해결방법": {
+    "content": "# 문제 인식\n\ngit submodule이 포함된 nextJS 프로젝트를 vercel로 배포하던 중 다음과 같은 빌드 에러를 발견했다.\n\n![](images/Pasted%20image%2020260306224946.png)\n\n에러 메시지를 살펴보면\nclone을 실패했다는건데, 그도 그럴 것이 private repository이기 때문에 vercel은 github 인증정보가 없어서 클론에 실패한 것이다.\n\nvercel은 기본적으로 설정된 build 스크립트를 \n",
+    "front": {
+      "title": "vercel private submodule 배포 시 인증문제 해결방법",
+      "date": "2026-03-04T00:00:00.000Z",
+      "category": "일반",
+      "lock": false,
+      "isPublish": false,
+      "description": "# 문제 인식\n\ngit submodule이 포함된 nextJS 프로젝트를 vercel로 배포하던 중 다음과 같은 빌드 에러를 발견했다.\n\n![]",
+      "series": [],
+      "thumbnail": "/content-images/Pasted%20image%2020260306224946.png",
+      "recommended": false
+    }
+  },
+  "/Projects/Ka1dyn-devlog/git submodule을 활용한 콘텐츠 분리": {
+    "content": "# 콘텐츠 분리의 필요성\n\n블로그를 작성하기 위해 노션이나 velog 등 기타 툴들을 통해 작성하면서 느낀 가장 큰 불편함은, 콘텐츠가 해당 플랫폼에 종속된다는 점이다. 만약 노션에서 작성한 글들을 다른 저장소로 옮기거나 백업을 하려면 어떻게 해야하는가? velog에 쓴 글을 어떻게 옮길 것인가? 물론 오픈소스를 뒤적이다보면 자동으로 글을 읽어서 가져오는 방법이 있긴 하다만 상당히 불편함을 겪었다. 이에 블로그와 콘텐츠를 별개로 분리해서 원하는 저장소에서 마크다운 파일을 읽어오는 구조를 고려하게 되었다.\n\n# 어디에 저장할 것인가?\n\n역시 개발자 국룰, github에다 보관하고자 한다. 로컬 PC에만 보관하기에는 유실될까 두렵고, 클라우드 환경에서만 쓰기에는 편집이나 접근성에 불편함이 있다. 따라서 git으로 로컬과 클라우드를 연결해서 자동으로 동기화하는 솔루션이 필요했다. 이에 가장 부합하는게 바로 obsidian이었고 git 플러그인을 통해 자동으로 동기화하는 기능을 사용해 편하게 로컬 환경에서 작업할 수 있도록 세팅 했다.\n\n또한 한가지 더 중요한 부분은, 콘텐츠를 보호해야한다는 점이다. 누구나 볼 수 있도록하면 원하지 않는 내용까지 노출이 되기 때문에 내가 필요할 때만 노출하고, 기본적으로는 접근을 제한해야한다. 따라서 private repository에 컨텐츠를 저장하고, 필요한 부분만 블로그에서 가져와 보여주는 방식을 택했다.\n\n# Git submodule\n\n이제 private repository에 저장을 했으니 프로젝트에 불러 와서 사용하기만 하면 된다. 어떤 방식이 가장 효율적일까? 처음에는 로컬이나 배포환경에서 콘텐츠 repo를 클론해서 사용해야하나 고민했지만, git의 서브모듈 기능을 활용해 쉽게 프로젝트 내에서 다른 repository를 그대로 사용할 수 있는 방법을 찾아 적용했다. 가장 좋은 점은, 서브모듈의 내용이 노출되지 않는다는 점이다. git으로 메인 repo에서 서브모듈의 커밋 해시를 관리하기는 하지만 내부 내용은 노출되지 않고 아래와 같이 표기된다.\n\n![](images/Pasted%20image%2020260305125959.png)\n\n여기까지 진행하고 작업 flow를 살펴보면\n로컬에서 obsidian 노트로 작성 -> git 플러그인으로 원격지 자동 push ->  콘텐츠 private repo 커밋 갱신 -> 로컬에서 원격지 변경사항 적용(git submodule update), 개발 환경에서 새로운 콘텐츠들을 기반으로 테스트 -> main repo git push를 통해 메인 프로젝트 커밋 갱신\n\n여기에서 한가지 짚고 넘어가야 할 부분은 왜 콘텐츠 private repo의 변경사항을 우선적으로 메인 원격 repo에 적용한 뒤 로컬에서 pull하지 않느냐는 점이다. 이는 메인 프로젝트의 커밋 내역이 의미없이 채워지는 것을 막기 위함이다. 콘텐츠가 변경될 때마다 메인 repo의 커밋이 변경되면 단순히 서브모듈의 해시가 바뀔때 계속 새로운 커밋이 생기고, 중요한 내용들을 추적하기 어려워질 수 있다. 현재 콘텐츠 private repo의 커밋은 다음과 같다.\n\n![](images/Pasted%20image%2020260305134129.png)\n\n이런 커밋이 메인 프로젝트에도 추가된다고 생각하면 상당히 끔찍하다. 따라서 필요 시에만 로컬에서 push를 통해 갱신하는 방식을 사용했다. \n\n\n> 추후 배포 환경에서는 다른 flow를 적용했다. 이유는 배포 환경에서는 콘텐츠의 변동 결과가 바로 적용되어 블로그에 보여져야 하기 때문이다.\n\n# 로컬 작업 flow 최적화\n\n현재 로컬에서 작업할 때 자동화되지 않은 부분은 바로 콘텐츠 repo의 변경사항을 로컬에서 직접 적용해줘야 한다는 점이다. 따라서 그냥 dev서버를 실행하거나 build 시에 자동으로 우선적으로 submodule을 갱신해주는 스크립트를 추가했다.\n\n```json\n%% package.json %%\n{\n\t\"scripts\": {\n\t\t\"contents-update\": \"git submodule update --remote --recursive\",\n\t\t\"dev\": \"contents-update && next dev\",\n\t\t...\n\t}\n}\n\n```\n\n실제 서비스는 위 내용 이외에 다른 여러 스크립트도 실행하지만(마크다운 파싱 등), 콘텐츠 갱신에 관련해서는 위처럼 간단한 스크립트를 추가해 볼 수 있다. dev서버를 실행하기 앞서 submodule을 업데이트 하는 내용을 추가했다. 이렇게 해두면 굳이 콘텐츠 변경을 고려하지 않아도 자동으로 개발 시 동기화가 가능하다.\n\n# 배포 환경에서의 git submodule 사용 flow\n\n그렇다면 로컬이 아닌 배포 환경에서는 어떻게 콘텐츠 변경을 감지하고 블로그 내용을 갱신할 수 있을까? 현재 배포는 vercel로 이뤄지고 있기 때문에, 메인 프로젝트의 main 브랜치에 새 커밋이 추가되면 자동으로 vercel에 배포된다. 따로 복잡한 설정을 하지 않아도 브랜치의 변경사항을 잘 추적해 준다. 그럼 콘텐츠가 변경될 때마다 main 브랜치를 갱신해주기만 하면 되지 않을까? \n\n아쉽지만 위와같은 방법은 아까와 똑같은 문제가 생긴다. 콘텐츠가 바뀔때마다 프로젝트의 main 브랜치를 갱신하면 마찬가지로 커밋 내역이 지저분해진다. 그럼 갱신을 하지 말란 말인가? 맞다. 메인 레포의 서브모듈 해시를 바꾸지 않고도 배포 환경에서 최신 콘텐츠 내용을 유지할 수 있는 방법이 있다.\n\n## vercel deploy hook\n바로 vercel의 deploy 웹훅을 사용하는 방식이다. vercel에서는 여러 방식으로 배포를 trigger할 수 있는데 그중 하나가 웹훅이다. \n\n프로젝트 세팅 -> git -> deploy hooks를 보면 다음과 같은 내용이 있다.\n![](images/Pasted%20image%2020260305140601.png)\n\n훅 이름과 브랜치를 입력하고 추가할 수 있다. 추가하면 URL이 생성되는데 해당 URL에 요청을 보내면 자동으로 빌드 스크립트가 실행된다.\n\n따라서 해당 URL을 사용해 콘텐츠 repo의 내용이 변경되면 github action을 통해 자동으로 해당 URL로 요청을 보내고, 메인 repo를 통해서가 아닌 직접적으로 배포를 트리거하는 것이다.\n\n## 콘텐츠 배포 자동화를 위한 github action 스크립트\n\n그냥 변화를 감지해서 url로 요청만 보내면 되기 때문에 상당히 간단하게 작성할 수 있다.\n\n```yml\n%% .github/workflows/vercel_redeploy.yml %%\n\nname: Force redeploy vercel app\n\non:\n  push:\n    branches:\n      - main\n  workflow_dispatch:\n\njobs:\n  notify:\n    runs-on: ubuntu-latest\n    steps:\n      - name: trigger vercel webhook\n        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_URL }}\n```\n\n이렇게 설정하고 push한 뒤 실행을 확인해보면\n![](images/Pasted%20image%2020260305142358.png)\n이런식으로 action이 잘 실행되며,\n\n![](images/Pasted%20image%2020260305142503.png)\nvercel deployments의 빌드 로그에도 잘 적용된 것을 확인할 수 있다.\n\n여기에서 주의해야 할 점은 아직 메인 프로젝트의 main 브랜치의 submodule 커밋은 최신화된 상태가 아니라는 것이다. 단지 vercel 환경에서 직접적으로 원격 submodule의 최신 내용을 가져와서 빌드하기 때문에 배포환경에서는 최신 내용이 적용될 뿐이다. 해당 내용은 vercel build 스크립트에서 직접 적용한다.\n\n![](images/Pasted%20image%2020260305142742.png)\n\n## Vercel prebuild script\nvercel-prebuild 셸 스크립트를 통해 배포가 실행되면 자동으로 원격지의 submodule을 직접 배포 환경으로 가져와서 빌드한다. 스크립트 내용은 다음과 같다.\n\n```sh\n%% vercel_prebuild.sh %%\n\n#!/bin/bash\n\n# Initializing\ngit submodule deinit -f . || true\nrm -rf .git/modules/contents\n\nsed -i \"s|https://github.com/|https://${GH_TOKEN}@github.com/|g\" .gitmodules\n\ngit submodule sync --recursive\n\ngit submodule update --init --recursive --remote\n```\n\n인증 관련 내용은 다른 글에서 자세하게 다룰 예정이다. 여기에서 중요한 것은 `git submodule update` 부분이며, 옵션에 remote가 붙어있는 것을 확인할 수 있다. 해당 옵션은 현재 프로젝트 내의 submodule 커밋 해시가 아닌, 최신 변경사항을 적용하는 옵션이다. 만약 remote 옵션이 빠지면 최신화되지 않은 메인 프로젝트 내의 submodule hash 버전을 가져온다.\n\n# 총정리 & 느낀점\n\n이렇게 git submodule을 사용해 로컬과 배포 환경에서의 편집 및 동기화 방법에 대해 알아봤다. 로컬에서는 단순히 npm 스크립트를 통해 개발모드와 빌드 시 서브모듈을 업데이트 해주는 방식을 사용했다. 배포 환경에서는 메인 프로젝트의 해시값과 상관없이 prebuild 스크립트를 통해 직접 원격지의 최신 콘텐츠를 가져와서 동기화했다. 또한 트리거 방식은 콘텐츠 repo에 github action을 설정하고, 콘텐츠 내용이 변경되면 자동으로 vercel webhook을 통해 재배포를 실행한다.\n\n콘텐츠 종속성과 보안 문제를 해결하기 위해 직접 작업 flow를 짜는 과정에서 다양한 옵션들이 있었고, 그 중 가장 쉽고, 효율적으로 문제를 해결하는 방법을 탐색하는 과정이 의미있었다고 생각한다. 나름은 효과적으로 문제를 해결한 것 같다!\n\n\n",
+    "front": {
+      "title": "git submodule을 활용한 콘텐츠 분리",
+      "date": "2026-03-04T00:00:00.000Z",
+      "category": "기능구현",
+      "lock": false,
+      "isPublish": true,
+      "description": "콘텐츠 분리 및 내용보호를 위해 git submodule, vercel deploy hook, github action등을 적용한 관리 flow를 정리했습니다.",
+      "series": [
+        "git",
+        "project-devlog"
+      ],
+      "thumbnail": "/content-images/Pasted%20image%2020260305125959.png",
+      "recommended": true
+    }
+  }
+}

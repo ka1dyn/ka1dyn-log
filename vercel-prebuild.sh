@@ -1,11 +1,5 @@
-#!/bin/bash
+git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
-# Initializing
-git submodule deinit -f . || true
-rm -rf .git/modules/contents
-
-sed -i "s|https://github.com/|https://${GH_TOKEN}@github.com/|g" .gitmodules
-
-git submodule sync --recursive
+git submodule sync
 
 git submodule update --init --recursive
