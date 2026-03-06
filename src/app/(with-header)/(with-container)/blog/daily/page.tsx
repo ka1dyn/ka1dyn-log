@@ -38,10 +38,12 @@ export default function Page() {
         {dailySortedSlugs.length > 0 ? (
           dailySortedSlugs.map((slug) => {
             const post = dailyPosts[slug];
+            const encodedSlug = `/${encodeURIComponent(slug.replace("/", ""))}`;
+
             return (
               <DailyPostItem
-                key={slug}
-                slug={slug}
+                key={encodedSlug}
+                slug={encodedSlug}
                 title={post.front.title}
                 description={post.front.description}
                 date={post.front.date}

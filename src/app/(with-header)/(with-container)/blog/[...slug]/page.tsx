@@ -39,7 +39,6 @@ export default async function Page({
   const { dailyPosts, dailySortedSlugs } = getDailyPosts();
 
   const decodedSlug = slug.map((segment) => decodeURIComponent(segment));
-
   const path = `/${decodedSlug.join("/")}`;
 
   const { content, front } = path in posts ? posts[path] : dailyPosts[path];

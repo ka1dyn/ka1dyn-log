@@ -12,6 +12,17 @@ const compareDate = (a: string, b: string) => {
   return createdB - createdA;
 };
 
+const compareDailyDate = (a: string, b: string) => {
+  const createdA = dailyPosts[a].front.date
+    ? new Date(dailyPosts[a].front.date).getTime()
+    : 0;
+  const createdB = dailyPosts[b].front.date
+    ? new Date(dailyPosts[b].front.date).getTime()
+    : 0;
+
+  return createdB - createdA;
+};
+
 // Blog Posts
 const posts = postData as PostData;
 
@@ -47,7 +58,7 @@ publishedSlugs.forEach((slug) => {
 });
 
 const dailyPosts = dailyData as PostData;
-const dailySortedSlugs = Object.keys(dailyPosts).sort(compareDate);
+const dailySortedSlugs = Object.keys(dailyPosts).sort(compareDailyDate);
 
 export function getPosts() {
   return posts;
