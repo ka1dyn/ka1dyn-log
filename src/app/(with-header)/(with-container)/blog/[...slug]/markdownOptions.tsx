@@ -10,7 +10,13 @@ export const mdCustomStyle = {
       .toLowerCase()
       .replace(/\s+/g, "-")
       .replace(/[^\w-]/g, "");
-    return <h1 id={id} className="text-3xl mb-6 mt-8 first:mt-0" {...props} />;
+    return (
+      <h1
+        id={id}
+        className="text-3xl mb-8 mt-10 first:mt-0 font-medium"
+        {...props}
+      />
+    );
   },
   h2: ({ ...props }) => {
     const text = props.children?.toString() || "";
@@ -36,7 +42,7 @@ export const mdCustomStyle = {
   },
   p: ({ ...props }) => (
     <p
-      className="mb-4 last:mb-0 leading-relaxed text-foreground/90"
+      className="text-lg mb-4 last:mb-0 leading-relaxed text-foreground/90"
       {...props}
     />
   ),
@@ -85,7 +91,7 @@ export const mdCustomStyle = {
   // ),
   blockquote: ({ ...props }) => (
     <blockquote
-      className="border-l-4 border-primary/60 bg-accent/30 px-4 py-3 mb-4 italic 
+      className="border-l-4 border-primary/60 bg-accent/30 px-4 py-3 mb-8 italic 
       [&_p:first-child]:before:content-['💡'] 
       [&_p:first-child]:before:mr-2 
       [&_p:first-child]:before:not-italic"
