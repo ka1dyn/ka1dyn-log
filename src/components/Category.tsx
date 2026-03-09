@@ -7,12 +7,14 @@ interface CategoryProps {
   name: string;
   className?: string;
   bgColor?: boolean;
+  disabled?: boolean;
 }
 
 export default function Category({
   name,
   className,
   bgColor = false,
+  disabled = false,
 }: CategoryProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -35,25 +37,26 @@ export default function Category({
       fontColor = "#3d3529";
   }
 
-  const setBgColor = bgColor && isHovered;
+  const accent = !disabled && (bgColor || isHovered);
 
   return (
     <div
       className={cn(
-        "px-2 py-1 bolder text-xs rounded-md w-fit border",
+        "px-2 py-1 bolder text-xs rounded-md w-fit border transition-all duration-300 ease-out",
+        accent ? "font-semibold" : "font-normal",
         className,
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
         borderColor: `${fontColor}55`,
-        backgroundColor: setBgColor ? `${fontColor}11` : "",
+        backgroundColor: accent ? `${fontColor}aa` : "",
       }}
     >
       <span
         className="text-white"
         style={{
-          color: fontColor,
+          color: accent ? `#ffffff` : `${fontColor}`,
         }}
       >
         {name}

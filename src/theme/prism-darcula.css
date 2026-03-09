@@ -78,6 +78,7 @@ img {
   white-space: wrap;
   word-break: keep-all;
   overflow-wrap: break-word;
+  font-size: 1rem;
 }
 
 .token.comment,

@@ -21,10 +21,17 @@ export default async function Page({
   const slugs = sortedSlugs.filter((slug) => {
     const post = published[slug];
     const { front } = post;
-    const { category: frontCategory, series: frontSeries } = front;
+    const {
+      category: frontCategory,
+      series: frontSeries,
+      recommended: frontRecommended,
+    } = front;
 
-    const filterCategory = category === "전체" || category === frontCategory;
-    const filterSeries = series === "전체" || front.series.includes(series);
+    const filterCategory =
+      category === "전체" ||
+      (category === "추천" && frontRecommended) ||
+      category === frontCategory;
+    const filterSeries = series === "전체" || frontSeries.includes(series);
 
     return filterCategory && filterSeries;
   });
@@ -43,7 +50,7 @@ export default async function Page({
 
       <div className="flex flex-col items-center md:items-start mb-16">
         <div className="text-3xl mb-6 font-semibold">모음집</div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex justify-center md:justify-start flex-wrap gap-3">
           {Object.entries(seriesInfo).map(([key, value], index) => (
             <Link
               href={`/blog/published?series=${key}`}
@@ -100,26 +107,37 @@ export default async function Page({
           </div>
           <div className="w-fit flex text gap-2 text-primary">
             <Link href={`/blog/published?series=${series}&category=전체`}>
-              <Category name="전체" bgColor={true} className="cursor-pointer" />
+              <Category
+                name="전체"
+                bgColor={category === "전체"}
+                className="cursor-pointer"
+              />
+            </Link>
+            <Link href={`/blog/published?series=${series}&category=추천`}>
+              <Category
+                name="추천"
+                bgColor={category === "추천"}
+                className="cursor-pointer"
+              />
             </Link>
             <Link href={`/blog/published?series=${series}&category=성능개선`}>
               <Category
                 name="성능개선"
-                bgColor={true}
+                bgColor={category === "성능개선"}
                 className="cursor-pointer"
               />
             </Link>
             <Link href={`/blog/published?series=${series}&category=문제해결`}>
               <Category
                 name="문제해결"
-                bgColor={true}
+                bgColor={category === "문제해결"}
                 className="cursor-pointer"
               />
             </Link>
             <Link href={`/blog/published?series=${series}&category=기능구현`}>
               <Category
                 name="기능구현"
-                bgColor={true}
+                bgColor={category === "기능구현"}
                 className="cursor-pointer"
               />
             </Link>

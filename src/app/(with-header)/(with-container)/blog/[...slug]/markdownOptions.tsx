@@ -92,9 +92,11 @@ export const mdCustomStyle = {
   blockquote: ({ ...props }) => (
     <blockquote
       className="border-l-4 border-primary/60 bg-accent/30 px-4 py-3 mb-8 italic 
-      [&_p:first-child]:before:content-['💡'] 
-      [&_p:first-child]:before:mr-2 
-      [&_p:first-child]:before:not-italic"
+      [&_p]:before:content-['💡'] 
+      [&_p]:before:mr-2 
+      [&_p]:before:not-italic
+      [&_p]:text-base
+      "
       {...props}
     />
   ),

@@ -79,7 +79,11 @@ export default async function Page({
               <div className="flex gap-8 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Tag className="w-4 h-4 text-muted-foreground" />
-                  <Category name={category} className="text-sm py-0.5 px-1.5" />
+                  <Category
+                    name={category}
+                    className="text-sm py-0.5 px-1.5"
+                    disabled={true}
+                  />
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-muted-foreground" />

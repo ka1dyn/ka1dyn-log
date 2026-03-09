@@ -22,7 +22,6 @@ export default function SideToc({ tocData }: SideToc) {
       breakPoint.forEach((point, idx) => {
         if (scroll >= point) ret = idx;
       });
-
       prevScrollIdx.current = ret;
       return ret;
     };
@@ -49,6 +48,8 @@ export default function SideToc({ tocData }: SideToc) {
       const scrollPosition = tocDiv.offsetTop;
       breakPoint.push(scrollPosition);
     });
+
+    console.log(breakPoint);
 
     window.addEventListener("scroll", onScroll);
 

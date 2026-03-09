@@ -33,7 +33,7 @@ export default function Header() {
             Dev Library
           </Link>
         </div>
-        <div className="translate-y-px flex items-center">
+        <div className="translate-y-px items-center hidden sm:flex">
           <HeaderNavItem path={"/"}>Home</HeaderNavItem>
           <HeaderNavItem path={"/blog/published"}>Posts</HeaderNavItem>
           <HeaderNavItem path={"/blog/daily"}>Daily</HeaderNavItem>

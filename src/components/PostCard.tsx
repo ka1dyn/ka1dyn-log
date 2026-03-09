@@ -42,7 +42,7 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
         ref={ref}
         href={`/blog${slug}`}
         className={cn(
-          "relative h-[430px] w-full max-w-[420px] flex flex-col rounded-l-lg rounded-r-sm overflow-hidden border border-sidebar-border/50",
+          "relative h-[430px] w-full max-w-[420px] flex flex-col rounded-sm overflow-hidden border border-sidebar-border/50",
           "transition-all ease-out group shadow-lg hover:shadow-xl opacity-0 -translate-y-5",
           "data-[visible='true']:opacity-100 data-[visible='true']:translate-y-0 data-[visible='true']:hover:-translate-y-2",
         )}
@@ -50,7 +50,7 @@ const PostCard = forwardRef<HTMLAnchorElement, PostCardProps>(
       >
         {/* <span className="absolute top-3 left-4 z-10 flex items-center gap-1 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full shadow"> */}
         {recommended && (
-          <Star className="absolute top-3 left-4 text-transparent size-4 fill-background" />
+          <Star className="absolute top-3 left-3 text-transparent size-4.5 fill-yellow-300" />
         )}
         {/* </span> */}
         <div className="h-47 shrink-0 flex items-center overflow-hidden">

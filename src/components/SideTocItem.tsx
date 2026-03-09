@@ -27,7 +27,7 @@ export default function SideTocItem({
     const finalPosition = elementPosition;
 
     window.scrollTo({
-      top: finalPosition,
+      top: finalPosition + 30,
       behavior: "smooth",
     });
   };
