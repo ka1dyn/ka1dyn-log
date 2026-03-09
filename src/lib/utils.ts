@@ -101,6 +101,8 @@ export const replaceSrc = (src: string) => {
   } else if (src.includes("images/")) {
     const fileName = src.split("images/").pop();
     publicSrc = `/content-images/${fileName}`;
+  } else {
+    publicSrc = `/content-images/${src}`;
   }
 
   return publicSrc;
