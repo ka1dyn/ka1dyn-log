@@ -62,7 +62,7 @@ export default async function Page({
     <div className="relative w-full flex flex-col items-center">
       <BreadCrumbUpdater path={path} />
 
-      <div className="absolute h-full top-0 right-30 max-w-[140px] min-[1800px]:max-w-[300px] break-all translate-x-full hidden 2xl:block">
+      <div className="absolute h-full top-0 right-30 max-w-[250px] min-[1800px]:max-w-[300px] break-all translate-x-full hidden 2xl:block">
         <SideToc tocData={tocData} />
       </div>
 
@@ -108,7 +108,7 @@ export default async function Page({
             </div>
             <div
               id="toc"
-              className="flex flex-col max-h-[350px] overflow-auto border-y border-sidebar-border"
+              className="flex flex-col max-h-[500px] overflow-auto border-y border-sidebar-border"
             >
               {tocData.map((data) => {
                 const { orderTxt, depth, text } = data;

@@ -13,7 +13,12 @@ export const mdCustomStyle = {
     return (
       <h1
         id={id}
-        className="text-3xl mb-8 mt-10 first:mt-0 font-medium"
+        className="text-3xl mb-10 mt-12 first:mt-0 font-semibold
+        before:content-['📌'] 
+        before:mr-2 
+        before:not-italic
+        befor:text-3xl
+        "
         {...props}
       />
     );
@@ -27,7 +32,7 @@ export const mdCustomStyle = {
     return (
       <h2
         id={id}
-        className="text-2xl mb-4 mt-12 first:mt-0 pb-3 border-b-2 border-primary/20"
+        className="text-2xl mb-10 mt-10 first:mt-0 pb-3 border-b-2 border-primary/20 font-semibold"
         {...props}
       />
     );
@@ -38,7 +43,7 @@ export const mdCustomStyle = {
       .toLowerCase()
       .replace(/\s+/g, "-")
       .replace(/[^\w-]/g, "");
-    return <h3 id={id} className="text-xl mb-3 mt-8" {...props} />;
+    return <h3 id={id} className="text-xl mb-4 mt-10 font-bold" {...props} />;
   },
   p: ({ ...props }) => (
     <p
@@ -55,7 +60,7 @@ export const mdCustomStyle = {
   ol: ({ ...props }) => (
     <ol className="list-decimal space-y-2 mb-4 ml-6 [&>li]:pl-2" {...props} />
   ),
-  li: ({ ...props }) => <li className="relative" {...props} />,
+  li: ({ ...props }) => <li className="text-lg relative" {...props} />,
   // code: ({
   //   className,
   //   children,
